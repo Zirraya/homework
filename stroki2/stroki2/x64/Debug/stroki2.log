@@ -1,0 +1,6 @@
+﻿  stroki2.cpp
+C:\Users\lenovo\source\repos\Лабы по информационным технологиям\stroki2\stroki2\stroki2.cpp(40,48): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\lenovo\source\repos\Лабы по информационным технологиям\stroki2\stroki2\stroki2.cpp(46,52): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\lenovo\source\repos\Лабы по информационным технологиям\stroki2\stroki2\stroki2.cpp(54,48): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\lenovo\source\repos\Лабы по информационным технологиям\stroki2\stroki2\stroki2.cpp(61,52): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+  stroki2.vcxproj -> C:\Users\lenovo\source\repos\Лабы по информационным технологиям\stroki2\x64\Debug\stroki2.exe
