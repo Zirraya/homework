@@ -36,32 +36,35 @@ date Str_to_Date(string str) {
     return x;
 }
 
-//void quickSort(vector<people>& arr, int left, int right) {
-//    int i = left, j = right;
-//    int pivot = arr[(left + right) / 2].Salary;
-//
-//    while (i <= j) {
-//        while (arr[i].Salary < pivot) i++;
-//        while (arr[j].Salary > pivot) j--;
-//        if (i <= j) {
-//            swap(arr[i], arr[j]);
-//            i++;
-//            j--;
-//        }
-//    }
-//
-//    if (left < j) quickSort(arr, left, j);
-//    if (i < right) quickSort(arr, i, right);
-//}
+void quicksort(vector<people>& arr, int left, int right) {
+    int i = left, j = right;
+    int pivot = arr[(left + right) / 2].Salary;
+
+    while (i <= j) {
+        while (arr[i].Salary < pivot) i++;
+        while (arr[j].Salary > pivot) j--;
+        if (i <= j) {
+            swap(arr[i], arr[j]);
+            i++;
+            j--;
+        }
+    }
+
+    if (left < j) quicksort(arr, left, j);
+    if (i < right) quicksort(arr, i, right);
+}
 
 people inFile() {
     people temp;
     
         in >> temp.Surname;
+        
+       
+        in >> temp.Position;
         string tmp;
         in >> tmp;
-        in >> temp.Position;
         temp.DateOfBirth = Str_to_Date(tmp);
+
         in >> temp.Experience;
         in >> temp.Salary;
     
@@ -70,13 +73,19 @@ people inFile() {
 
 void print(vector<people>& x) {
     for (const auto& person : x) {
-        out << setw(10) << left << person.Surname;
+        out << setw(10) << left << person.Surname <<" ";
+
+        out << setw(20) << left << person.Position <<" ";
+
         if (person.DateOfBirth.dd < 10) out << left << '0' << person.DateOfBirth.dd << '.';
         else out << left << person.DateOfBirth.dd << '.';
         if (person.DateOfBirth.mm < 10) out << '0' << person.DateOfBirth.mm << '.';
         else out << person.DateOfBirth.mm << '.';
-        out << person.DateOfBirth.yy << ' ' << person.Salary << endl;
+        out << person.DateOfBirth.yy << ' ';
 
+        out << setw(2) << left << person.Experience<<" ";
+
+        out << setw(2) << left << person.Salary<<endl;
 
     }
 }
@@ -91,7 +100,7 @@ int main()
     }
 
    
-
+    quicksort(employees, 0, employees.size() - 1);
     print(employees);
 
     in.close();
