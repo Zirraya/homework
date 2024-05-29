@@ -38,6 +38,25 @@ date Str_to_Date(string str) {
     return x;
 }
 
+void shellSort(vector<people>& x, int h) {
+    int n = x.size();
+    for (int step = n / h; step > 0; step /= h) {
+        for (int i = step; i < n; i++) {
+            people temp = x[i];
+            int j;
+            for (j = i; j >= step && (x[j - step].Surname > temp.Surname || (x[j - step].Surname == temp.Surname && x[j - step].Position > temp.Position));
+                j -= step) {
+                x[j] = x[j - step];
+            }
+            x[j] = temp;
+        }
+    }
+}
+
+void sortBySurnameAndPosition(vector<people>& x, int h) {
+    shellSort(x, h);
+}
+
 
 people inFile() {
     people temp;
@@ -88,7 +107,7 @@ int main()
         employees.push_back(temp);
     }
 
-   
+   sortBySurnameAndPosition(employees, 2);
     print(employees);
 
     in.close();
