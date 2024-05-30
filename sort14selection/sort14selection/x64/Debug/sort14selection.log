@@ -1,0 +1,3 @@
+﻿  sort14selection.cpp
+C:\Users\lenovo\source\repos\Лабы по информационным технологиям\2 симместер\sort14selection\sort14selection\sort14selection.cpp(42,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  sort14selection.vcxproj -> C:\Users\lenovo\source\repos\Лабы по информационным технологиям\2 симместер\sort14selection\x64\Debug\sort14selection.exe
