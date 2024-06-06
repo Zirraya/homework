@@ -1,0 +1,3 @@
+﻿  graph4neorientsvaz.cpp
+C:\projects\homework\graph4neorientsvaz\graph4neorientsvaz\graph4neorientsvaz.cpp(34,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  graph4neorientsvaz.vcxproj -> C:\projects\homework\graph4neorientsvaz\x64\Debug\graph4neorientsvaz.exe
