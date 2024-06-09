@@ -2,10 +2,35 @@
 //
 
 #include <iostream>
-#include <queue>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
+
+struct Queue {
+    vector<int> elements;
+
+    void push(int num) {
+        elements.push_back(num);
+    }
+
+    void pop() {
+        if (!elements.empty()) {
+            elements.erase(elements.begin());
+        }
+    }
+
+    int front() {
+        if (!elements.empty()) {
+            return elements[0];
+        }
+        return -1; // Возвращаем -1 в случае пустой очереди
+    }
+
+    bool empty() {
+        return elements.empty();
+    }
+};
 
 bool isComposite(int num) {
     if (num <= 1) return false; // 0 and 1 are not composite
@@ -15,13 +40,7 @@ bool isComposite(int num) {
     return false; // no divisors found, so it's prime
 }
 
-   queue<int> shiftQueue(std::queue<int> q) {
-    vector<int> vec;
-    while (!q.empty()) {
-        vec.push_back(q.front());
-        q.pop();
-    }
-
+void rotateToComposite(vector<int>& vec) {
     int compositeIndex = -1;
     for (int i = 0; i < vec.size(); ++i) {
         if (isComposite(vec[i])) {
@@ -33,42 +52,40 @@ bool isComposite(int num) {
     if (compositeIndex != -1) {
         rotate(vec.begin(), vec.begin() + compositeIndex, vec.end());
     }
-
-    queue<int> result;
-    for (int num : vec) {
-        result.push(num);
-    }
-
-    return result;
 }
 
+void shiftQueue(Queue& q) {
+    vector<int> vec = q.elements;
 
+    rotateToComposite(vec);
 
-int main()
-{
-	setlocale(LC_ALL, "RUS");
+    q.elements = vec;
+}
 
-    queue<int> q;
+int main() {
+    setlocale(LC_ALL, "RUS");
+
+    Queue q;
 
     int num;
-    cout << "Введите очередь (введите 0 что бы закончить введение): ";
+    cout << "Введите очередь (введите 0 чтобы закончить введение): ";
     while (true) {
         cin >> num;
         if (num == 0) break;
         q.push(num);
     }
-      
-    cout << endl; cout << "Очередь псоле циклического свдига: ";
 
-    q = shiftQueue(q);
+    cout << endl;
+    cout << "Очередь после циклического сдвига: ";
+
+    shiftQueue(q);
 
     while (!q.empty()) {
-           cout << q.front() << " ";
+        cout << q.front() << " ";
         q.pop();
     }
 
     return 0;
-
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
