@@ -10,6 +10,8 @@ public class arrao : MonoBehaviour
     void Start()
     {
         rb.velocity = transform.right * speed; // движение стрелы
+        Destroy(gameObject, 0.4f);
+        
     }
 
     private void OnTriggerEnter2D(Collider2D hitinfo) // метод для уничтоженя врага

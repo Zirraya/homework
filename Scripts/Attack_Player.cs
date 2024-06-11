@@ -4,18 +4,30 @@ using UnityEngine;
 
 public class Attack_Player : MonoBehaviour
 {
-    public Animator anim;
+    [SerializeField] private float attackCoolDown;
+    private Animator anim;
+    private Hero hero;
+    private float cooldownTimer = Mathf.Infinity;
 
-    void Update()
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            Attack();
-        }
+        anim = GetComponent<Animator>();
+        hero = GetComponent<Hero>();
     }
-     void Attack()
-    {
-        anim.SetTrigger("attack");
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("Fire1") && cooldownTimer > attackCoolDown)
+            Attack();
+
+        cooldownTimer += Time.deltaTime;
+        
+    }
+
+    private void Attack()
+    {
+        anim.SetTrigger("attacka");
+        cooldownTimer = 0;
+        
     }
 }

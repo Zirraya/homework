@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+   
     public Transform arrows;
     public GameObject arrowprefab;
 
@@ -13,6 +14,7 @@ public class Weapon : MonoBehaviour
         {
 
             Shoot();   // при нажатие кнопки будет выполнятся метод стрельба
+            
         }
 
         void Shoot()  // логика стрельбы
