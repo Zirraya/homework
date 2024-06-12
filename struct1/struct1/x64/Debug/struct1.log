@@ -1,0 +1,5 @@
+﻿  struct1.cpp
+C:\Users\lenovo\source\repos\Лабы по информационным технологиям\struct1\struct1\struct1.cpp(58,21): error C2131: выражение не определяется константой
+C:\Users\lenovo\source\repos\Лабы по информационным технологиям\struct1\struct1\struct1.cpp(58,21): message : сбой вызван чтением переменной вне срока ее существования
+C:\Users\lenovo\source\repos\Лабы по информационным технологиям\struct1\struct1\struct1.cpp(58,21): message : см. использование "size"
+C:\Users\lenovo\source\repos\Лабы по информационным технологиям\struct1\struct1\struct1.cpp(60,22): error C3863: тип массива "Train [size]" является неназначаемым

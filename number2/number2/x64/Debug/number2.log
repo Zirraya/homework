@@ -1,0 +1,3 @@
+﻿  number2.cpp
+C:\Users\lenovo\source\repos\Лабы по информационным технологиям\number2\number2\number2.cpp(21,60): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  number2.vcxproj -> C:\Users\lenovo\source\repos\Лабы по информационным технологиям\number2\x64\Debug\number2.exe
