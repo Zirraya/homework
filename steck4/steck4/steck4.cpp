@@ -1,52 +1,95 @@
 ﻿// steck4.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 
-#include <stack>
 #include <iostream>
 
 using namespace std;
 
+class MyQueue {
+private:
+    struct Node {
+        int data;
+        Node* next;
+    };
+
+    Node* front;
+    Node* rear;
+
+public:
+    MyQueue() : front(nullptr), rear(nullptr) {}
+
+    void enqueue(int item) {
+        Node* newNode = new Node;
+        newNode->data = item;
+        newNode->next = nullptr;
+        if (isEmpty()) {
+            front = newNode;
+            rear = newNode;
+        }
+        else {
+            rear->next = newNode;
+            rear = newNode;
+        }
+    }
+
+    int dequeue() {
+        if (isEmpty()) {
+            cout << "Очередь пуста :O" << endl;
+            return 0; // Возвращаем значение по умолчанию для пустой очереди
+        }
+        int frontItem = front->data;
+        Node* temp = front;
+        front = front->next;
+        if (front == nullptr) {
+            rear = nullptr;
+        }
+        delete temp;
+        return frontItem;
+    }
+
+    bool isEmpty() {
+        return front == nullptr;
+    }
+};
+
 bool isPrime(int n) {
-	if (n <= 1) return false;
-	for (int i = 2; i * i <= n; ++i) {
-		if (n % i == 0) return false;
-	}
-	return true;
+    if (n <= 1) return false;
+    for (int i = 2; i * i <= n; ++i) {
+        if (n % i == 0) return false;
+    }
+    return true;
 }
 
 int main() {
+    setlocale(LC_ALL, "RUS");
 
+    MyQueue originalQueue;
+    MyQueue modifiedQueue;
 
-	setlocale(LC_ALL, "RUS");
+    cout << "Введите целые числа (введите 0 чтобы закончить ввод): ";
+    int num;
+    while (true) {
+        cin >> num;
+        if (num == 0) break;
+        originalQueue.enqueue(num);
+    }
 
-	stack<int> s;
+    while (!originalQueue.isEmpty()) {
+        int num = originalQueue.dequeue();
+        if (!isPrime(num)) {
+            modifiedQueue.enqueue(num);
+        }
+    }
 
-	cout << "Введите целые числа (введите 0 чтобы закончить ввод): ";
-	int num;
-	while (true) {
-		cin >> num;
-		if (num == 0) break;
-		s.push(num);
-	}
+    cout << "Результат :D : ";
+    while (!modifiedQueue.isEmpty()) {
+        cout << modifiedQueue.dequeue() << " ";
+    }
+    cout << endl;
 
-	stack<int> result;
-	while (!s.empty()) {
-		int num = s.top();
-		s.pop();
-		if (!isPrime(num)) {
-			result.push(num);
-		}
-	}
-
-	cout << "Результат: ";
-	while (!result.empty()) {
-		cout << result.top() << " ";
-		result.pop();
-	}
-	cout << endl;
-
-	return 0;
+    return 0;
 }
+
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
