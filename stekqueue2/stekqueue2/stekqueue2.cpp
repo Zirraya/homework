@@ -2,69 +2,89 @@
 //
 
 #include <iostream>
-#include <queue>
 #include <vector>
 
 using namespace std;
 
-// Функция для вставки четного элемента
-void insertLastEven(queue<int>& q, int lastEven, int minNum) {
-	queue<int> temp;
-	while (!q.empty()) {
-		if (q.front() == minNum) {
-			temp.push(lastEven);
-		}
-		temp.push(q.front());
-		q.pop();
-	}
-	q = temp;
-}
+class MyQueue {
+private:
+    vector<int> elements;
 
-// Функция для нахождения минимального элемента
-int findMin(queue<int> qCopy) { // Создание копии
-	int minNum = qCopy.front();
-	while (!qCopy.empty()) {
-		if (qCopy.front() < minNum) minNum = qCopy.front();
-		qCopy.pop();
-	}
-	return minNum;
-}
+public:
+    void push(int item) {
+        elements.push_back(item);
+    }
 
-int main()
-{
+    int pop() {
+        if (isEmpty()) {
+            cout << "Очередь пуста" << endl;
+            return -1; // Возвращаем значение по умолчанию для пустой очереди (грустно, когда очередь пуста :O)
+        }
+        int frontElement = elements[0];
+        elements.erase(elements.begin());
+        return frontElement;
+    }
 
-	setlocale(LC_ALL, "RUS");
+    bool isEmpty() {
+        return elements.empty();
+    }
 
-	queue<int> q;
+    void insertLastEven(int lastEven, int minNum) {
+        for (size_t i = 0; i < elements.size(); i++) {
+            if (elements[i] == minNum) {
+                elements.insert(elements.begin() + i, lastEven);
+                break;
+            }
+        }
+    }
 
-	int num;
-	cout << "Введите очередь (введите 0 что бы закончить введение): ";
-	while (true) {
-		cin >> num;
-		if (num == 0) break;
-		q.push(num);
-	}
+    int findMin() {
+        if (isEmpty()) {
+            cout << "Очередь пуста" << endl;
+            return -1; // Возвращаем значение по умолчанию для пустой очереди (грустно, когда очередь пуста :O)
+        }
+        int minNum = elements[0];
+        for (size_t i = 1; i < elements.size(); i++) {
+            if (elements[i] < minNum) {
+                minNum = elements[i];
+            }
+        }
+        return minNum;
+    }
+};
 
-	queue<int> qCopy = q; // Создание копии
-	int minNum = findMin(qCopy); // Нахождение минимального элемента
+int main() {
+    setlocale(LC_ALL, "RUS");
 
-	qCopy = q; // Сбросить копию
-	int lastEven = -1;
-	while (!qCopy.empty()) {
-		if (qCopy.front() % 2 == 0) lastEven = qCopy.front();
-		qCopy.pop();
-	}
+    MyQueue q;
 
-	insertLastEven(q, lastEven, minNum);
+    int num;
+    cout << "Введите очередь (введите 0 чтобы закончить ввод): ";
+    while (true) {
+        cin >> num;
+        if (num == 0) break;
+        q.push(num);
+    }
 
-	cout << "Измененная очередь: ";
-	while (!q.empty()) {
-		cout << q.front() << " ";
-		q.pop();
-	}
-	cout << endl;
+    MyQueue qCopy = q; // Создание копии
+    int minNum = qCopy.findMin(); // Нахождение минимального элемента
 
-	return 0;
+    qCopy = q; // Сбросить копию
+    int lastEven = -1;
+    while (!qCopy.isEmpty()) {
+        int current = qCopy.pop();
+        if (current % 2 == 0) lastEven = current;
+    }
+
+    q.insertLastEven(lastEven, minNum);
+
+    cout << "Измененная очередь: ";
+    while (!q.isEmpty()) {
+        cout << q.pop() << " ";
+    }
+    cout << endl;
+
+    return 0;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

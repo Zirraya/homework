@@ -2,52 +2,96 @@
 //
 
 #include <iostream>
-#include <stack>
 #include <fstream>
 
 using namespace std;
+
+class MyQueue {
+private:
+    struct Node {
+        char data;
+        Node* next;
+    };
+
+    Node* front;
+    Node* rear;
+
+public:
+    MyQueue() : front(nullptr), rear(nullptr) {}
+
+    void enqueue(char item) {
+        Node* newNode = new Node;
+        newNode->data = item;
+        newNode->next = nullptr;
+        if (isEmpty()) {
+            front = newNode;
+            rear = newNode;
+        }
+        else {
+            rear->next = newNode;
+            rear = newNode;
+        }
+    }
+
+    char dequeue() {
+        if (isEmpty()) {
+            cout << "Очередь пуста" << endl;
+            return '\0'; // Возвращение значения по умолчанию для пустой очереди
+        }
+        char frontItem = front->data;
+        Node* temp = front;
+        front = front->next;
+        if (front == nullptr) {
+            rear = nullptr;
+        }
+        delete temp;
+        return frontItem;
+    }
+
+    bool isEmpty() {
+        return front == nullptr;
+    }
+};
 
 bool isVowel(char c) {
     return (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u');
 }
 
 int main() {
-    setlocale(LC_ALL, "RUs");
+    setlocale(LC_ALL, "RUS");
 
-    stack<char> originalStack;
-    stack<char> modifiedStack;
+    MyQueue originalQueue;
+    MyQueue modifiedQueue;
 
-    ifstream inputFile("input.txt"); 
+    ifstream inputFile("input.txt");
 
     if (!inputFile) {
-        cerr << "Не удалось открыть файл." << endl;
+        cerr << "Не удалось открыть файл. :О" << endl;
         return 1;
     }
 
     char letter;
     bool foundVowel = false;
     while (inputFile >> letter) {
-        originalStack.push(letter);
+        originalQueue.enqueue(letter);
         if (isVowel(letter)) {
             foundVowel = true;
         }
         else {
             if (foundVowel) {
-                modifiedStack.push('!'); // Вставляем восклицательный знак после последней гласной буквы
+                modifiedQueue.enqueue('!'); // Встатвка восклицательного знака после последней гласной буквы
                 foundVowel = false;
             }
         }
     }
 
-    while (!originalStack.empty()) {
-        modifiedStack.push(originalStack.top());
-        originalStack.pop();
+    while (!originalQueue.isEmpty()) {
+        modifiedQueue.enqueue(originalQueue.dequeue());
     }
 
-    cout << " Cтек: ";
-    while (!modifiedStack.empty()) {
-        cout << modifiedStack.top() << " ";
-        modifiedStack.pop();
+    cout << "Очередь :D : ";
+    while (!modifiedQueue.isEmpty()) {
+        cout << modifiedQueue.dequeue() << " ";
     }
     cout << endl;
 

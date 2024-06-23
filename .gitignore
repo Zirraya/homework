@@ -31,6 +31,17 @@
 *.out
 *.app
 
+# Projects c++
+*.vsidx
+*.suo
+*.db
+*.ipch
+*.ilk
+*.tlog
+*.idb
+*.pdb
+
+
 
 *meta
 
