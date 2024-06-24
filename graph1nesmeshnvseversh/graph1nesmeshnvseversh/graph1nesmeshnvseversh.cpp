@@ -6,27 +6,43 @@
 
 using namespace std;
 
+
+// Добавление ребра в обе стороны для неориентированного графа в функции addEdge.
+
 void addEdge(vector<vector<int>>& adj, int u, int v) {
     adj[u].push_back(v);
+    adj[v].push_back(u); 
 }
 
-void printNonAdjacentVertices(const vector<vector<int>>& adj, int vertex) {
-    int n = adj.size();
-    for (int i = 0; i < n; ++i) {
-        if (i != vertex) {
-            bool isAdjacent = false;
-            for (int j = 0; j < adj[vertex].size(); ++j) {
-                if (adj[vertex][j] == i) {
-                    isAdjacent = true;
-                    break;
-                }
-            }
-            if (!isAdjacent) {
-                cout << i << " ";
-            }
+
+// DFSUtil для рекурсивного обхода графа в глубину.
+void DFSUtil(int vertex, vector<bool>& visited, vector<vector<int>>& adj) {
+    visited[vertex] = true;
+    cout << vertex << " ";
+
+    for (int i = 0; i < adj[vertex].size(); ++i) {
+        int v = adj[vertex][i];
+        if (!visited[v]) {
+            DFSUtil(v, visited, adj);
         }
     }
 }
+//
+
+// Функция DFS для запуска обхода графа в глубину из каждой непосещенной вершины.
+
+void DFS(vector<vector<int>>& adj) {
+    int n = adj.size();
+    vector<bool> visited(n, false);
+
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i]) {
+            DFSUtil(i, visited, adj);
+        }
+    }
+}
+
+//
 
 int main()
 {
@@ -40,9 +56,17 @@ int main()
     addEdge(adj, 1, 3);
     addEdge(adj, 2, 4);
 
-    int vertex = 0; // Вершина, для которой нужно найти несмежные вершины
-    cout << "Несмежные вершины с вершиной " << vertex << " : ";
-    printNonAdjacentVertices(adj, vertex);
+    cout << "Граф, созданный с использованием списка смежности:" << endl;
+    for (int i = 0; i < V; ++i) {
+        cout << i << ": ";
+        for (int j = 0; j < adj[i].size(); ++j) {
+            cout << adj[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    cout << "Результат обхода в глубину: ";
+    DFS(adj);
 
     return 0;
 }
