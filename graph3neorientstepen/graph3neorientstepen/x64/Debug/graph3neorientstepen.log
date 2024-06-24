@@ -1,2 +1,3 @@
 ﻿  graph3neorientstepen.cpp
+C:\projects\homework\graph3neorientstepen\graph3neorientstepen\graph3neorientstepen.cpp(33,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   graph3neorientstepen.vcxproj -> C:\projects\homework\graph3neorientstepen\x64\Debug\graph3neorientstepen.exe

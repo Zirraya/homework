@@ -6,16 +6,42 @@
 
 using namespace std;
 
+
+// Добавление ребер в обе стороны для неориентированного графа в функции addUndirectedEdge.
 void addUndirectedEdge(vector<vector<int>>& adj, int u, int v) {
     adj[u].push_back(v);
     adj[v].push_back(u);
 }
+//
 
-void printDegrees(const vector<vector<int>>& adj) {
-    for (int i = 0; i < adj.size(); ++i) {
-        cout << "Степень вершины " << i << ": " << adj[i].size() << endl;
+// Функция DFSUtil для рекурсивного обхода графа в глубину.
+void DFSUtil(int vertex, vector<bool>& visited, const vector<vector<int>>& adj) {
+    visited[vertex] = true;
+    cout << vertex << " ";
+
+    for (int i = 0; i < adj[vertex].size(); ++i) {
+        int v = adj[vertex][i];
+        if (!visited[v]) {
+            DFSUtil(v, visited, adj);
+        }
     }
 }
+//
+
+// Функция DFS для запуска обхода графа в глубину из каждой непосещенной вершины.
+void DFS(const vector<vector<int>>& adj) {
+    int n = adj.size();
+    vector<bool> visited(n, false);
+
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i]) {
+            cout << "Обход из вершины " << i << ": ";
+            DFSUtil(i, visited, adj);
+            cout << endl;
+        }
+    }
+}
+//
 
 int main()
 {
@@ -29,7 +55,7 @@ int main()
     addUndirectedEdge(adj, 1, 3);
     addUndirectedEdge(adj, 2, 4);
 
-    cout << "Неориентированный граф:" << endl;
+    cout << "Граф, созданный с использованием списка смежности:" << endl;
     for (int i = 0; i < V; ++i) {
         cout << "Вершина " << i << " смежные вершины: ";
         for (int j = 0; j < adj[i].size(); ++j) {
@@ -39,8 +65,8 @@ int main()
     }
 
     cout << endl;
-    cout << "Степени вершин:" << endl;
-    printDegrees(adj);
+    cout << "Результат обхода в глубину:" << endl;
+    DFS(adj);
 
     return 0;
 }

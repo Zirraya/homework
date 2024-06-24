@@ -3,75 +3,68 @@
 
 #include <iostream>
 #include <vector>
-#include <queue>
 
 using namespace std;
 
-void addEdge(vector<vector<int>>& adj, int u, int v) {
+
+// Добавление ребра только в две стороне для ориентированного графа в функции addUndirectedEdge
+void addUndirectedEdge(vector<vector<int>>& adj, int u, int v) {
     adj[u].push_back(v);
     adj[v].push_back(u);
 }
 
-void BFS(vector<vector<int>>& adj, int start, vector<bool>& visited) {
-    queue<int> q;
-    q.push(start);
-    visited[start] = true;
 
-    while (!q.empty()) {
-        int u = q.front();
-        q.pop();
+//  Функция DFS для запуска обхода графа в глубину из каждой непосещенной вершины.
+void DFS(const vector<vector<int>>& adj, vector<bool>& visited, int u) {
+    visited[u] = true;
+    cout << u << " ";
 
-        for (int v : adj[u]) {
-            if (!visited[v]) {
-                visited[v] = true;
-                q.push(v);
-            }
+    for (int v : adj[u]) {
+        if (!visited[v]) {
+            DFS(adj, visited, v);
         }
     }
 }
+//
 
-bool isConnectedGraph(vector<vector<int>>& adj) {
-    int V = adj.size();
-    vector<bool> visited(V, false);
+// Введение функции - обертки DFSWrapper, которая вызывает DFS для каждой непосещенной вершины.
+void DFSWrapper(const vector<vector<int>>& adj) {
+    int n = adj.size();
+    vector<bool> visited(n, false);
 
-    BFS(adj, 0, visited);
-
-    for (bool v : visited) {
-        if (!v) {
-            return false;
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i]) {
+            DFS(adj, visited, i);
+            cout << endl;
         }
     }
-
-    return true;
 }
+//
 
 int main()
 {
     setlocale(LC_ALL, "RUS");
 
-    int V = 6; // Количество вершин
+    int V = 5; // Количество вершин
     vector<vector<int>> adj(V);
 
-    addEdge(adj, 0, 1);
-    addEdge(adj, 0, 2);
-    addEdge(adj, 1, 3);
-    addEdge(adj, 2, 4);
+    addUndirectedEdge(adj, 0, 1);
+    addUndirectedEdge(adj, 0, 2);
+    addUndirectedEdge(adj, 1, 3);
+    addUndirectedEdge(adj, 2, 4);
 
-    cout << "Неориентированный граф:" << endl;
+    cout << "Граф, созданный с использованием списка смежности:" << endl;
     for (int i = 0; i < V; ++i) {
-        cout << "Вершина " << i << " ее смежные вершины: ";
+        cout << "Вершина " << i << " смежные вершины: ";
         for (int j = 0; j < adj[i].size(); ++j) {
             cout << adj[i][j] << " ";
         }
         cout << endl;
     }
 
-    if (isConnectedGraph(adj)) {
-        cout << "Граф является связанным." << endl;
-    }
-    else {
-        cout << "Граф не является связанным." << endl;
-    }
+    cout << endl;
+    cout << "Результат обхода в глубину:" << endl;
+    DFSWrapper(adj);
 
     return 0;
 }

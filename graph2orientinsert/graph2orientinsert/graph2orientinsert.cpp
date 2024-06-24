@@ -6,10 +6,45 @@
 
 using namespace std;
 
+
+// Добавление ребра только в одну сторону для ориентированного графа в функции addDirectedEdge
+
 void addDirectedEdge(vector<vector<int>>& adj, char from, char to) {
     adj[from - 'A'].push_back(to - 'A');
 }
+//
 
+
+// Функция DFSUtil для рекурсивного обхода графа в глубину.
+void DFSUtil(int vertex, vector<bool>& visited, const vector<vector<int>>& adj) {
+    visited[vertex] = true;
+    cout << char('A' + vertex) << " ";
+
+    for (int i = 0; i < adj[vertex].size(); ++i) {
+        int v = adj[vertex][i];
+        if (!visited[v]) {
+            DFSUtil(v, visited, adj);
+        }
+    }
+}
+//
+
+
+
+// Функция DFS для запуска обхода графа в глубину из каждой непосещенной вершины.
+void DFS(const vector<vector<int>>& adj) {
+    int n = adj.size();
+    vector<bool> visited(n, false);
+
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i]) {
+            DFSUtil(i, visited, adj);
+        }
+    }
+}
+//
+
+// Вывод 
 void printGraph(const vector<vector<int>>& adj) {
     for (int i = 0; i < adj.size(); ++i) {
         cout << "Вершина " << char('A' + i) << " смежные вершины: ";
@@ -19,6 +54,8 @@ void printGraph(const vector<vector<int>>& adj) {
         cout << endl;
     }
 }
+//
+
 
 int main()
 {
@@ -32,11 +69,14 @@ int main()
     addDirectedEdge(adj, 'B', 'D');
     addDirectedEdge(adj, 'C', 'E');
 
+    cout << "Граф, созданный с использованием списка смежности:" << endl;
     printGraph(adj);
+
+    cout << "Результат обхода в глубину: ";
+    DFS(adj);
 
     return 0;
 }
-
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
 
