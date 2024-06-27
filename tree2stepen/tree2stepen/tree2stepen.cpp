@@ -33,6 +33,33 @@ Node* insert(Node* root, int value) {
     return root;
 }
 
+
+void inOrderTraversal(Node* root) {
+    if (root != nullptr) {
+        inOrderTraversal(root->left);
+        cout << root->data << " ";
+        inOrderTraversal(root->right);
+    }
+}
+
+
+void printPretty(Node* root, int space) {
+    if (root == nullptr) return;
+
+    space += 5;
+
+    printPretty(root->right, space);
+
+    cout << endl;
+    for (int i = 5; i < space; i++) {
+        cout << " ";
+    }
+    cout << root->data << "\n";
+
+    printPretty(root->left, space);
+}
+
+
 int findDegree(Node* root, int value) {
     queue<Node*> q;
     q.push(root);
@@ -58,7 +85,6 @@ int findDegree(Node* root, int value) {
 int main()
 {
     setlocale(LC_ALL, "RUS");
-
     Node* root = nullptr;
     int values[] = { 8, 4, 12, 2, 6, 10, 14, 5, 1, 3, 23 };
 
@@ -66,18 +92,25 @@ int main()
         root = insert(root, value);
     }
 
-    cout << "Введите степень x: "; int x; cin >> x; 
-    int degree = findDegree(root, x);
+    cout << "Симметричный обход дерева: ";
+    inOrderTraversal(root);
+    cout << endl;
 
+    cout << "Дерево в красивом виде:\n";
+    printPretty(root, 0);
+
+    int nodeToFind = 6;
+    int degree = findDegree(root, nodeToFind);
     if (degree != -1) {
-        cout << "Степень узла " << x << " равна " << degree << endl;
+        cout << "Степень узла " << nodeToFind << ": " << degree << endl;
     }
     else {
-        cout << "Узел " << x << " не найден в дереве." << endl;
+        cout << "Узел не найден.\n";
     }
 
     return 0;
 }
+
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"

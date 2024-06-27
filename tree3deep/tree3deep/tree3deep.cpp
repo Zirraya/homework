@@ -19,22 +19,46 @@ Node* createNode(int value) {
     return newNode;
 }
 
-Node* insert(Node* root, int value) {
-    if (root == nullptr) {
-        return createNode(value);
+Node* insertBalanced(Node* root, int start, int end, int arr[]) {
+    if (start > end) {
+        return nullptr;
     }
-    if (value < root->data) {
-        root->left = insert(root->left, value);
-    }
-    else if (value > root->data) {
-        root->right = insert(root->right, value);
-    }
+    int mid = (start + end) / 2;
+    root = createNode(arr[mid]);
+    root->left = insertBalanced(root->left, start, mid - 1, arr);
+    root->right = insertBalanced(root->right, mid + 1, end, arr);
     return root;
 }
 
+void preOrderTraversal(Node* root) {
+    if (root != nullptr) {
+        cout << root->data << " ";
+        preOrderTraversal(root->left);
+        preOrderTraversal(root->right);
+    }
+}
+
+
+void printPretty(Node* root, int space) {
+    if (root == nullptr) return;
+
+    space += 5;
+
+    printPretty(root->right, space);
+
+    cout << endl;
+    for (int i = 5; i < space; i++) {
+        cout << " ";
+    }
+    cout << root->data << "\n";
+
+    printPretty(root->left, space);
+}
+
+
 int findDepth(Node* root, int value, int depth) {
     if (root == nullptr) {
-        return -1;  // Узел не найден
+        return -1;  // Узел не найден 
     }
     if (root->data == value) {
         return depth;
@@ -54,24 +78,31 @@ int main()
     setlocale(LC_ALL, "RUS");
 
     Node* root = nullptr;
-    int values[] = { 8, 4, 12, 2, 6, 10, 14, 5, 7, 2, 1 }; 
+    int values[] = { 8, 4, 12, 2, 6, 10, 14, 5, 7, 3, 1 };
 
-    for (int value : values) {
-        root = insert(root, value);
-    }
+    root = insertBalanced(root, 0, sizeof(values) / sizeof(values[0]) - 1, values);
 
-    cout << "Введите нужную глубину узла: "; int x; cin >> x; // Значение узла, глубину которого нужно найти
-    int depth = findDepth(root, x, 0);
+    cout << "Дерево в виде дерева(АГА):" << endl;
+    printPretty(root, 0);
 
-    if (depth != -1) {
-        cout << "Глубина узла " << x << " равна " << depth << endl;
+    cout << "Введите нужную глубину узла: ";
+    int x; cin >> x; // Значение узла, глубину которого нужно найти 
+
+    if (root != nullptr) {
+        int depth = findDepth(root, x, 0);
+
+        if (depth != -1) {
+            cout << "Глубина узла " << x << " равна " << depth << endl;
+        }
+        else {
+            cout << "Узел " << x << " не найден в дереве." << endl;
+        }
     }
     else {
-        cout << "Узел " << x << " не найден в дереве." << endl;
+        cout << "Дерево пустое." << endl;
     }
 
     return 0;
-
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

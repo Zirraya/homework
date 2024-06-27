@@ -2,6 +2,7 @@
 // Задча 2. Найти количество листьев
 
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -19,17 +20,39 @@ Node* createNode(int value) {
     return newNode;
 }
 
-Node* insert(Node* root, int value) {
-    if (root == nullptr) {
-        return createNode(value);
+Node* insertBalanced(Node* root, int start, int end, int arr[]) {
+    if (start > end) {
+        return nullptr;
     }
-    if (value < root->data) {
-        root->left = insert(root->left, value);
-    }
-    else if (value > root->data) {
-        root->right = insert(root->right, value);
-    }
+    int mid = (start + end) / 2;
+    root = createNode(arr[mid]);
+    root->left = insertBalanced(root->left, start, mid - 1, arr);
+    root->right = insertBalanced(root->right, mid + 1, end, arr);
     return root;
+}
+
+void preOrderTraversal(Node* root) {
+    if (root != nullptr) {
+        cout << root->data << " ";
+        preOrderTraversal(root->left);
+        preOrderTraversal(root->right);
+    }
+}
+
+void printPretty(Node* root, int space) {
+    if (root == nullptr) return;
+
+    space += 5;
+
+    printPretty(root->right, space);
+
+    cout << endl;
+    for (int i = 5; i < space; i++) {
+        cout << " ";
+    }
+    cout << root->data << "\n";
+
+    printPretty(root->left, space);
 }
 
 int countLeaves(Node* root) {
@@ -42,17 +65,21 @@ int countLeaves(Node* root) {
     return countLeaves(root->left) + countLeaves(root->right);
 }
 
-
-int main()
-{
+int main() {
     setlocale(LC_ALL, "RUS");
 
     Node* root = nullptr;
-    int values[] = { 8, 4, 12, 2, 6, 10, 14, 7, 11 }; 
+    int values[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int n = sizeof(values) / sizeof(values[0]);
 
-    for (int value : values) {
-        root = insert(root, value);
-    }
+    root = insertBalanced(root, 0, n - 1, values);
+
+    cout << "Прямой обход дерева: ";
+    preOrderTraversal(root);
+    cout << endl;
+
+    cout << "Идеально сбалансированное дерево в красивом виде:\n";
+    printPretty(root, 0);
 
     cout << "Количество листьев в дереве: " << countLeaves(root) << endl;
 
