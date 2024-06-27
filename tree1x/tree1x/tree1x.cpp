@@ -40,6 +40,23 @@ void inOrderTraversal(Node* root) {
     }
 }
 
+void printPretty(Node* root, int space) {
+    if (root == nullptr) return;
+
+    space += 5;
+
+    printPretty(root->right, space);
+
+    cout << endl;
+    for (int i = 5; i < space; i++) {
+        cout << " ";
+    }
+    cout << root->data << "\n";
+
+    printPretty(root->left, space);
+}
+
+
 Node* removeMultiples(Node* root, int x) {
     if (root == nullptr) {
         return root;
@@ -84,13 +101,13 @@ int main()
     }
 
     cout << "Древо до удаления элементов кратных " << x << ": ";
-    inOrderTraversal(root);
+    printPretty(root, 0); // Выводим измененное дерево в красивом виде
     cout << endl;
 
     root = removeMultiples(root, x);
 
     cout << "Древо после удаления элементов кратных " << x << ": ";
-    inOrderTraversal(root);
+    printPretty(root, 0); // Выводим измененное дерево в красивом виде
     cout << endl;
 
     return 0;

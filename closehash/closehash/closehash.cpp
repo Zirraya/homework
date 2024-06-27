@@ -2,103 +2,168 @@
 //
 
 #include <iostream>
-#include <vector>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
+const int HASH_TABLE_SIZE = 20; // Размер хэш-таблицы
+
+// Структура для хранения данных о сотруднике
 struct Employee {
     string lastName;
     string position;
-    int day, month, year; // Дата рождения
-    int experience; // Стаж работы
+    int day, month, year;
+    int experience;
     int salary;
 
-    Employee() = default;
+    // Указатели для двусвязного списка
+    Employee* prev;
+    Employee* next;
 
-    Employee(string lname, std::string pos, int d, int m, int y, int exp, int sal)
-        : lastName(move(lname)), position(move(pos)), day(d), month(m), year(y), experience(exp), salary(sal) {}
+    Employee(string lname = "", string pos = "", int d = 0, int m = 0, int y = 0, int exp = 0, int sal = 0)
+        : lastName(lname), position(pos), day(d), month(m), year(y), experience(exp), salary(sal), prev(nullptr), next(nullptr) {}
 };
 
-class ClosedHashTable {
+// Структура для узла хэш-таблицы
+struct HashNode {
+    Employee* head;
+    HashNode() : head(nullptr) {}
+};
+
+// Класс хэш-таблицы
+class HashTable {
 private:
-    static const int TABLE_SIZE = 20;
-    vector<Employee> table;
+    HashNode table[HASH_TABLE_SIZE];
 
-    // Функция хэширования (метод деления по зарплате)
+    // Квадратичное хэширование с умножением по зарплате
     int hashFunction(int salary) {
-        return salary % TABLE_SIZE;
+        int key = salary * salary;  // Умножение по зарплате
+        return (key * key) % HASH_TABLE_SIZE; // Квадратичное хэширование
     }
 
-    // Квадратичное пробирование для разрешения коллизий
-    int quadraticProbe(int index, int attempt) {
-        return (index + attempt * attempt) % TABLE_SIZE;
-    }
 
 public:
-    ClosedHashTable() : table(TABLE_SIZE) {}
-
-    // Вставка сотрудника в хэш-таблицу
+    // Вставка нового сотрудника
     void insertEmployee(const Employee& emp) {
-        int salary = emp.salary;
-        int index = hashFunction(salary);
-        int attempt = 0;
+        int index = hashFunction(emp.salary);
+        Employee* newEmp = new Employee(emp);
 
-        while (!table[index].lastName.empty()) {
-            attempt++;
-            index = quadraticProbe(index, attempt);
-        }
-
-        table[index] = emp;
-    }
-
-    // Поиск сотрудника по зарплате
-    void searchBySalary(int salary) {
-        int index = hashFunction(salary);
-        int attempt = 0;
-
-        while (!table[index].lastName.empty() && table[index].salary != salary) {
-            attempt++;
-            index = quadraticProbe(index, attempt);
-        }
-
-        if (table[index].salary == salary) {
-            cout << "Employee found: " << table[index].lastName << ", " << table[index].position << ", " << table[index].day << "." << table[index].month << "." << table[index].year << ", expireince: " << table[index].experience << " year" << endl;
+        // Вставка в начало списка
+        if (table[index].head == nullptr) {
+            table[index].head = newEmp;
         }
         else {
-            cout << "employee with salary " << salary << " not find." << endl;
+            newEmp->next = table[index].head;
+            table[index].head->prev = newEmp;
+            table[index].head = newEmp;
+        }
+    }
+
+    // Поиск сотрудника
+    void searchEmployee(int salary) {
+        int index = hashFunction(salary);
+        Employee* current = table[index].head;
+        bool found = false;
+
+        while (current != nullptr) {
+            if (current->salary == salary) {
+                cout << "Найден сотрудник:\n";
+                cout << "Фамилия: " << current->lastName << endl;
+                cout << "Должность: " << current->position << endl;
+                cout << "Дата рождения: " << current->day << "." << current->month << "." << current->year << endl;
+                cout << "Стаж работы: " << current->experience << endl;
+                cout << "Зарплата: " << current->salary << endl << endl;
+                found = true;
+            }
+            current = current->next;
+        }
+
+        if (!found) {
+            cout << "Сотрудник с зарплатой " << salary << " не найден.\n";
         }
     }
 
     // Вывод хэш-таблицы
     void displayTable() {
-        for (int i = 0; i < TABLE_SIZE; ++i) {
-            if (!table[i].lastName.empty()) {
-                cout << "Hash " << i << ": " << table[i].lastName << " -> " << endl;
+        for (int i = 0; i < HASH_TABLE_SIZE; ++i) {
+            cout << "Хэш " << i << ": ";
+            Employee* current = table[i].head;
+            while (current != nullptr) {
+                cout << current->lastName << " " << current->position << " " << current->day << "." << current->month << "." << current->year << " " << current->experience << " " << current->salary;
+                current = current->next;
+                cout << " " << endl;
             }
-            else {
-                cout << "Hash " << i << ": Empty" << endl;
-            }
+            cout << " " << endl;
         }
     }
 };
 
-int main()
-{
-    ClosedHashTable cht;
+// Функция для загрузки данных о сотрудниках из файла
+void loadEmployeesFromFile(HashTable& ht, const string& filaname) {
+    ifstream file(filaname);
+    if (!file.is_open()) {
+        cerr << "Ошибка открытия файла: " << filaname << endl;
+        return;
+    }
 
-    // Добавление сотрудников
-    // Добавление сотрудников
-    cht.insertEmployee(Employee("Esnault", "Manager", 10, 5, 1980, 10, 50000));
-    cht.insertEmployee(Employee("Faivre", "Accountant", 15, 8, 1975, 15, 60000));
-    cht.insertEmployee(Employee("Arquette", "Programmer", 20, 11, 1990, 5, 70000));
+    string lastName, position;
+    int day, month, year, experience, salary;
+    while (file >> lastName >> position >> day >> month >> year >> experience >> salary) {
+        ht.insertEmployee(Employee(lastName, position, day, month, year, experience, salary));
+    }
 
+    file.close();
+}
 
-    // Вывод хэш-таблицы
-    cht.displayTable();
+int main() {
 
-    // Поиск сотрудника по зарплате
-    cht.searchBySalary(60000);
+    setlocale(LC_ALL, "RUS");
+
+    HashTable ht;
+
+    // Загрузка данных о сотрудниках из файла (замените "employees.txt" на имя вашего файла)
+    loadEmployeesFromFile(ht, "input.txt");
+
+    int choice, salary;
+    do {
+        cout << "\nМеню:\n";
+        cout << "1. Вывести хэш-таблицу\n";
+        cout << "2. Добавить сотрудника\n";
+        cout << "3. Найти сотрудника\n";
+        cout << "4. Удалить сотрудника\n";
+        cout << "0. Выход\n";
+        cout << "Выберите действие: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            ht.displayTable();
+            break;
+        case 2: {
+            string lastName, position;
+            int day, month, year, experience, salary;
+            cout << "Введите данные сотрудника:\n";
+            cout << "Фамилия: "; cin >> lastName;
+            cout << "Должность: "; cin >> position;
+            cout << "Дата рождения (день месяц год): "; cin >> day >> month >> year;
+            cout << "Стаж работы: "; cin >> experience;
+            cout << "Зарплата: "; cin >> salary;
+            ht.insertEmployee(Employee(lastName, position, day, month, year, experience, salary));
+            break;
+        }
+        case 3:
+            cout << "Введите зарплату для поиска: ";
+            cin >> salary;
+            ht.searchEmployee(salary);
+            break;
+        case 0:
+            cout << "Выход из программы.\n";
+            break;
+        default:
+            cout << "Некорректный выбор.\n";
+        }
+    } while (choice != 0);
 
     return 0;
 }

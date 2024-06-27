@@ -2,87 +2,198 @@
 //
 
 #include <iostream>
-#include <list>
-#include <vector>
+#include <string>
+#include <fstream>
 
 using namespace std;
 
+const int HASH_TABLE_SIZE = 20; // Размер хэш-таблицы
+
+// Структура для хранения данных о сотруднике
 struct Employee {
     string lastName;
     string position;
-    int day, month, year; // Дата рождения
-    int experience; // Стаж работы
+    int day, month, year;
+    int experience;
     int salary;
 
-    Employee(string lname, string pos, int d, int m, int y, int exp, int sal)
-        : lastName(move(lname)), position(move(pos)), day(d), month(m), year(y), experience(exp), salary(sal) {}
+    // Указатели для двусвязного списка
+    Employee* prev;
+    Employee* next;
+
+    Employee(string lname = "", string pos = "", int d = 0, int m = 0, int y = 0, int exp = 0, int sal = 0)
+        : lastName(lname), position(pos), day(d), month(m), year(y), experience(exp), salary(sal), prev(nullptr), next(nullptr) {}
 };
 
+// Структура для узла хэш-таблицы
+struct HashNode {
+    Employee* head;
+    HashNode() : head(nullptr) {}
+};
+
+// Класс хэш-таблицы
 class HashTable {
 private:
-    static const int TABLE_SIZE = 20;
-    vector<list<Employee>> table;
+    HashNode table[HASH_TABLE_SIZE];
 
-    // Функция хэширования (метод деления по зарплате)
+    // Хэш-функция (деление по зарплате)
     int hashFunction(int salary) {
-        return salary % TABLE_SIZE;
+        return salary % HASH_TABLE_SIZE;
     }
 
 public:
-    HashTable() : table(TABLE_SIZE) {}
-
-    // Добавление сотрудника в хэш-таблицу
+    // Вставка нового сотрудника
     void insertEmployee(const Employee& emp) {
         int index = hashFunction(emp.salary);
-        table[index].push_back(emp);
-    }
+        Employee* newEmp = new Employee(emp);
 
-    // Поиск сотрудника по зарплате
-    void searchBySalary(int salary) {
-        int index = hashFunction(salary);
-        for (const auto& emp : table[index]) {
-            if (emp.salary == salary) {
-                std::cout << "Find employeer: " << emp.lastName << ", " << emp.position << ", " << emp.day << "." << emp.month << "." << emp.year << ", experience: " << emp.experience << " year" << std::endl;
-            }
+        // Вставка в начало списка
+        if (table[index].head == nullptr) {
+            table[index].head = newEmp;
+        }
+        else {
+            newEmp->next = table[index].head;
+            table[index].head->prev = newEmp;
+            table[index].head = newEmp;
         }
     }
 
-    // Удаление сотрудника по зарплате
-    void deleteBySalary(int salary) {
+    // Поиск сотрудника
+    void searchEmployee(int salary) {
         int index = hashFunction(salary);
-        table[index].remove_if([salary](const Employee& emp) { return emp.salary == salary; });
+        Employee* current = table[index].head;
+        bool found = false;
+
+        while (current != nullptr) {
+            if (current->salary == salary) {
+                cout << "Найден сотрудник:\n";
+                cout << "Фамилия: " << current->lastName << endl;
+                cout << "Должность: " << current->position << endl;
+                cout << "Дата рождения: " << current->day << "." << current->month << "." << current->year << endl;
+                cout << "Стаж работы: " << current->experience << endl;
+                cout << "Зарплата: " << current->salary << endl << endl;
+                found = true;
+            }
+            current = current->next;
+        }
+
+        if (!found) {
+            cout << "Сотрудник с зарплатой " << salary << " не найден.\n";
+        }
+    }
+
+    // Удаление сотрудника
+    void deleteEmployee(int salary) {
+        int index = hashFunction(salary);
+        Employee* current = table[index].head;
+
+        while (current != nullptr) {
+            if (current->salary == salary) {
+                // Удаление из списка
+                if (current->prev != nullptr) {
+                    current->prev->next = current->next;
+                }
+                else {
+                    table[index].head = current->next;
+                }
+                if (current->next != nullptr) {
+                    current->next->prev = current->prev;
+                }
+                delete current;
+                cout << "Сотрудник с зарплатой " << salary << " удален.\n";
+                return; // Удаляем только первое вхождение
+            }
+            current = current->next;
+        }
+
+        cout << "Сотрудник с зарплатой " << salary << " не найден.\n";
     }
 
     // Вывод хэш-таблицы
-    void displayTable() {
-        for (int i = 0; i < TABLE_SIZE; ++i) {
-            cout << "Hash " << i << ": ";
-            for (const auto& emp : table[i]) {
-                cout << emp.lastName << " -> ";
-            }
-            cout << endl;
+void displayTable() {
+    for (int i = 0; i < HASH_TABLE_SIZE; ++i) {
+        cout << "Хэш " << i << ": ";
+        Employee* current = table[i].head;
+        while (current != nullptr) {
+            cout << current->lastName << " " << current->position << " " << current->day << "." << current->month << "." << current->year << " " << current->experience << " " << current->salary;
+            current = current->next;
+            cout << " " << endl;
         }
+        cout << " " << endl;
     }
+}
 };
 
-int main()
-{
+// Функция для загрузки данных о сотрудниках из файла
+void loadEmployeesFromFile(HashTable& ht, const string& filaname) {
+    ifstream file(filaname);
+    if (!file.is_open()) {
+        cerr << "Ошибка открытия файла: " << filaname << endl;
+        return;
+    }
+
+    string lastName, position;
+    int day, month, year, experience, salary;
+    while (file >> lastName >> position >> day >> month >> year >> experience >> salary) {
+        ht.insertEmployee(Employee(lastName, position, day, month, year, experience, salary));
+    }
+
+    file.close();
+}
+
+int main() {
+
+    setlocale(LC_ALL, "RUS");
+
     HashTable ht;
 
-    // Добавление сотрудников
-    ht.insertEmployee(Employee("Esnault", "Manager", 10, 5, 1980, 10, 50000));
-    ht.insertEmployee(Employee("Faivre", "Accountant", 15, 8, 1975, 15, 60000));
-    ht.insertEmployee(Employee("Arquette", "Programmer", 20, 11, 1990, 5, 70000));
+    // Загрузка данных о сотрудниках из файла (замените "employees.txt" на имя вашего файла)
+    loadEmployeesFromFile(ht, "input.txt");
 
-    // Вывод хэш-таблицы
-    ht.displayTable();
+    int choice, salary;
+    do {
+        cout << "\nМеню:\n";
+        cout << "1. Вывести хэш-таблицу\n";
+        cout << "2. Добавить сотрудника\n";
+        cout << "3. Найти сотрудника\n";
+        cout << "4. Удалить сотрудника\n";
+        cout << "0. Выход\n";
+        cout << "Выберите действие: ";
+        cin >> choice;
 
-    // Поиск и удаление сотрудника по зарплате
-    ht.searchBySalary(60000);
-    ht.deleteBySalary(60000);
-
-    // Вывод обновленной хэш-таблицы
-    ht.displayTable();
+        switch (choice) {
+        case 1:
+            ht.displayTable();
+            break;
+        case 2: {
+            string lastName, position;
+            int day, month, year, experience, salary;
+            cout << "Введите данные сотрудника:\n";
+            cout << "Фамилия: "; cin >> lastName;
+            cout << "Должность: "; cin >> position;
+            cout << "Дата рождения (день месяц год): "; cin >> day >> month >> year;
+            cout << "Стаж работы: "; cin >> experience;
+            cout << "Зарплата: "; cin >> salary;
+            ht.insertEmployee(Employee(lastName, position, day, month, year, experience, salary));
+            break;
+        }
+        case 3:
+            cout << "Введите зарплату для поиска: ";
+            cin >> salary;
+            ht.searchEmployee(salary);
+            break;
+        case 4:
+            cout << "Введите зарплату для удаления: ";
+            cin >> salary;
+            ht.deleteEmployee(salary);
+            break;
+        case 0:
+            cout << "Выход из программы.\n";
+            break;
+        default:
+            cout << "Некорректный выбор.\n";
+        }
+    } while (choice != 0);
 
     return 0;
 }
