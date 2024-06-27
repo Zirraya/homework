@@ -55,14 +55,15 @@ void printPretty(Node* root, int space) {
     printPretty(root->left, space);
 }
 
-int countLeaves(Node* root) {
+void printLeaves(Node* root) {
     if (root == nullptr) {
-        return 0;
+        return;
     }
     if (root->left == nullptr && root->right == nullptr) {
-        return 1;
+        cout << root->data << " ";
     }
-    return countLeaves(root->left) + countLeaves(root->right);
+    printLeaves(root->left);
+    printLeaves(root->right);
 }
 
 int main() {
@@ -81,7 +82,9 @@ int main() {
     cout << "Идеально сбалансированное дерево в красивом виде:\n";
     printPretty(root, 0);
 
-    cout << "Количество листьев в дереве: " << countLeaves(root) << endl;
+    cout << "Листья дерева: ";
+    printLeaves(root);
+    cout << endl;
 
     return 0;
 }
