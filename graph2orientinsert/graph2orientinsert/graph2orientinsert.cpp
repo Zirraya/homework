@@ -7,73 +7,78 @@
 using namespace std;
 
 
-// Добавление ребра только в одну сторону для ориентированного графа в функции addDirectedEdge
+// Структура 
+struct Graph {
+    vector<vector<int>> adj; // Список смежности
 
-void addDirectedEdge(vector<vector<int>>& adj, char from, char to) {
-    adj[from - 'A'].push_back(to - 'A');
-}
-//
+    // Конструктор для инициализации графа с заданным количеством вершин
+    Graph(int V) {
+        adj.resize(V);
+    }
+    //
 
+    // Метод для добавления направленного ребра в граф
+    void addDirectedEdge(char from, char to) {
+        adj[from - 'A'].push_back(to - 'A');
+    }
+    //
 
-// Функция DFSUtil для рекурсивного обхода графа в глубину.
-void DFSUtil(int vertex, vector<bool>& visited, const vector<vector<int>>& adj) {
-    visited[vertex] = true;
-    cout << char('A' + vertex) << " ";
+    // Рекурсивная функция для обхода в глубину
+    void DFSUtil(int vertex, vector<bool>& visited) {
+        visited[vertex] = true;
+        cout << char('A' + vertex) << " ";
 
-    for (int i = 0; i < adj[vertex].size(); ++i) {
-        int v = adj[vertex][i];
-        if (!visited[v]) {
-            DFSUtil(v, visited, adj);
+        for (int v : adj[vertex]) {
+            if (!visited[v]) {
+                DFSUtil(v, visited);
+            }
         }
     }
-}
-//
+    //
 
+    // Метод для запуска обхода в глубину
+    void DFS() {
+        int n = adj.size();
+        vector<bool> visited(n, false);
 
-
-// Функция DFS для запуска обхода графа в глубину из каждой непосещенной вершины.
-void DFS(const vector<vector<int>>& adj) {
-    int n = adj.size();
-    vector<bool> visited(n, false);
-
-    for (int i = 0; i < n; ++i) {
-        if (!visited[i]) {
-            DFSUtil(i, visited, adj);
+        for (int i = 0; i < n; ++i) {
+            if (!visited[i]) {
+                DFSUtil(i, visited);
+            }
         }
     }
-}
-//
+    //
 
-// Вывод 
-void printGraph(const vector<vector<int>>& adj) {
-    for (int i = 0; i < adj.size(); ++i) {
-        cout << "Вершина " << char('A' + i) << " смежные вершины: ";
-        for (int j = 0; j < adj[i].size(); ++j) {
-            cout << char('A' + adj[i][j]) << " ";
+    // Метод для вывода графа
+    void printGraph() {
+        for (int i = 0; i < adj.size(); ++i) {
+            cout << "Вершина " << char('A' + i) << " смежные вершины: ";
+            for (int j : adj[i]) {
+                cout << char('A' + j) << " ";
+            }
+            cout << endl;
         }
-        cout << endl;
     }
-}
+    //
+};
 //
 
-
-int main()
-{
+int main() {
     setlocale(LC_ALL, "RUS");
 
     int V = 5; // Количество вершин
-    vector<vector<int>> adj(V);
+    Graph graph(V); // Создание графа
 
-    addDirectedEdge(adj, 'A', 'B');
-    addDirectedEdge(adj, 'A', 'C');
-    addDirectedEdge(adj, 'B', 'D');
-    addDirectedEdge(adj, 'C', 'E');
+    graph.addDirectedEdge('A', 'B');
+    graph.addDirectedEdge('A', 'C');
+    graph.addDirectedEdge('B', 'D');
+    graph.addDirectedEdge('C', 'E');
 
-    cout << "Граф, созданный с использованием списка смежности:" << endl;
-    printGraph(adj);
+    cout << "Граф : " << endl;
+    graph.printGraph(); // Вывод графа
 
     cout << "Результат обхода в глубину: ";
-    DFS(adj);
+    graph.DFS(); // Реузльат
 
     return 0;
 }

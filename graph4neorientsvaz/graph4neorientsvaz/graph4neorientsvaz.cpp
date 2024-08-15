@@ -3,68 +3,124 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
+#include <queue>
 
 using namespace std;
 
+struct Graph {
+    int V; // Количество вершин
+    vector<list<int>> adj; // Список смежности
 
-// Добавление ребра только в две стороне для ориентированного графа в функции addUndirectedEdge
-void addUndirectedEdge(vector<vector<int>>& adj, int u, int v) {
-    adj[u].push_back(v);
-    adj[v].push_back(u);
-}
-
-
-//  Функция DFS для запуска обхода графа в глубину из каждой непосещенной вершины.
-void DFS(const vector<vector<int>>& adj, vector<bool>& visited, int u) {
-    visited[u] = true;
-    cout << u << " ";
-
-    for (int v : adj[u]) {
-        if (!visited[v]) {
-            DFS(adj, visited, v);
-        }
+    Graph(int V) {
+        this->V = V;
+        adj.resize(V);
     }
-}
-//
 
-// Введение функции - обертки DFSWrapper, которая вызывает DFS для каждой непосещенной вершины.
-void DFSWrapper(const vector<vector<int>>& adj) {
-    int n = adj.size();
-    vector<bool> visited(n, false);
+    // Добавки ееее
+    void addEdge(int v, int w) {
+        adj[v].push_back(w); // Добавляем w в список смежности v
+        adj[w].push_back(v); // Добавляем v в список смежности w (неориентированный граф)
+    }
+    //
 
-    for (int i = 0; i < n; ++i) {
-        if (!visited[i]) {
-            DFS(adj, visited, i);
+    // Счас будем выяснять связан или развязан граф
+    bool isConnected() {
+        vector<bool> visited(V, false);
+        int count = 0;
+
+        // BFS для обходу в ширину
+        queue<int> q;
+        q.push(0); // Наааачааало
+        visited[0] = true;
+
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            count++;
+
+            for (int neighbor : adj[u]) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    q.push(neighbor);
+                }
+            }
+        }
+        return count == V; // Если количество посещенных вершин равно количеству вершин в графе, то граф связан (нет блин развязан)
+    }
+    //
+
+    // Обход в ширину
+    void BFS(int start) {
+        vector<bool> visited(V, false);
+        queue<int> q;
+
+        visited[start] = true;
+        q.push(start);
+
+        cout << "Обход с вершины " << start << ": ";
+
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            cout << u << " ";
+
+            for (int neighbor : adj[u]) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    q.push(neighbor);
+                }
+            }
+        }
+        cout << std::endl;
+    }
+    //
+
+    // Вывод
+    void printGraph() {
+        for (int v = 0; v < V; ++v) {
+            cout << "Вершина " << v << ": ";
+            for (int neighbor : adj[v]) {
+                cout << neighbor << " ";
+            }
             cout << endl;
         }
     }
-}
+    //
+};
 //
 
-int main()
-{
+int main() {
+
     setlocale(LC_ALL, "RUS");
 
     int V = 5; // Количество вершин
-    vector<vector<int>> adj(V);
+    Graph g(V);
 
-    addUndirectedEdge(adj, 0, 1);
-    addUndirectedEdge(adj, 0, 2);
-    addUndirectedEdge(adj, 1, 3);
-    addUndirectedEdge(adj, 2, 4);
+    // Ребра
+    g.addEdge(0, 1);
+    g.addEdge(0, 4);
+    g.addEdge(1, 2);
+    g.addEdge(1, 3);
+    g.addEdge(1, 4);
+    g.addEdge(2, 3);
+    //
+    
+    
+    g.printGraph(); // Вывод графа
 
-    cout << "Граф, созданный с использованием списка смежности:" << endl;
-    for (int i = 0; i < V; ++i) {
-        cout << "Вершина " << i << " смежные вершины: ";
-        for (int j = 0; j < adj[i].size(); ++j) {
-            cout << adj[i][j] << " ";
-        }
-        cout << endl;
+    // Проверка связоннсти 
+    if (g.isConnected()) {
+        cout << "Граф связан" <<endl;
     }
+    else {
+        cout << "Граф не связан" << endl;
+    }
+    //
 
-    cout << endl;
-    cout << "Результат обхода в глубину:" << endl;
-    DFSWrapper(adj);
+    // Обход
+    g.BFS(0); // Начало с 0
+    //
 
     return 0;
 }
