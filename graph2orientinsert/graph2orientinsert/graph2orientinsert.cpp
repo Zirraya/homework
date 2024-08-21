@@ -3,60 +3,73 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <stack> 
 
 using namespace std;
 
+// Структура вершины (пришлось создать еще структуру для вершины...мда)
+struct Vertex {
+    string label;
+    vector<string> adjacent; // Список смежности
+};
+//
 
-// Структура 
+// Структура для графа
 struct Graph {
-    vector<vector<int>> adj; // Список смежности
+    unordered_map<string, Vertex> adjacencyList; // Список смежности
 
-    // Конструктор для инициализации графа с заданным количеством вершин
-    Graph(int V) {
-        adj.resize(V);
-    }
-    //
-
-    // Метод для добавления направленного ребра в граф
-    void addDirectedEdge(char from, char to) {
-        adj[from - 'A'].push_back(to - 'A');
-    }
-    //
-
-    // Рекурсивная функция для обхода в глубину
-    void DFSUtil(int vertex, vector<bool>& visited) {
-        visited[vertex] = true;
-        cout << char('A' + vertex) << " ";
-
-        for (int v : adj[vertex]) {
-            if (!visited[v]) {
-                DFSUtil(v, visited);
-            }
+    // Вставка ребра
+    void addEdge(const string& A, const string& B) {
+        // Создание вершины A, если ее нет, но ее же и нет...
+        if (adjacencyList.find(A) == adjacencyList.end()) {
+            adjacencyList[A] = { A, {} };
         }
-    }
-    //
-
-    // Метод для запуска обхода в глубину
-    void DFS() {
-        int n = adj.size();
-        vector<bool> visited(n, false);
-
-        for (int i = 0; i < n; ++i) {
-            if (!visited[i]) {
-                DFSUtil(i, visited);
-            }
+        // Создание вершины B, если ее нет, но ее же и нет...
+        if (adjacencyList.find(B) == adjacencyList.end()) {
+            adjacencyList[B] = { B, {} };
         }
+        // Добавка. Новое ребро от A до B
+        adjacencyList[A].adjacent.push_back(B);
     }
     //
 
-    // Метод для вывода графа
-    void printGraph() {
-        for (int i = 0; i < adj.size(); ++i) {
-            cout << "Вершина " << char('A' + i) << " смежные вершины: ";
-            for (int j : adj[i]) {
-                cout << char('A' + j) << " ";
+    // Вывод 
+    void display() {
+        for (const auto& pair : adjacencyList) {
+            cout << "Вершина " << pair.second.label << ": ";
+            for (const auto& vertex : pair.second.adjacent) {
+                cout << vertex << " ";
             }
             cout << endl;
+        }
+    }
+    //
+
+    // Обход в глубину (что сним случилось, в других задниях он меньше, ну почему от так у меня тут разросся)
+    void DFS(const string& startVertex) {
+        unordered_set<string> visited; // Отслеживание посещенных вершин
+        stack<string> stack; // Стек для хранения вершин
+
+        stack.push(startVertex);
+
+        while (!stack.empty()) {
+            string currentVertex = stack.top();
+            stack.pop();
+
+            if (visited.find(currentVertex) == visited.end()) {
+                visited.insert(currentVertex);
+                cout << currentVertex << " ";
+
+                // Добавление в стек соседние непосещенные вершины
+                for (const auto& neighbor : adjacencyList[currentVertex].adjacent) {
+                    if (visited.find(neighbor) == visited.end()) {
+                        stack.push(neighbor);
+                    }
+                }
+            }
         }
     }
     //
@@ -66,19 +79,28 @@ struct Graph {
 int main() {
     setlocale(LC_ALL, "RUS");
 
-    int V = 5; // Количество вершин
-    Graph graph(V); // Создание графа
+    Graph graph; // Создание графа
 
-    graph.addDirectedEdge('A', 'B');
-    graph.addDirectedEdge('A', 'C');
-    graph.addDirectedEdge('B', 'D');
-    graph.addDirectedEdge('C', 'E');
+    // Добавление ребер
+    graph.addEdge("A", "C");
+    graph.addEdge("B", "D");
+    graph.addEdge("C", "D");
+    graph.addEdge("D", "E");
+    //
 
-    cout << "Граф : " << endl;
-    graph.printGraph(); // Вывод графа
+    cout << "Граф до изменения: " << endl;
+    graph.display();
 
-    cout << "Результат обхода в глубину: ";
-    graph.DFS(); // Реузльат
+    cout << "Обход  с 'A': ";
+    graph.DFS("A");
+    cout << endl;
+
+    // Вставка ребра A до B (если его нет конечно  же)
+    graph.addEdge("A", "B"); // Добавление второго ребра от A до B
+    //
+
+    cout << "Граф после добавления ребра от 'A' до 'B':" << endl;
+    graph.display();
 
     return 0;
 }

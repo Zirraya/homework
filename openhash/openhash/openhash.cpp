@@ -40,6 +40,7 @@ private:
     int hashFunction(int salary) {
         return salary % HASH_TABLE_SIZE;
     }
+    //
 
 public:
     // Вставка нового сотрудника
@@ -57,6 +58,7 @@ public:
             table[index].head = newEmp;
         }
     }
+    //
 
     // Поиск сотрудника
     void searchEmployee(int salary) {
@@ -81,6 +83,7 @@ public:
             cout << "Сотрудник с зарплатой " << salary << " не найден.\n";
         }
     }
+    //
 
     // Удаление сотрудника
     void deleteEmployee(int salary) {
@@ -108,6 +111,7 @@ public:
 
         cout << "Сотрудник с зарплатой " << salary << " не найден.\n";
     }
+    //
 
     // Вывод хэш-таблицы
 void displayTable() {
@@ -122,7 +126,9 @@ void displayTable() {
         cout << " " << endl;
     }
 }
+//
 };
+//
 
 // Функция для загрузки данных о сотрудниках из файла
 void loadEmployeesFromFile(HashTable& ht, const string& filaname) {
@@ -140,6 +146,7 @@ void loadEmployeesFromFile(HashTable& ht, const string& filaname) {
 
     file.close();
 }
+//
 
 int main() {
 
