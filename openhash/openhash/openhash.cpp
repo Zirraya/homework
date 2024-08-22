@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const int HASH_TABLE_SIZE = 20; // Размер хэш-таблицы
+const int HASH_TABLE_SIZE = 25; // Размер хэш-таблицы
 
 // Структура для хранения данных о сотруднике
 struct Employee {
@@ -20,6 +20,7 @@ struct Employee {
     // Указатели для двусвязного списка
     Employee* prev;
     Employee* next;
+    //
 
     Employee(string lname = "", string pos = "", int d = 0, int m = 0, int y = 0, int exp = 0, int sal = 0)
         : lastName(lname), position(pos), day(d), month(m), year(y), experience(exp), salary(sal), prev(nullptr), next(nullptr) {}
@@ -89,6 +90,7 @@ public:
     void deleteEmployee(int salary) {
         int index = hashFunction(salary);
         Employee* current = table[index].head;
+        bool found = false; // Флаг для отслеживания, были ли найдены удаляемые сотрудники
 
         while (current != nullptr) {
             if (current->salary == salary) {
@@ -102,28 +104,34 @@ public:
                 if (current->next != nullptr) {
                     current->next->prev = current->prev;
                 }
-                delete current;
-                cout << "Сотрудник с зарплатой " << salary << " удален.\n";
-                return; // Удаляем только первое вхождение
+                Employee* toDelete = current; // Сохранения указателя на удаляемый элемент
+                current = current->next; // Переход к следующему элементу перед удалением
+                delete toDelete; // Удаление текущий элемент
+                found = true; // Устанановка флаг, что был найден и удален сотрудник
             }
-            current = current->next;
+            else {
+                current = current->next; // Переход к следующему элементу
+            }
         }
-
-        cout << "Сотрудник с зарплатой " << salary << " не найден.\n";
+        if (found) {
+            cout << "Сотрудники с зарплатой " << salary << " удалены.\n";
+        }
+        else {
+            cout << "Сотрудники с зарплатой " << salary << " не найдены.Увы\n";
+        }
     }
     //
 
     // Вывод хэш-таблицы
-void displayTable() {
+    void displayTable() {
     for (int i = 0; i < HASH_TABLE_SIZE; ++i) {
-        cout << "Хэш " << i << ": ";
         Employee* current = table[i].head;
         while (current != nullptr) {
+            cout << "Хэш " << i++ << ": ";
             cout << current->lastName << " " << current->position << " " << current->day << "." << current->month << "." << current->year << " " << current->experience << " " << current->salary;
             current = current->next;
             cout << " " << endl;
-        }
-        cout << " " << endl;
+        }  
     }
 }
 //
@@ -204,6 +212,22 @@ int main() {
 
     return 0;
 }
+
+
+
+//if (current->next != nullptr) {
+//    current->next->prev = current->prev;
+//}
+//delete current;
+//cout << "Сотрудник с зарплатой " << salary << " удален.\n";
+//return; // Удаляем только первое вхождение
+//            }
+//            current = current->next;
+//        }
+//
+//        cout << "Сотрудник с зарплатой " << salary << " не найден.\n";
+//    }
+//    //  Старая часть кода
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
