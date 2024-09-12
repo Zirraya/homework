@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const int HASH_TABLE_SIZE = 20; // Размер хэш-таблицы
+const int HASH_TABLE_SIZE = 25; // Размер хэш-таблицы
 
 // Структура для хранения данных о сотруднике
 struct Employee {
@@ -87,17 +87,18 @@ public:
     // Вывод хэш-таблицы
     void displayTable() {
         for (int i = 0; i < HASH_TABLE_SIZE; ++i) {
-            cout << "Хэш " << i << ": ";
             Employee* current = table[i].head;
             while (current != nullptr) {
+                cout << "Хэш " << i++ << ": ";
                 cout << current->lastName << " " << current->position << " " << current->day << "." << current->month << "." << current->year << " " << current->experience << " " << current->salary;
                 current = current->next;
                 cout << " " << endl;
             }
-            cout << " " << endl;
         }
     }
+    //
 };
+//
 
 // Функция для загрузки данных о сотрудниках из файла
 void loadEmployeesFromFile(HashTable& ht, const string& filaname) {
@@ -131,7 +132,6 @@ int main() {
         cout << "1. Вывести хэш-таблицу\n";
         cout << "2. Добавить сотрудника\n";
         cout << "3. Найти сотрудника\n";
-        cout << "4. Удалить сотрудника\n";
         cout << "0. Выход\n";
         cout << "Выберите действие: ";
         cin >> choice;
