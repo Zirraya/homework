@@ -8,8 +8,8 @@
 using namespace std;
 
 
-class BlueSpottedSalamnde {
-//
+class BlueSpottedSalamander {
+	//
 private:
 	string Name; // Имя нашей саламандры
 	string ColorMane; // Основной цвет
@@ -20,20 +20,19 @@ private:
 	string Pattern; // Тип узора
 	string Species; // Вид саламандры
 
-	string Pet; // Теперь ее можно погладить, но надо делть это правильно в противном случае есть получить ядовитым хвостом 
-	//
+
 
 	// Функция бонус, что будет если не правильно погладить
 	void actionPet() {
-		cout  << "Вы получили урон от "<< Name << "!  " << "Вашу руку жжет от яда!";
+		cout << "Вы получили урон от " << Name << "! " << "Вашу руку жжет от яда!";
 	}
 	//
 //
 
 //
 public:
-	BlueSpottedSalamnde() {} // Конструктор для саламандры
-	BlueSpottedSalamnde(string N, string CM, string CP, float L, int A, string FF, string P, string S) {
+	BlueSpottedSalamander() {} // Конструктор для саламандры
+	BlueSpottedSalamander(string N, string CM, string CP, float L, int A, string FF, string P, string S) {
 		Name = N;
 		ColorMane = CM;
 		ColorPattern = CP;
@@ -54,7 +53,8 @@ public:
 	string getPattern() { return Pattern; }
 	string getSpesies() { return Species; }
 
-	string getPet() { return Pet; }
+
+
 
 
 	// Функия для выбора саламандры
@@ -77,69 +77,30 @@ public:
 		switch (choice) {
 		case 1:
 			Species = "Тигровая";
-			Name = "Огниво";
-			ColorMane = "Черный";
-			ColorPattern = "Оранжевый";
-			Lengh = 21.0;
-			Age = 5;
-			FavoriteFood = "Моллюск";
-			Pattern = "Полосатая";
 			break;
 		case 2:
 			Species = "Пятнистая";
-			Name = "Винтер";
-			ColorMane = "Черный";
-			ColorPattern = "Синий";
-			Lengh = 8.0;
-			Age = 17;
-			FavoriteFood = "Черви";
-			Pattern = "Пятнистая";
 			break;
 		case 3:
 			Species = "Красноспинная";
-			Name = "Рэдди";
-			ColorMane = "Красный";
-			ColorPattern = "Черный";
-			Lengh = 9.0;
-			Age = 8;
-			FavoriteFood = "Пауки";
-			Pattern = "Полосатая";
 			break;
 		case 4:
 			Species = "Северная";
-			Name = "Сумрак";
-			ColorMane = "Бежевый";
-			ColorPattern = "Тмено-коричневый";
-			Lengh = 11.0;
-			Age = 7;
-			FavoriteFood = "Бабочки";
-			Pattern = "Пятнистая";
 			break;
 		case 5:
 			Species = "Северозападная";
-			Name = "Можжевельник";
-			ColorMane = "Коричневый";
-			ColorPattern = "Оранжевый";
-			Lengh = 9.0;
-			Age = 27;
-			FavoriteFood = "Гусиницы";
-			Pattern = "Крапинки";
 			break;
 		case 6:
 			InfoSalamander();
-			break;
-		case 7:
-			Call();
-			break;
 		default:
 			cout << "Неверный выбор!" << endl;
-			return; // Завершаем выполнение функции, если выбор неверный
+			return; // Завершение если выбран неверный вариант
 		}
 	}
-	
+
 	//
 
-	// Вывод информации про саламандр
+	// Вывод инцы про саламандар по первому взгляду
 	void InfoSalamander() {
 		cout << "Рязглядывая этих созданий вы приходите к следующему выводу\n";
 		cout << "Тигровая явно не настроена что бы ее трогали. Возможно контакт с ней закончится плачевно\n";
@@ -151,19 +112,35 @@ public:
 		ChoiceSalamander();
 
 	}
-	// Точная ифнормация о саламандрах
-	void Call() {
-		cout << "Вы узнаете от странного человека весьма подробную информацию...";
+
+
+	// сравнение саламандер на сходство по признакам - взяли двух саламандер и 
+	// задали им условие сравнения - условие будет любым
+	bool  similarity(BlueSpottedSalamander& sp, bool condition(BlueSpottedSalamander& sp1, BlueSpottedSalamander& sp2)) {
+		return condition(*this, sp);
+	}
+
+	// проверка саламандер на тождественность по имени - перегрузка оператора ==
+	bool operator==(BlueSpottedSalamander& sp) {
+		return (Name == sp.getName() && ColorMane == sp.getColorMane() &&
+			ColorPattern == sp.getColorPattern() && Lengh == sp.getLengh() && Age == sp.getAge() && FavoriteFood == sp.getFavoriteFood() && Pattern == sp.getPattern());
 
 
 	}
+	// Точная ифнормация о саламандрах
+		friend ostream& operator<< (ostream & out, BlueSpottedSalamander sp) 
+		{
+			out << "Саламндра по имени" << sp.Name << " Цвета" << sp.ColorMane << "Ее цвет узора" << sp.ColorPattern << "Длина" << sp.Lengh << "Возраста" << sp.Age
+				<< "Ее любимая еда" << sp.FavoriteFood << "Ее узор" << sp.Pattern << "\n";
+			return out;
+		}
+	
+	//
 
-	// 
-
-
-
-	// Функция для реализации удара хвостом
+	// Реакция
 	void ToReact() {
+
+		cout << "Вы решаете погладить " << Name << endl;
 
 		if (Species == "Тигровая") {
 			cout << Name << " Наносит мощный удар хвостом!" << endl;
@@ -182,18 +159,85 @@ public:
 		}
 		else if (Species == "Северозападная") {
 			cout << Name << " В замашатльстве!" << endl;
-			
-		}
-
-		else {
 
 		}
+
 	}
-
 	//
-//
 };
 
+
+	// Список
+	struct node {
+		BlueSpottedSalamander* inf;
+		node* next;
+		node* prev;
+
+	};
+
+	class List {
+	private:
+		node* head;
+		node* tail;
+	public:
+		List() { head = NULL; tail = NULL; }
+		void push(BlueSpottedSalamander* sp);
+		void print();
+		bool find(BlueSpottedSalamander sp); // Найти  одну нужную саламандру
+		bool findAll(bool condition(BlueSpottedSalamander& sp1)); // Найти всех соломандр по условию
+
+	};
+
+	void List::push(BlueSpottedSalamander * sp) { // берем саламандру
+		node* r = new node;
+		r->inf = sp;
+		r->next = NULL;
+		if (!head && !tail) {
+			r->prev = NULL;
+			head = r;
+		}
+		else {
+			tail->next = r;
+			r->prev = tail;
+		}
+		tail = r;
+	}
+
+	// Будет ли тут перегрузка хороший вопрос
+	void List::print()
+	{
+		node* r = head;
+		while (r != NULL) {
+			cout << *(r->inf);
+			r = r->next;
+		}
+		cout << '\n';
+	}
+
+	bool List::find(BlueSpottedSalamander sp) {
+		node* r = head;
+		while (r != NULL) {
+			if (*(r->inf) == sp)
+				return true;
+			r = r->next;
+		}
+		return false;
+	}
+
+
+	bool List::findAll(bool condition(BlueSpottedSalamander& sp1)) {
+		node* r = head;
+		while (r != NULL) {
+			if (condition(*(r->inf)))
+			{
+				cout << *(r->inf);
+			}
+			r = r->next;
+		}
+		return (r != NULL);
+	}
+
+//
 
 
 
@@ -204,12 +248,27 @@ int main()
 	cout << "Несколько саламандр греются на солнышке\n";
 	cout << "Вы решаете погладить их...\n";
 
-	BlueSpottedSalamnde salamander;
+	//string N, string CM, string CP, float L, int A, string FF, string P, string S
+	BlueSpottedSalamander sp1( " Огниво ", " Черный ", " Оранжевый ", 21.0, 5, " Моллюски ", " Полосатая ", " Тигровая "); cout << sp1;
+	BlueSpottedSalamander sp2(" Винтер ", " Черный ", " Синий ", 8.0, 17, " Черви ", " Полосатая ", " Пятнистая "); cout << sp2;
+	BlueSpottedSalamander sp3(" Рэдди ", " Красный ", " Черный ", 9.0, 8, " Пауки ", " Полосатая ", " Красноспинная "); cout << sp3;
+	BlueSpottedSalamander sp4(" Сумрак ", " Бежевый ", " Тмено-коричневый ", 11.0, 7, " Бабочки  ", " Пятнистая ", " Северная "); cout << sp4;
+	BlueSpottedSalamander sp5(" Можжевельник ", " Коричневый ", " Оранжевый ", 9.0, 27, " Гусиницы ", " Крапинки ", " Северозападная "); cout << sp5;
 
+	List lstSalamander;
+	if (lstSalamander.find(sp1))
+		lstSalamander.push(&sp1);
+	else if (sp1.ToReact(" Наносит мощный удар хвостом! "))
+		lstSalamander.push(&sp1);
+
+
+
+
+	BlueSpottedSalamander salamander;
 	salamander.ChoiceSalamander(); // Выбор саламандры
 	salamander.ToReact(); // Реакция саламандры
 
-	return 0;
+	system("pause");
 
 }
 
