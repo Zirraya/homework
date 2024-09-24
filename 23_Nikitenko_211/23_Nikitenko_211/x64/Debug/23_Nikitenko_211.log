@@ -1,2 +1,3 @@
 ﻿  23_Nikitenko_211.cpp
+C:\projects\homework\23_Nikitenko_211\23_Nikitenko_211\23_Nikitenko_211.cpp(256): warning C4715: List::getByID: значение возвращается не при всех путях выполнения
   23_Nikitenko_211.vcxproj -> C:\projects\homework\23_Nikitenko_211\x64\Debug\23_Nikitenko_211.exe
