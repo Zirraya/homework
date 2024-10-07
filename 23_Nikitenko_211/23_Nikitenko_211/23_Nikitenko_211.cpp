@@ -5,6 +5,8 @@
 
 // 1 лаба 4 задания 2 лаба 6 задания
 
+// Проверка на некоректность данных(нельзя брать отриц) не может быть двух одниковых  сравнение двух саламандр типо если две саламадры одиакновых ввели акшресивно
+
 #include <iostream>
 
 using namespace std;
@@ -72,16 +74,54 @@ public:
 		friend ostream& operator<< (ostream & out, BlueSpottedSalamander sp) 
 		{
 			out << "Саламндра по имени" << sp.Name << " Цвета " << sp.ColorMane << " Ее цвет узора " << sp.ColorPattern << " Длина " << sp.Lengh << " Возраста " << sp.Age
-				<< " Ее любимая еда " << sp.FavoriteFood << " Ее узор " << sp.Pattern << "\n";
+				<< " Ее любимая еда " << sp.FavoriteFood << " Ее узор " << sp.Pattern << " Ее вид "<< sp.Species << "\n";
 			return out;
 		}
 	
-	//
+	// Взаимодействие двух саламандер
+		bool ToIteract(BlueSpottedSalamander& sp) {
 
+			if (this == &sp) {
+				cout << "Саламандра не может взаимодействовать с сама собой... Из-за вас ей одиноко. На вас наваливается чувство вины";
+				return false;
+			}
 
+			cout << "Произошло следующие: \n ";
 
+			if (sp.getSpesies() == " Тигровая ") {
+				cout << "Тигровая агрессивно шипит на ";
+				cout << Name << ". Она явно настроена агрессивно!\n" << endl;
+				return false;
+			}
 
+			else if (sp.getSpesies() == " Пятнистая ") {
+				cout << "Пятнистая отворачивается от  ";
+				cout << Name << ". Видимо, ей не интересно.\n" << endl;
+				return false;
+			}
 
+			 else if (sp.getSpesies() == " Красноспинная ") {
+				cout << "Красноспинная активно размахивает хвостом, смотря на ";
+				cout << Name << ". Очевидно, она недовольна!\n" << endl;
+				return false;
+			}
+	
+
+			else if (sp.getSpesies() == " Северная ") {
+				cout << "Северная радостно глядит на ";
+				cout << Name << ".  Кажется, она хочет поиграть!\n" << endl;
+				return true;
+
+			}
+
+			 else if (sp.getSpesies() == " Северозападная ") {
+				cout << "Северозападная смотрит с явным равнодушием на " <<Name;
+				return true;
+			}
+			
+
+		}
+		//
 
 	// Функция для взгляда на саламандр
 		bool ToLook() {
@@ -111,6 +151,7 @@ public:
 			return false;
 
 		}
+		//
 
 	// Реакция
 	bool ToReact() {
@@ -238,8 +279,13 @@ public:
 	}
 
 	bool CondColorPatternAndSpesies(BlueSpottedSalamander& sp) {
-		return (sp.getColorPattern() == " Синий " && sp.getSpesies() == "Тигровая");
+		return (sp.getColorPattern() == " Оранжевый " || sp.getSpesies() == " Тигровая ");
 	}
+
+	bool CondColorManeAndSpesies(BlueSpottedSalamander& sp) {
+		return (sp.getColorMane() == " Черный " && (sp.getSpesies() == " Пятнистая " || sp.getSpesies()==" Тигровая "));
+	}
+
 
 	BlueSpottedSalamander& List::getByID(int id) {
 		node* r = head;
@@ -268,6 +314,10 @@ int main()
 	BlueSpottedSalamander sp3(" Рэдди", " Красный ", " Черный ", 9.0, 8, " Пауки ", " Полосатая ", " Красноспинная "); cout << sp3;
 	BlueSpottedSalamander sp4(" Сумрак", " Бежевый ", " Тмено-коричневый ", 11.0, 7, " Бабочки ", " Пятнистая ", " Северная "); cout << sp4;
 	BlueSpottedSalamander sp5(" Можжевельник", " Коричневый ", " Оранжевый ", 9.0, 27, " Гусиницы ", " Крапинки ", " Северозападная "); cout << sp5;
+	BlueSpottedSalamander sp6(" Флейм", " Черный ", " Желтый ", 18.0, 3, " Моллюски ", " Полосатая ", " Тигровая "); cout << sp6;
+	BlueSpottedSalamander sp7(" Бёрн", " Желтый ", " Черный ", 21.0, 5, " Улитки ", " Полосатая ", " Тигровая "); cout << sp7;
+	BlueSpottedSalamander sp8(" Ривер", " Серая ", " Синий ", 7.5, 17, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp8;
+	
 
 	cout << endl;
 
@@ -280,6 +330,9 @@ int main()
 	lstSalamander.push(&sp3);
 	lstSalamander.push(&sp4);
 	lstSalamander.push(&sp5);
+	lstSalamander.push(&sp6);
+	lstSalamander.push(&sp7);
+	lstSalamander.push(&sp8);
 
 
 
@@ -287,7 +340,7 @@ int main()
 		int choice;
 		int choiseMove;
 
-		cout << "Несколько саламандр греются на солнышке\n";
+		cout << "Несколько саламандр греются на солнышке. Их можно погладить, но некоторые виды этих созданий не любят, когда их трогают. Так что может лучше последить за их поведением?\n";
 		cout << "Вы выбираете салмандру..." << endl;
 
 		lstSalamander.ListPrint();
@@ -297,11 +350,16 @@ int main()
 		BlueSpottedSalamander b = lstSalamander.getByID(choice);
 
 
-		cout << "Вариант 1: Вы решаете погладить"<< endl; cout << "Вариант 2: Вы решаете присмотреться"<< endl;
-
+		cout << "Вариант 1: Вы решаете погладить"<< endl; cout << "Вариант 2: Вы решаете присмотреться"<< endl; 
+		cout << "Вариант 3: Вы решаете посмотреть на взаимодействие " << b.getName() << " и другой саламандрой" << endl;
+		
 
 		cout << "Что вы хотите сделать? ";
 		cin >> choiseMove;
+
+		
+		BlueSpottedSalamander a;
+
 
 		switch (choiseMove)
 		{
@@ -310,18 +368,30 @@ int main()
 			break;
 		case 2:
 			b.ToLook();
+			break;
+		case 3:
+			cout << "\n С какой саламандрой будет взимодейстовать ваша избранная? " << endl;
+			int inp;
+			cout << "Самаландра взаимодействует с вашей избранной: "; cin >> inp; 
+			a = lstSalamander.getByID(inp);
+			b.ToIteract(a);
 		default:
 			cout << "Вы уходите" << endl;
 			
 		}
 
 
-		
-		cout << "\n Ваш друг решил приютить пару саламандр. он выбрал саламандру с синим узором и тигровую \n";
+		// Вывести только тех у которых оранжевый узор и узоры
+		cout << "\n Ваш друг решил приютить несколько саламандр. Он выбрал тигровых и тех у которых цвет узора оранжевый \n";
 		lstSalamander.findAll(CondColorPatternAndSpesies);
 		
+		// Вывести только только самаандры у которых ТОЛЬКО имя "Сумрак" и любят бабочек
 		cout << "\n Вам захотели к себе тоже взять саламандр. Вы выбрали ту которая любит бабочек -  дружелюбную Сумрак\n";
 		lstSalamander.findAll(CondFavorFoodAndName);
+
+		// 
+		cout << "\n Тигровые и пятнистые черные салмандры уползли\n";
+		lstSalamander.findAll(CondColorManeAndSpesies);
 
 	system("pause");
 
