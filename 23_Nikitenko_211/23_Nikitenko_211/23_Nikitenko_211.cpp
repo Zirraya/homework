@@ -5,7 +5,7 @@
 
 // 1 лаба 4 задания 2 лаба 6 задания
 
-// Проверка на некоректность данных(нельзя брать отриц) не может быть двух одниковых  сравнение двух саламандр типо если две саламадры одиакновых ввели акшресивно
+// Проверка на некоректность данных(нельзя брать отриц)  сравнение двух саламандр типо если две саламадры одиакновых ввели акшресивно
 
 #include <iostream>
 
@@ -46,6 +46,7 @@ public:
 		Pattern = P;
 		Species = S;
 	}
+	
 
 	//
 	string getName() { return Name; }
@@ -57,11 +58,15 @@ public:
 	string getPattern() { return Pattern; }
 	string getSpesies() { return Species; }
 
+
+
 	// сравнение саламандер на сходство по признакам - взяли двух саламандер и 
 	// задали им условие сравнения - условие будет любым
-	bool  similarity(BlueSpottedSalamander& sp, bool condition(BlueSpottedSalamander& sp1, BlueSpottedSalamander& sp2)) {
+	 // Функция для сравнения двух саламандр
+	bool similarity(BlueSpottedSalamander& sp, bool (*condition)(BlueSpottedSalamander&, BlueSpottedSalamander&)) {
 		return condition(*this, sp);
 	}
+	
 
 	// проверка саламандер на тождественность по имени - перегрузка оператора ==
 	bool operator==(BlueSpottedSalamander& sp) {
@@ -200,13 +205,15 @@ public:
 	private:
 		node* head;
 		node* tail;
+		int size;
 	public:
-		List() { head = NULL; tail = NULL; }
+		List() { head = NULL; tail = NULL; size = NULL; }
 		void push(BlueSpottedSalamander* sp);
 		void print();
 		void ListPrint();
 		bool find(BlueSpottedSalamander sp); // Найти  одну нужную саламандру
 		bool findAll(bool condition(BlueSpottedSalamander& sp1)); // Найти всех соломандр по условию
+		bool DeleteCond(bool condition(BlueSpottedSalamander& sp1));
 		BlueSpottedSalamander& getByID(int id);
 
 	};
@@ -274,6 +281,53 @@ public:
 	}
 
 
+	// Функия для удаления
+	
+	bool List::DeleteCond(bool condition(BlueSpottedSalamander& sp1))
+	{
+		node* current = head;
+		bool deleted = false; // Флаг, чтобы отслеживать, были ли удалены элементы
+
+		while (current != NULL)
+		{
+			if (condition(*(current->inf))) // Проверяем условие
+			{
+				node* temp = current; // Сохраняем текущий узел для удаления
+
+				if (current == head) // Если текущий узел - голова
+				{
+					head = current->next;
+					if (head != NULL)
+						head->prev = NULL; // Обновляем указатель на предыдущий узел
+				}
+				else if (current == tail) // Если текущий узел - хвост
+				{
+					tail = current->prev;
+					tail->next = NULL; // Обновляем указатель на следующий узел
+				}
+				else // Если узел находится в середине списка
+				{
+					current->prev->next = current->next;
+					current->next->prev = current->prev;
+				}
+
+				current = current->next; // Переходим к следующему узлу
+				delete temp; // Удаляем текущий узел
+				deleted = true; // Устанавливаем флаг удаления
+				size--; // Уменьшаем размер списка
+			}
+			else
+			{
+				current = current->next; // Переходим к следующему узлу
+			}
+		}
+
+		return deleted; // Возвращаем true, если были удалены элементы, иначе false
+	}
+	//
+
+
+	// Разные условия
 	bool CondFavorFoodAndName(BlueSpottedSalamander& sp) {
 		return (sp.getFavoriteFood() == " Бабочки " && sp.getName() == " Сумрак");
 	}
@@ -282,9 +336,27 @@ public:
 		return (sp.getColorPattern() == " Оранжевый " || sp.getSpesies() == " Тигровая ");
 	}
 
+	// Условие для сравнения
+	bool condition(BlueSpottedSalamander& sp1, BlueSpottedSalamander& sp7) {
+		//Сравниваем по виду и еде
+		return (sp1.getSpesies() == sp7.getSpesies() ||
+			sp1.getFavoriteFood() == sp7.getFavoriteFood());
+	}
+	//
+
 	bool CondColorManeAndSpesies(BlueSpottedSalamander& sp) {
 		return (sp.getColorMane() == " Черный " && (sp.getSpesies() == " Пятнистая " || sp.getSpesies()==" Тигровая "));
 	}
+
+	bool NonCorrect(BlueSpottedSalamander& sp) {
+
+		return(sp.getName() == "" || sp.getAge() <= 0 || sp.getLengh() <= 0);
+			cout << " Безымянных саламандр небывет, тем более чья длина или возраст меньше нуля "<<endl;
+
+
+	}
+	//
+
 
 
 	BlueSpottedSalamander& List::getByID(int id) {
@@ -302,21 +374,24 @@ public:
 	}
 
 
-
-
 int main()
 {
 	setlocale(LC_ALL, "RUS");
 
+
+
+
 	//string N, string CM, string CP, float L, int A, string FF, string P, string S
 	BlueSpottedSalamander sp1(" Огниво", " Черный ", " Оранжевый ", 21.0, 5, " Моллюски ", " Полосатая ", " Тигровая "); cout << sp1;
-	BlueSpottedSalamander sp2(" Винтер", " Черный ", " Синий ", 8.0, 17, " Черви ", " Полосатая ", " Пятнистая "); cout << sp2;
+	BlueSpottedSalamander sp2(" Винтер", " Черный ", " Синий ", 8.0, 17, " Моллюски ", " Полосатая ", " Пятнистая "); cout << sp2;
 	BlueSpottedSalamander sp3(" Рэдди", " Красный ", " Черный ", 9.0, 8, " Пауки ", " Полосатая ", " Красноспинная "); cout << sp3;
 	BlueSpottedSalamander sp4(" Сумрак", " Бежевый ", " Тмено-коричневый ", 11.0, 7, " Бабочки ", " Пятнистая ", " Северная "); cout << sp4;
 	BlueSpottedSalamander sp5(" Можжевельник", " Коричневый ", " Оранжевый ", 9.0, 27, " Гусиницы ", " Крапинки ", " Северозападная "); cout << sp5;
 	BlueSpottedSalamander sp6(" Флейм", " Черный ", " Желтый ", 18.0, 3, " Моллюски ", " Полосатая ", " Тигровая "); cout << sp6;
 	BlueSpottedSalamander sp7(" Бёрн", " Желтый ", " Черный ", 21.0, 5, " Улитки ", " Полосатая ", " Тигровая "); cout << sp7;
 	BlueSpottedSalamander sp8(" Ривер", " Серая ", " Синий ", 7.5, 17, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp8;
+	BlueSpottedSalamander sp9("", " Серая ", " Синий ", 7.5, 17, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp9;
+	BlueSpottedSalamander sp10(" Мунн", " Серая ", " Синий ", 7.5, -17, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp10;
 	
 
 	cout << endl;
@@ -324,6 +399,7 @@ int main()
 	BlueSpottedSalamander sp;
 
 	List lstSalamander;
+
 
 	lstSalamander.push(&sp1);
 	lstSalamander.push(&sp2);
@@ -333,6 +409,8 @@ int main()
 	lstSalamander.push(&sp6);
 	lstSalamander.push(&sp7);
 	lstSalamander.push(&sp8);
+	lstSalamander.push(&sp9);
+	lstSalamander.push(&sp10);
 
 
 
@@ -341,9 +419,11 @@ int main()
 		int choiseMove;
 
 		cout << "Несколько саламандр греются на солнышке. Их можно погладить, но некоторые виды этих созданий не любят, когда их трогают. Так что может лучше последить за их поведением?\n";
+		cout << "Ой, ой вы не можете взаимодействовать со всеми, так как некоторые данные занесенны не верно \n ";
 		cout << "Вы выбираете салмандру..." << endl;
-
+		lstSalamander.DeleteCond(NonCorrect); cout << endl; // удаляет некоректные данные
 		lstSalamander.ListPrint();
+		
 
 		cout << "C какой саламандрой вы хоите познакомиться поближе (Введите номер варианта)? ";
 		cin >> choice;
@@ -387,11 +467,21 @@ int main()
 		
 		// Вывести только только самаандры у которых ТОЛЬКО имя "Сумрак" и любят бабочек
 		cout << "\n Вам захотели к себе тоже взять саламандр. Вы выбрали ту которая любит бабочек -  дружелюбную Сумрак\n";
-		lstSalamander.findAll(CondFavorFoodAndName);
+		lstSalamander.findAll(CondFavorFoodAndName); cout << endl;
+
+		if (sp1.similarity(sp7, condition)) {
+			cout << " Саламандры одного вида почему то шипят друг на друга, и не могут поделить еду!" << endl;	
+		}
+		else {
+			cout << " Саламандры спокойно лежат!" << endl;
+		}
 
 		// 
-		cout << "\n Тигровые и пятнистые черные салмандры уползли\n";
-		lstSalamander.findAll(CondColorManeAndSpesies);
+		cout << "\n Тигровые и пятнистые черные салмандры уползли. Остались они\n";
+		lstSalamander.DeleteCond(CondColorManeAndSpesies); cout << endl;
+		lstSalamander.ListPrint();
+
+
 
 	system("pause");
 
