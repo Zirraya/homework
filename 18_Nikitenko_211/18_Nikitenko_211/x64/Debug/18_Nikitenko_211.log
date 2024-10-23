@@ -1,13 +1,3 @@
 ﻿  18_Nikitenko_211.cpp
-C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(314,177): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(315,158): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(316,175): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(326,195): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(327,191): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(328,199): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(336,169): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(337,167): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(338,161): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(364,111): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(365,139): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\projects\homework\18_Nikitenko_211\18_Nikitenko_211\Pokemon.h(45,30): warning C4244: return: преобразование "double" в "int", возможна потеря данных
   18_Nikitenko_211.vcxproj -> C:\projects\homework\18_Nikitenko_211\x64\Debug\18_Nikitenko_211.exe

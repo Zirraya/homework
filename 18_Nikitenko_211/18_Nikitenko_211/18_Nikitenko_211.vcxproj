@@ -129,6 +129,13 @@
   <ItemGroup>
     <ClCompile Include="18_Nikitenko_211.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="List.h" />
+    <ClInclude Include="Magikarp.h" />
+    <ClInclude Include="Pidgeotto.h" />
+    <ClInclude Include="Pokemon.h" />
+    <ClInclude Include="Rhyhorn.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
