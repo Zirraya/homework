@@ -1,0 +1,15 @@
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\bin\Debug\net7.0\n1(index).exe
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\bin\Debug\net7.0\n1(index).deps.json
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\bin\Debug\net7.0\n1(index).runtimeconfig.json
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\bin\Debug\net7.0\n1(index).dll
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\bin\Debug\net7.0\n1(index).pdb
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\obj\Debug\net7.0\n1(index).csproj.AssemblyReference.cache
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\obj\Debug\net7.0\n1(index).GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\obj\Debug\net7.0\n1(index).AssemblyInfoInputs.cache
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\obj\Debug\net7.0\n1(index).AssemblyInfo.cs
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\obj\Debug\net7.0\n1(index).csproj.CoreCompileInputs.cache
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\obj\Debug\net7.0\n1(index).dll
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\obj\Debug\net7.0\refint\n1(index).dll
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\obj\Debug\net7.0\n1(index).pdb
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\obj\Debug\net7.0\n1(index).genruntimeconfig.cache
+C:\Users\lenovo\source\repos\n1(index)\n1(index)\obj\Debug\net7.0\ref\n1(index).dll
