@@ -4,26 +4,21 @@
 
 class Rhyhorn : public Pokemon {
 
-    string Name;
-    string Color;
-    string Ability;
+   
+    double LenhgHorn; // Длина рога
 
 public:
     Rhyhorn() {}
-    Rhyhorn(string N, string C, string Ab, string s, string ty, string n, string te, int A, double W) : Pokemon(s, ty, n, te, A, W) {
+    Rhyhorn(string N, string C, string Ab, double LH, string s, string ty, string n, string te, double H, double W) : Pokemon(N, C, Ab,s, ty, n, te, H, W) {
         Name = N; // имя 
         Color = C; // цвет
         Ability = Ab; // способность
-
-
-
+        LenhgHorn = LH;
     }
     // естественно, что у пегаса постоянны цвет глаз и масть, его в принципе можно уговорить поменять имя 
     // (если правильно предложить вкусняшку), а также пегасы растут и взрослеют
-
-    string getName() { return Name; }
-    string getColor() { return Color; }
-    string getAbility() { return Ability; }
+    double getLenhgHorn() { return LenhgHorn; }
+   
 
     // сравнение пегасов на сходство по признакам - взяли двух пегасов и 
   // задали им условие сравнения - условие будет любым
@@ -34,13 +29,13 @@ public:
     // проверка пегасов на тождественность по имени - перегрузка оператора ==
     bool operator==(Rhyhorn& p) {
         return (Name == p.getName() && NickName == p.getNickName() && Color == p.getColor() &&
-            Ability == p.getAbility() && Age == p.getAge() && Weight == p.getWeight());
+            Ability == p.getAbility() && Height == p.getHeight() && Weight == p.getWeight());
     }
 
     // вывод инфы о пегасах - перегрузка вывода
     virtual std::ostream& print(ostream& out) {
         return out << "Рейхорн  по имени " << Name << "и по характеру" << NickName << " цвета " << Color << "со способностью" << Ability
-            << " имеет вес " << Weight << " и возраст " << Age << "\n";
+           <<" с длинной рога " <<LenhgHorn<< " имеет вес " << Weight << " и ростом " << Height << "\n";
     }
 
     friend ostream& operator<< (ostream& out, Rhyhorn& p)

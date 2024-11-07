@@ -8,24 +8,21 @@
 
 class Magikarp : public Pokemon {
 
-    string Name;
-    string Color;
-    string Ability;
+    string ColorFin; // ÷вет плавников
 
 public:
     Magikarp() {}
-    Magikarp(string N, string C, string Ab, string s, string ty, string n, string te, int A, double W) : Pokemon(s, ty, n, te, A, W) {
+    Magikarp(string N, string C, string Ab, string CF, string s, string ty, string n, string te, double H, double W) : Pokemon(N, C, Ab,s, ty, n, te, H, W) {
         Name = N; // им€ 
         Color = C; // цвет
         Ability = Ab; // способность
+        ColorFin = CF; // ÷вет плавников
 
 
     }
     // естественно, что у пегаса посто€нны цвет глаз и масть, его в принципе можно уговорить помен€ть им€ 
     // (если правильно предложить вкусн€шку), а также пегасы растут и взрослеют
-    string getName() { return Name; }
-    string getColor() { return Color; }
-    string getAbility() { return Ability; }
+    string getColorFin() { return ColorFin; }
 
     // сравнение пегасов на сходство по признакам - вз€ли двух пегасов и 
   // задали им условие сравнени€ - условие будет любым
@@ -36,13 +33,13 @@ public:
     // проверка пегасов на тождественность по имени - перегрузка оператора ==
     bool operator==(Magikarp& p) {
         return (Name == p.getName() && NickName == p.getNickName() && Color == p.getColor() &&
-            Ability == p.getAbility() && Age == p.getAge() && Weight == p.getWeight());
+            Ability == p.getAbility() && Height == p.getHeight() && Weight == p.getWeight());
     }
 
     // вывод инфы о пегасах - перегрузка вывода
     virtual std::ostream& print(ostream& out) {
         return out << "ћаджикарп  по имени " << Name << "и по характеру" << NickName << " цвета " << Color << "со способностью" << Ability
-            << " имеет вес " << Weight << " и возраст " << Age << "\n";
+           <<" плавники цвета "<< ColorFin << " имеет вес " << Weight << " и ростом " << Height << "\n";
     }
 
     friend ostream& operator<< (ostream& out, Magikarp& p)

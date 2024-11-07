@@ -1,0 +1,5 @@
+﻿  18_Nikitenko_211.cpp
+C:\projects\homework\OOP\C++\18_Nikitenko_211\18_Nikitenko_211\Pokemon.h(46,30): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+C:\projects\homework\OOP\C++\18_Nikitenko_211\18_Nikitenko_211\Pokemon.h(47,30): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+C:\projects\homework\OOP\C++\18_Nikitenko_211\18_Nikitenko_211\18_Nikitenko_211.cpp(29): warning C4715: SearchBird: значение возвращается не при всех путях выполнения
+  18_Nikitenko_211.vcxproj -> C:\projects\homework\OOP\C++\18_Nikitenko_211\x64\Debug\18_Nikitenko_211.exe

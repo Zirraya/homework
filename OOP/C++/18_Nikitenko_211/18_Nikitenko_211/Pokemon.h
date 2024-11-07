@@ -8,13 +8,16 @@
 using namespace std;
 
 class Pokemon {
-private:
+public:
+    string Name;
+    string Color;
+    string Ability;
     string Type;// тип
     string Species;// вид
     string TypeEating; // что ест
 protected:// потомки могут менять эти значения
     string NickName; // Характер
-    int Age;// возраст
+    double Height;// возраст
     double Weight;// вес
 
     static unordered_map<string, int> speciesCount;
@@ -22,8 +25,8 @@ protected:// потомки могут менять эти значения
 
 public:
     Pokemon() {}
-    Pokemon(string s, string ty, string n, string te, int A, double W)
-        : Species(s), Type(ty), NickName(n), TypeEating(te), Age(A), Weight(W) {
+    Pokemon(string N, string C, string Ab, string s, string ty, string n, string te, double H, double W)
+        : Name(N), Color(C), Ability(Ab),Species(s), Type(ty), NickName(n), TypeEating(te), Height(H), Weight(W) {
         speciesCount[Species]++; // Увеличиваем счетчик для данного вида
     }
 
@@ -31,17 +34,16 @@ public:
     // Конструктор копирования
     Pokemon(const Pokemon& p) 
         : Species(p.Species), Type(p.Type), NickName(p.NickName),
-          TypeEating(p.TypeEating), Age(p.Age), Weight(p.Weight) {
+          TypeEating(p.TypeEating), Height(p.Height), Weight(p.Weight) {
         // Не увеличиваем счетчик при копировании
-    }
-
-    void evolve() {
-        Weight += 15; // Увеличиваем вес на 10 при эволюции
-        cout << "Покемон эволюционировал и теперь весит " << Weight << "!\n";
+        evolve();
     }
 
 
-    int getAge() { return Age; }
+    string getName() { return Name; }
+    string getColor() { return Color; }
+    string getAbility() { return Ability; }
+    int getHeight() { return Height; }
     int getWeight() { return Weight; }
     string getNickName() { return NickName; }
     string getType() { return Type; }
@@ -56,17 +58,25 @@ public:
     // сравним животных пока так, чтобы потом иметь возможность переопределить
     virtual bool operator==(Pokemon& p) {
         return (Species == p.getSpecies() && Type == p.getType() && NickName == p.getNickName() && TypeEating == p.getTypeEating() &&
-            Age == p.getAge() && Weight == p.getWeight());
+            Height == p.getHeight() && Weight == p.getWeight() && Name==p.getName() && Color==p.getColor() && Ability == p.getAbility() );
     }
 
     virtual std::ostream& print(ostream& out) {
         return out << " Покемон  вида " << Species << " принадлежит типу " << Type << "по характеру " << NickName << " является " << TypeEating
-            << " имеет вес " << Weight << " и возраст " << Age << "\n";
+            << " имеет вес " << Weight << " и ростом " << Height << "\n";
     }
 
     friend ostream& operator<< (ostream& out, Pokemon& p)
     {
         return p.print(out);
+    }
+
+    void evolve() {
+        if( getType() == " Летающе - водный ")
+
+        Height += 1; // Увеличиваем рост на 10 при эволюции
+        Weight += 15;
+        cout << Type <<"Покемон эволюционировал и стал болльше: рост " << Height <<" Вес " <<Weight << "!\n";
     }
 
 };
