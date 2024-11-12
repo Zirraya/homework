@@ -177,6 +177,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.DoubleBuffered = true;
             this.MaximumSize = new System.Drawing.Size(496, 563);
             this.MinimumSize = new System.Drawing.Size(496, 563);
             this.Name = "Form1";

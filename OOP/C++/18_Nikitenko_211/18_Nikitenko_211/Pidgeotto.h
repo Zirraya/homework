@@ -11,6 +11,9 @@ class Pidgeotto : public Pokemon {
     double Wingspan; // Размах крыльев
 
     Evolv* b;
+
+
+
 public:
     Pidgeotto() {}
     Pidgeotto(string N, string C, string Ab, string CC,double WS, string s, string ty, string n, string te, double H, double W) : Pokemon(N,C,Ab,s, ty, n, te, H, W) {
@@ -20,11 +23,14 @@ public:
         ColorCrest = CC;
         Wingspan = WS;
         b = NULL;
+      
 
     }
     // естественно, что у пегаса постоянны цвет глаз и масть, его в принципе можно уговорить поменять имя 
     // (если правильно предложить вкусняшку), а также пегасы растут и взрослеют
-
+    string getColorCrest() { return ColorCrest; }
+    double getWingspan() { return Wingspan; }
+   
    
 
     // сравнение пегасов на сходство по признакам - взяли двух пегасов и 

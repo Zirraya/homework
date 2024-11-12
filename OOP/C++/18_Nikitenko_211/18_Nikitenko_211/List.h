@@ -16,8 +16,9 @@ class List {
 private:
     node* head;
     node* tail;
+    int cnt;
 public:
-    List() { head = NULL; tail = NULL; }
+    List() { head = NULL; tail = NULL; cnt = 0; }
     void push(Pokemon* p);
     void print(ostream& out);
     bool find(Pokemon* p); //  найти одного конкретного животного

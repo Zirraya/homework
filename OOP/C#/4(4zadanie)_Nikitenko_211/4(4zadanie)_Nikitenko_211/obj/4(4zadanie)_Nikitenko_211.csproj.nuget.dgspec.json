@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projects\\homework\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211.csproj": {}
+    "C:\\projects\\homework\\OOP\\C#\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211.csproj": {}
   },
   "projects": {
-    "C:\\projects\\homework\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211.csproj": {
+    "C:\\projects\\homework\\OOP\\C#\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\homework\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211.csproj",
+        "projectUniqueName": "C:\\projects\\homework\\OOP\\C#\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211.csproj",
         "projectName": "4(4zadanie)_Nikitenko_211",
-        "projectPath": "C:\\projects\\homework\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211.csproj",
+        "projectPath": "C:\\projects\\homework\\OOP\\C#\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211.csproj",
         "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\homework\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211\\obj\\",
+        "outputPath": "C:\\projects\\homework\\OOP\\C#\\4(4zadanie)_Nikitenko_211\\4(4zadanie)_Nikitenko_211\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",

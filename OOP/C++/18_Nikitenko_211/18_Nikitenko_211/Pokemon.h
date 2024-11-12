@@ -15,6 +15,9 @@ public:
     string Type;// тип
     string Species;// вид
     string TypeEating; // что ест
+
+
+
 protected:// потомки могут менять эти значения
     string NickName; // Характер
     double Height;// возраст
@@ -50,6 +53,7 @@ public:
     string getSpecies() { return Species; }
     string getTypeEating() { return TypeEating; }
 
+
     // Виртуальная функция для получения количества особей данного вида
     virtual int getSpeciesCount() {
         return speciesCount[Species];
@@ -72,11 +76,9 @@ public:
     }
 
     void evolve() {
-        if( getType() == " Летающе - водный ")
-
-        Height += 1; // Увеличиваем рост на 10 при эволюции
-        Weight += 15;
-        cout << Type <<"Покемон эволюционировал и стал болльше: рост " << Height <<" Вес " <<Weight << "!\n";
+            Height += 1; // Увеличиваем рост на 10 при эволюции
+            Weight += 15;
+            cout << Type << "Покемон эволюционировал и стал болльше: рост " << Height << " Вес " << Weight << "!\n";
     }
 
 };
