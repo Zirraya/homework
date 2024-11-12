@@ -1,0 +1,4 @@
+C:\projects\homework\NIR\TableValue2Nikitenko211\TableValue2Nikitenko211\x64\Debug\TableValue2Nikitenko211.vcxproj.AssemblyReference.cache
+C:\projects\homework\NIR\TableValue2Nikitenko211\TableValue2Nikitenko211\x64\Debug\TableValue2Nikitenko211.vcxproj.SuggestedBindingRedirects.cache
+C:\projects\homework\NIR\TableValue2Nikitenko211\TableValue2Nikitenko211\x64\Debug\TableValue2Nikitenko211.TableValue.resources
+C:\projects\homework\NIR\TableValue2Nikitenko211\TableValue2Nikitenko211\x64\Debug\TableValue2Nikitenko211.vcxproj.GenerateResource.cache
