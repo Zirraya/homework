@@ -1,0 +1,4 @@
+C:\projects\homework\NIR\12SimleNikitenko211\12SimleNikitenko211\x64\Debug\12SimleNikitenko211.vcxproj.AssemblyReference.cache
+C:\projects\homework\NIR\12SimleNikitenko211\12SimleNikitenko211\x64\Debug\12SimleNikitenko211.vcxproj.SuggestedBindingRedirects.cache
+C:\projects\homework\NIR\12SimleNikitenko211\12SimleNikitenko211\x64\Debug\My12SimleNikitenko211.MyForm.resources
+C:\projects\homework\NIR\12SimleNikitenko211\12SimleNikitenko211\x64\Debug\12SimleNikitenko211.vcxproj.GenerateResource.cache

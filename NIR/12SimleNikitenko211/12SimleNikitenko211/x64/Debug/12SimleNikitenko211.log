@@ -1,0 +1,4 @@
+﻿  MyForm.cpp
+C:\projects\homework\NIR\12SimleNikitenko211\12SimleNikitenko211\MyForm.cpp(1,9): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+  MyForm.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+  12SimleNikitenko211.vcxproj -> C:\projects\homework\NIR\12SimleNikitenko211\x64\Debug\12SimleNikitenko211.exe

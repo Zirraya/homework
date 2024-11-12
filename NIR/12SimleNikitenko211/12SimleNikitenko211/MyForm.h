@@ -162,7 +162,7 @@ namespace My12SimleNikitenko211 {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->ClientSize = System::Drawing::Size(513, 507);
+			this->ClientSize = System::Drawing::Size(503, 507);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->txtInputY);
 			this->Controls->Add(this->txtInputX);
@@ -170,6 +170,7 @@ namespace My12SimleNikitenko211 {
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->Calculate);
+			this->DoubleBuffered = true;
 			this->Name = L"MyForm";
 			this->Text = L"Простые Вычисления";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider1))->EndInit();
