@@ -124,7 +124,6 @@
     <ClCompile Include="TableValue.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FuncForMassiv.h" />
     <ClInclude Include="TableValue.h">
       <FileType>CppForm</FileType>
     </ClInclude>

@@ -62,6 +62,9 @@ namespace TableValue2Nikitenko211 {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ MassivForAdd;
 	private: System::Windows::Forms::ErrorProvider^ errorProvider1;
+	private: System::Windows::Forms::ErrorProvider^ errorProvider2;
+	private: System::Windows::Forms::ErrorProvider^ errorProvider3;
+	private: System::Windows::Forms::ErrorProvider^ errorProvider4;
 
 	private: System::ComponentModel::IContainer^ components;
 
@@ -97,8 +100,14 @@ namespace TableValue2Nikitenko211 {
 			this->MassivForAdd = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->errorProvider1 = (gcnew System::Windows::Forms::ErrorProvider(this->components));
+			this->errorProvider2 = (gcnew System::Windows::Forms::ErrorProvider(this->components));
+			this->errorProvider3 = (gcnew System::Windows::Forms::ErrorProvider(this->components));
+			this->errorProvider4 = (gcnew System::Windows::Forms::ErrorProvider(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->grdMassiv))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider3))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider4))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// Add
@@ -135,9 +144,9 @@ namespace TableValue2Nikitenko211 {
 			this->SredneeArifm->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->SredneeArifm->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->SredneeArifm->Location = System::Drawing::Point(417, 230);
+			this->SredneeArifm->Location = System::Drawing::Point(378, 230);
 			this->SredneeArifm->Name = L"SredneeArifm";
-			this->SredneeArifm->Size = System::Drawing::Size(132, 78);
+			this->SredneeArifm->Size = System::Drawing::Size(171, 78);
 			this->SredneeArifm->TabIndex = 2;
 			this->SredneeArifm->Text = L"Среднее арифметическое";
 			this->SredneeArifm->UseVisualStyleBackColor = false;
@@ -149,9 +158,9 @@ namespace TableValue2Nikitenko211 {
 			this->NechotElem->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->NechotElem->ForeColor = System::Drawing::SystemColors::ControlLightLight;
-			this->NechotElem->Location = System::Drawing::Point(417, 365);
+			this->NechotElem->Location = System::Drawing::Point(378, 365);
 			this->NechotElem->Name = L"NechotElem";
-			this->NechotElem->Size = System::Drawing::Size(139, 79);
+			this->NechotElem->Size = System::Drawing::Size(178, 79);
 			this->NechotElem->TabIndex = 3;
 			this->NechotElem->Text = L"Номера нечетных элементов";
 			this->NechotElem->UseVisualStyleBackColor = false;
@@ -175,10 +184,10 @@ namespace TableValue2Nikitenko211 {
 			this->SrResult->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->SrResult->ForeColor = System::Drawing::Color::SaddleBrown;
-			this->SrResult->Location = System::Drawing::Point(436, 314);
+			this->SrResult->Location = System::Drawing::Point(378, 314);
 			this->SrResult->Multiline = true;
 			this->SrResult->Name = L"SrResult";
-			this->SrResult->Size = System::Drawing::Size(97, 27);
+			this->SrResult->Size = System::Drawing::Size(171, 27);
 			this->SrResult->TabIndex = 12;
 			// 
 			// NomeraResult
@@ -187,12 +196,11 @@ namespace TableValue2Nikitenko211 {
 			this->NomeraResult->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->NomeraResult->ForeColor = System::Drawing::Color::SaddleBrown;
-			this->NomeraResult->Location = System::Drawing::Point(437, 450);
+			this->NomeraResult->Location = System::Drawing::Point(378, 451);
 			this->NomeraResult->Multiline = true;
 			this->NomeraResult->Name = L"NomeraResult";
-			this->NomeraResult->Size = System::Drawing::Size(97, 27);
+			this->NomeraResult->Size = System::Drawing::Size(171, 27);
 			this->NomeraResult->TabIndex = 13;
-			
 			// 
 			// grdMassiv
 			// 
@@ -238,6 +246,18 @@ namespace TableValue2Nikitenko211 {
 			// 
 			this->errorProvider1->ContainerControl = this;
 			// 
+			// errorProvider2
+			// 
+			this->errorProvider2->ContainerControl = this;
+			// 
+			// errorProvider3
+			// 
+			this->errorProvider3->ContainerControl = this;
+			// 
+			// errorProvider4
+			// 
+			this->errorProvider4->ContainerControl = this;
+			// 
 			// TableValue
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -261,6 +281,9 @@ namespace TableValue2Nikitenko211 {
 			this->Text = L"Обработка табличных значений";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->grdMassiv))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider3))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->errorProvider4))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -272,37 +295,69 @@ namespace TableValue2Nikitenko211 {
 private: System::Void Add_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	this->grdMassiv->Rows->Add(1);
+	if (this->grdMassiv->Rows->Count > 0) {
+		errorProvider3->SetError(grdMassiv, ""); // Очищаем сообщение об ошибке
+	}
 
 }
 
 private: System::Void Delete_Click(System::Object^ sender, System::EventArgs^ e) {
 
+	// Проверка на наличие строк в grdMassiv
+	if (this->grdMassiv->Rows->Count == 0) {
+		errorProvider3->SetError(grdMassiv, "Тут не строк чтоб их удалить"); // Установка ошибки, если нет строк
+		return; // Выход из метода
+	}
+
+
+
+	// Удаление
 	if (!this->grdMassiv->CurrentRow->IsNewRow) {
 		int i = this->grdMassiv->CurrentRow->Index;
 		this->grdMassiv->Rows->Remove(this->grdMassiv->Rows[i]);
-
 	}
 
 }
-
+// Кнопка для выведения среднего арифметического четных элементов
 private: System::Void SredneeArifm_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 	double sum = 0; // Переменная для хранения суммы значений
 	int AmountOfNumbers = 0; //  счетчик
+	bool hasNonNumeric = false; // Флаг для проверки не числовых значений
 
 
 
 	// Вычисление суммы, счетчик и нахождения четных элементов
 	for (int i = 0; i < this->grdMassiv->Rows->Count; i++) {
+
+
+
+	// Пропуск путсых ячеек
+		// Проверка на наличие значения в ячейке
+		if (grdMassiv->Rows[i]->Cells[0]->Value == nullptr) {
+			continue; // Пропустить пустую клетку
+		}
 		
+		// Получаем значение ячейки
+		String^ cellValue = grdMassiv->Rows[i]->Cells[0]->Value->ToString();
+
+		// Проверка на пустую клетку
+		if (String::IsNullOrEmpty(cellValue)) {
+			continue; // Пропустить пустую клетку
+		}
+
+	//
+
 		double num;
 		if (Double::TryParse(grdMassiv->Rows[i]->Cells[0]->Value->ToString(), num)) {
-			if (static_cast<int>(num) % 2 == 0) { // Нахождение четных элементов
+			if (static_cast<int>(num) % 2 == 0 && num != 0) { // Нахождение четных элементов
 				sum += num; // Суммирование элементов
 				AmountOfNumbers++; // Счетчик
-			}
-			
-		}	
+			}	
+		}
+		else {
+			hasNonNumeric = true; // Установка флага если, значение не числовое
+		}
 	}
 	//
 
@@ -312,47 +367,86 @@ private: System::Void SredneeArifm_Click(System::Object^ sender, System::EventAr
 		this->SrResult->Text = System::Convert::ToString(average); // Отображение результата
 	}
 	else {
-		this->SrResult->Text = "0"; // Если будет все плохо, то выведет ноль (по сути рудимент для отлова ошибок в коде) :0
+		this->SrResult->Text = "Увы их нет :0"; // Если будет все плохо, 0
+		
+	}
+
+	// Проверка на наличие нечисловых значений
+	if (hasNonNumeric) {
+		errorProvider1->SetError(SrResult, "Присутствуют нечисловые значения в массиве. Возможны неточности");
+	}
+	else {
+		errorProvider1->SetError(SrResult, ""); // Очищение сообщения об ошибки, если все норм
 	}
 	//
 }
 
-
+// Кнопка выведения индексов максимальных нечетных элементов
 private: System::Void NechotElem_Click(System::Object^ sender, System::EventArgs^ e) {
 
 
 	double summ = 0;
 	int AmountofNumberss = 0;
+	bool hasNonNumeric = false; // Флаг для проверки не числовых значений
 
+	// Строка для вывода индекса(ну почему бы и нет)
+	System::String^ oddIndices = "";
+	int oddCount = 0; // Счетчик нечетных чисел, дабы могла работать проверка на наличе нечетных чисел
 
-
-	// Вычисление суммы, счетчик и нахождения четных элементов
+	
 	for (int i = 0; i < this->grdMassiv->Rows->Count; i++) {
 
+
+	// Пропуск путсых ячеек
+	
+		// Проверка на наличие значения в ячейке
+		if (grdMassiv->Rows[i]->Cells[0]->Value == nullptr) {
+			continue; // Пропустить пустую клетку
+		}
+
+		// Получаем значение ячейки
+		String^ cellValue = grdMassiv->Rows[i]->Cells[0]->Value->ToString();
+
+		// Проверка на пустую клетку
+		if (String::IsNullOrEmpty(cellValue)) {
+			continue; // Пропустить пустую клетку
+		}
+
+		//
+
+
 		double numm;
-		if (Double::TryParse(grdMassiv->Rows[i]->Cells[0]->Value->ToString(), numm)) {
-			if (static_cast<int>(numm) % 2 != 0) { // Нахождение нечетных элементов
-				summ += numm; // Суммирование элементов
-				AmountofNumberss++; // Счетчик
-
+		
+		if (Double::TryParse(grdMassiv->Rows[i]->Cells[0]->Value->ToString(), numm)) { // Проверка, можно ли преобразовать значение в число
+			
+			if (static_cast<int>(numm) % 2 != 0 && numm != 0) { // Проверка, является ли число нечетным
+				oddIndices += i.ToString() + " "; // Индекс добавляется к строке с пробелом
+				oddCount++; // Увеличиваем счетчик нечетных чисел
 			}
-
+		}
+		else {
+			hasNonNumeric = true; // Установка флага если, значение не числовое
 		}
 	}
-	//
 
-	// Нахождение индексов максимальных нечетных элементов, 
-	if (AmountofNumberss > 0) {
-		double averagge = summ / AmountofNumberss;
-		this->NomeraResult->Text = System::Convert::ToString(summ); // Отображение результата
+	// Проверка наличия нечетных чисел
+	if (oddCount > 0) {
+		this->NomeraResult->Text = oddIndices; // Вывод индексов
 	}
 	else {
-		this->NomeraResult->Text = "0"; // Если будет все плохо, то выведет ноль (по сути рудимент для отлова ошибок в коде) :0
+		this->NomeraResult->Text = "Увы их нет :0"; // Сообщение о том, что нечетных элементов нет, мда треш
+		
+	}
+
+	// Проверка на наличие нечисловых значений
+	if (hasNonNumeric) {
+		errorProvider1->SetError(NomeraResult, "Присутствуют нечисловые значения в массиве. Возможны неточности");
+	}
+	else {
+		errorProvider1->SetError(NomeraResult, ""); // Очищение сообщения об ошибки, если все норм
 	}
 	//
-
 }
-
 
 };
 }
