@@ -16,6 +16,8 @@ public:
     string Species;// вид
     string TypeEating; // что ест
 
+    static int cntP;
+
 
 
 protected:// потомки могут менять эти значения
@@ -31,6 +33,7 @@ public:
     Pokemon(string N, string C, string Ab, string s, string ty, string n, string te, double H, double W)
         : Name(N), Color(C), Ability(Ab),Species(s), Type(ty), NickName(n), TypeEating(te), Height(H), Weight(W) {
         speciesCount[Species]++; // Увеличиваем счетчик для данного вида
+        cntP++;
     }
 
 
@@ -39,7 +42,7 @@ public:
         : Species(p.Species), Type(p.Type), NickName(p.NickName),
           TypeEating(p.TypeEating), Height(p.Height), Weight(p.Weight) {
         // Не увеличиваем счетчик при копировании
-        evolve();
+        evolve(); //Вызов функции
     }
 
 

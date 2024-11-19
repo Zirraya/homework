@@ -1,0 +1,4 @@
+C:\projects\homework\NIR\RecurFunc3Nikitenko211\RecurFunc3Nikitenko211\x64\Debug\RecurFunc3Nikitenko211.vcxproj.AssemblyReference.cache
+C:\projects\homework\NIR\RecurFunc3Nikitenko211\RecurFunc3Nikitenko211\x64\Debug\RecurFunc3Nikitenko211.vcxproj.SuggestedBindingRedirects.cache
+C:\projects\homework\NIR\RecurFunc3Nikitenko211\RecurFunc3Nikitenko211\x64\Debug\RecurFunc3Nikitenko211.RecurFunc3.resources
+C:\projects\homework\NIR\RecurFunc3Nikitenko211\RecurFunc3Nikitenko211\x64\Debug\RecurFunc3Nikitenko211.vcxproj.GenerateResource.cache

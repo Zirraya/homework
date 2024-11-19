@@ -51,6 +51,10 @@ public:
            <<" с хохолком цвета "<< ColorCrest <<" размах крыльев состовляет " << Wingspan << " имеет вес " << Weight << " и ростом " << Height << "\n";
     }
 
+    virtual std::ostream& printPidg(ostream& cout) {
+        return cout << "Это же Пиджеотто - покемон птица!\n";
+    }
+
     friend ostream& operator<< (ostream& out, Pidgeotto& p)
     {
         return p.print(out);

@@ -23,6 +23,17 @@ public:
     void print(ostream& out);
     bool find(Pokemon* p); //  найти одного конкретного животного
     bool findAll(bool condition(Pokemon* p1));  // найти всех животных по условию
+
+    int getCnt() { return cnt; }
+    node* operator[](const int index) {
+        node* tmp = head;
+        int i = 0;
+        while (tmp != NULL && i < index) {
+            i++;
+            tmp = tmp->next;
+        };
+        return tmp;
+    }
 };
 
 void List::push(Pokemon* p) { // принятие покемона в заповедник
@@ -74,5 +85,7 @@ bool List::findAll(bool condition(Pokemon* p1)) {
     }
     return (r != NULL);
 }
+
+
 
 
