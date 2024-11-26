@@ -41,8 +41,8 @@ namespace TableValue25Nikitenko211 {
 	protected:
 
 
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ InPut;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ OutPut;
+
+
 	private: System::Windows::Forms::Button^ AddString;
 	private: System::Windows::Forms::Button^ DeleteString;
 	private: System::Windows::Forms::Button^ AddColumn;
@@ -74,9 +74,7 @@ namespace TableValue25Nikitenko211 {
 			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(TableValue::typeid));
 			this->DataMassivInPut = (gcnew System::Windows::Forms::DataGridView());
-			this->InPut = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->DataMassivOutPut = (gcnew System::Windows::Forms::DataGridView());
-			this->OutPut = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->AddString = (gcnew System::Windows::Forms::Button());
 			this->DeleteString = (gcnew System::Windows::Forms::Button());
 			this->AddColumn = (gcnew System::Windows::Forms::Button());
@@ -93,7 +91,6 @@ namespace TableValue25Nikitenko211 {
 			this->DataMassivInPut->AllowUserToAddRows = false;
 			this->DataMassivInPut->AllowUserToDeleteRows = false;
 			this->DataMassivInPut->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->DataMassivInPut->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->InPut });
 			this->DataMassivInPut->Location = System::Drawing::Point(24, 48);
 			this->DataMassivInPut->Name = L"DataMassivInPut";
 			this->DataMassivInPut->RowHeadersWidth = 51;
@@ -101,33 +98,17 @@ namespace TableValue25Nikitenko211 {
 			this->DataMassivInPut->Size = System::Drawing::Size(328, 487);
 			this->DataMassivInPut->TabIndex = 0;
 			// 
-			// InPut
-			// 
-			this->InPut->HeaderText = L"Ввод массива";
-			this->InPut->MinimumWidth = 6;
-			this->InPut->Name = L"InPut";
-			this->InPut->Width = 125;
-			// 
 			// DataMassivOutPut
 			// 
 			this->DataMassivOutPut->AllowUserToAddRows = false;
 			this->DataMassivOutPut->AllowUserToDeleteRows = false;
 			this->DataMassivOutPut->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->DataMassivOutPut->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->OutPut });
 			this->DataMassivOutPut->Location = System::Drawing::Point(698, 48);
 			this->DataMassivOutPut->Name = L"DataMassivOutPut";
 			this->DataMassivOutPut->RowHeadersWidth = 51;
 			this->DataMassivOutPut->RowTemplate->Height = 24;
 			this->DataMassivOutPut->Size = System::Drawing::Size(328, 487);
 			this->DataMassivOutPut->TabIndex = 1;
-			// 
-			// OutPut
-			// 
-			this->OutPut->HeaderText = L"Вывод";
-			this->OutPut->MinimumWidth = 6;
-			this->OutPut->Name = L"OutPut";
-			this->OutPut->ReadOnly = true;
-			this->OutPut->Width = 125;
 			// 
 			// AddString
 			// 
@@ -210,11 +191,20 @@ namespace TableValue25Nikitenko211 {
 		}
 #pragma endregion
 
+
+
+
 private: System::Void AddString_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	// Проверка на наличие столбцов
+	if (this->DataMassivInPut->Columns->Count == 0) {
+		errorProvider1->SetError(DataMassivInPut, "Столбцы должны быть добавлены перед добавлением строк.");
+		return; // Выход из метода, если нет столбцов
+	}
 
 	this->DataMassivInPut->Rows->Add(1);
 	if (this->DataMassivInPut->Rows->Count > 0) {
-		errorProvider1->SetError(DataMassivInPut, ""); // 
+		errorProvider1->SetError(DataMassivInPut, ""); 
 	}
 
 }
@@ -241,6 +231,9 @@ private: System::Void AddColumn_Click(System::Object^ sender, System::EventArgs^
 	this->DataMassivInPut->Columns->Add("COLUMN"," ");
 	if (this->DataMassivInPut->Columns->Count > 0) {
 		errorProvider1->SetError(DataMassivInPut, ""); // 
+	}
+	for (int i = 0; i < this->DataMassivInPut->Columns->Count; i++) {
+		this->DataMassivInPut->Columns[i]->Width = System::Convert::ToInt32(this->DataMassivInPut->Width / (1.25 * this->DataMassivInPut->Columns->Count));
 	}
 
 }

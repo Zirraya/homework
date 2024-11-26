@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="InPut.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="OutPut.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -130,7 +124,7 @@
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgYAAAIFCAYAAACpqzUOAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAA/7JJREFUeF7s/XWYbc11n4vm3pxzE8skliz8cDMzMzP3bsbFDM299/5AZNmy7Bji
+        vQAADr0BR/uQrQAA/7JJREFUeF7s/XWYbc11n4vm3pxzE8skliz8cDMzMzP3bsbFDM299/5AZNmy7Bji
         OIpMkWzLkVnMssiSJRkEFpNtJTn35jn3xDmYnHHf36hZa83u3fvTJzvJ/Wf38/yeOddc0BOqxnhr1Kiq
         f2R/j7//+//+v78v/Zf/8l+etv7zf/7P93Vf93Vf93Vf9/X/J33fYLCc47+XlnP8aS13Qt9L/9f/9X/d
         133d133d133d138jfV9gsJzzX07LQUDUcs4+reVO8r7u677u677u677+++hpg8FyALBUy4GAtBwASMud
