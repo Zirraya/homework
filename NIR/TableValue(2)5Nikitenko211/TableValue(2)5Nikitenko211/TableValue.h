@@ -191,24 +191,23 @@ namespace TableValue25Nikitenko211 {
 		}
 #pragma endregion
 
-
-
-
+// Добавление строк
 private: System::Void AddString_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	// Проверка на наличие столбцов
+	// Проверка на наличие столбцов 
 	if (this->DataMassivInPut->Columns->Count == 0) {
 		errorProvider1->SetError(DataMassivInPut, "Столбцы должны быть добавлены перед добавлением строк.");
 		return; // Выход из метода, если нет столбцов
 	}
 
 	this->DataMassivInPut->Rows->Add(1);
-	if (this->DataMassivInPut->Rows->Count > 0) {
+	this->DataMassivOutPut->Rows->Add(1);
+	if (this->DataMassivInPut->Rows->Count > 0 && this->DataMassivOutPut->Rows->Count > 0) {
 		errorProvider1->SetError(DataMassivInPut, ""); 
 	}
 
 }
-
+// Удаление строк
 private: System::Void DeleteString_Click(System::Object^ sender, System::EventArgs^ e) {
 
 
@@ -218,26 +217,33 @@ private: System::Void DeleteString_Click(System::Object^ sender, System::EventAr
 		return; //  Выход из метода
 	}
 
-
 	// Удаление
-	if (!this->DataMassivInPut->CurrentRow->IsNewRow) {
+	if (!this->DataMassivInPut->CurrentRow->IsNewRow && !this->DataMassivOutPut->CurrentRow->IsNewRow) {
 		int i = this->DataMassivInPut->CurrentRow->Index;
 		this->DataMassivInPut->Rows->Remove(this->DataMassivInPut->Rows[i]);
+
+		int o = this->DataMassivOutPut->CurrentRow->Index;
+		this->DataMassivOutPut->Rows->Remove(this->DataMassivOutPut->Rows[o]);
 	}
 
 }
+// Добавление стоблцов
 private: System::Void AddColumn_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	this->DataMassivInPut->Columns->Add("COLUMN"," ");
-	if (this->DataMassivInPut->Columns->Count > 0) {
+	this->DataMassivOutPut->Columns->Add("COLUMN", " ");
+	if (this->DataMassivInPut->Columns->Count > 0 && this->DataMassivOutPut->Columns->Count > 0) {
 		errorProvider1->SetError(DataMassivInPut, ""); // 
 	}
 	for (int i = 0; i < this->DataMassivInPut->Columns->Count; i++) {
 		this->DataMassivInPut->Columns[i]->Width = System::Convert::ToInt32(this->DataMassivInPut->Width / (1.25 * this->DataMassivInPut->Columns->Count));
 	}
-
+	for (int i = 0; i < this->DataMassivOutPut->Columns->Count; i++) {
+		this->DataMassivOutPut->Columns[i]->Width = System::Convert::ToInt32(this->DataMassivOutPut->Width / (1.25 * this->DataMassivOutPut->Columns->Count));
+	}
 }
 
+// Уадление слолбцов
 private: System::Void DeleteColumn_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	// Проверка на наличие строк
@@ -251,9 +257,11 @@ private: System::Void DeleteColumn_Click(System::Object^ sender, System::EventAr
 	if (this->DataMassivInPut->Columns->Count > 0) {
 		// Получаем индекс последнего столбца (или можете указать нужный индекс)
 		int i = this->DataMassivInPut->Columns->Count - 1; // Индекс последнего столбца
+		int o = this->DataMassivOutPut->Columns->Count - 1;
 
 		// Удаляем столбец по индексу
 		this->DataMassivInPut->Columns->RemoveAt(i);
+		this->DataMassivOutPut->Columns->RemoveAt(o);
 	}
 
 
@@ -262,9 +270,71 @@ private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e
 
 
 
+	// Копирование данных во второй DataGridView ПЕРЕД обменом столбцов
+	DataMassivOutPut->Columns->Clear();
+	for (int i = 0; i < DataMassivInPut->ColumnCount; i++) {
+		DataMassivOutPut->Columns->Add("Column" + i, "Столбец " + (i + 1));
+	}
+
+	for (int row = 0; row < DataMassivInPut->RowCount; row++) {
+		array<Object^>^ rowData = gcnew array<Object^>(DataMassivInPut->ColumnCount);
+		for (int col = 0; col < DataMassivInPut->ColumnCount; col++) {
+			rowData[col] = DataMassivInPut->Rows[row]->Cells[col]->Value;
+		}
+		DataMassivOutPut->Rows->Add(rowData);
+	}
 
 
+	int minRowIndex = -1, maxRowIndex = -1;
+	int minColIndex = -1, maxColIndex = -1;
 
+	// Поиск первого минимального и максимального элемента 
+	for (int col = 0; col < DataMassivInPut->ColumnCount; col++) {
+		for (int row = 0; row < DataMassivInPut->RowCount; row++) {
+			if (DataMassivInPut->Rows[row]->Cells[col]->Value != nullptr &&
+				DataMassivInPut->Rows[row]->Cells[col]->Value->ToString() != "") {
+
+				int value;
+				if (Int32::TryParse(DataMassivInPut->Rows[row]->Cells[col]->Value->ToString(), value)) {
+					// Поиск минимального элемента 
+					if (minRowIndex == -1 || value < Int32::Parse(DataMassivInPut->Rows[minRowIndex]->Cells[minColIndex]->Value->ToString())) {
+						minRowIndex = row;
+						minColIndex = col;
+					}
+
+					// Поиск максимального элемента 
+					if (maxRowIndex == -1 || value > Int32::Parse(DataMassivInPut->Rows[maxRowIndex]->Cells[maxColIndex]->Value->ToString())) {
+						maxRowIndex = row;
+						maxColIndex = col;
+					}
+				}
+			}
+		}
+	}
+
+	// Проверка, что минимальный и максимальный элементы найдены 
+	if (minRowIndex != -1 && maxRowIndex != -1 && minColIndex != maxColIndex) {
+		// Обмен столбцами 
+		for (int row = 0; row < DataMassivInPut->RowCount; row++) {
+			auto tempValue = DataMassivInPut->Rows[row]->Cells[minColIndex]->Value;
+			DataMassivInPut->Rows[row]->Cells[minColIndex]->Value = DataMassivInPut->Rows[row]->Cells[maxColIndex]->Value;
+			DataMassivInPut->Rows[row]->Cells[maxColIndex]->Value = tempValue;
+		}
+	}
+
+	// Копирование результата во второй DataGridView 
+	DataMassivOutPut->Columns->Clear();
+	for (int i = 0; i < DataMassivInPut->ColumnCount; i++) {
+		DataMassivOutPut->Columns->Add("Column" + i, "Столбец " + (i + 1));
+	}
+
+	for (int row = 0; row < DataMassivInPut->RowCount; row++) {
+		array<Object^>^ rowData = gcnew array<Object^>(DataMassivInPut->ColumnCount);
+		for (int col = 0; col < DataMassivInPut->ColumnCount; col++) {
+			rowData[col] = DataMassivInPut->Rows[row]->Cells[col]->Value;
+		}
+		DataMassivOutPut->Rows->Add(rowData);
+	}
 
 }
 
