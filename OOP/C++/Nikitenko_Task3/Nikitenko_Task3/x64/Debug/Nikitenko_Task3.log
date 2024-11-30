@@ -1,4 +1,4 @@
 ﻿  Nikitenko_Task3.cpp
-C:\projects\homework\OOP\C++\Nikitenko_Task3\Nikitenko_Task3\Nikitenko_Task3.cpp(367): warning C4715: List::getByID: значение возвращается не при всех путях выполнения
-C:\projects\homework\OOP\C++\Nikitenko_Task3\Nikitenko_Task3\Nikitenko_Task3.cpp(123): warning C4715: BlueSpottedSalamander::ToIteract: значение возвращается не при всех путях выполнения
-  Nikitenko_Task3.vcxproj -> C:\projects\homework\OOP\C++\Nikitenko_Task3\x64\Debug\Nikitenko_Task3.exe
+C:\projects\homework\OOP\C++\Nikitenko_Task3\Nikitenko_Task3\Nikitenko_Task3.cpp(392,162): warning C4305: аргумент: усечение из "__int64" в "int"
+C:\projects\homework\OOP\C++\Nikitenko_Task3\Nikitenko_Task3\Nikitenko_Task3.cpp(392,81): warning C4309: аргумент: усечение константного значения
+C:\projects\homework\OOP\C++\Nikitenko_Task3\Nikitenko_Task3\Nikitenko_Task3.cpp(428,3): error C2317: для блока try, начинающегося в строке 428, нет соответствующих блоков catch
