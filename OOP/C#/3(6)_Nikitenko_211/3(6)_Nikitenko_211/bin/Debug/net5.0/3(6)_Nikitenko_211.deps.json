@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "3(6)_Nikitenko_211/1.0.0": {
+        "runtime": {
+          "3(6)_Nikitenko_211.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "3(6)_Nikitenko_211/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
