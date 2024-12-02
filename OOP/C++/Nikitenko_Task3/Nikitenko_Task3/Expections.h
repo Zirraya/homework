@@ -52,29 +52,24 @@ public:
 class ListExp {
 
 public:
-	virtual void print() const { cerr << "Внимание! Еслы вы видите это сообщение значит объекты в список занесены неверно, возможна потеря данных"; }
-};
-
-// Класс для обработки исключений связанных с int
-class ListExpInt : public ListExp {
-	const string* msg;
-	// Конструктор
-public:
-	ListExpInt(const string* message) : msg(message) {}
-
-	void print() const {
-		cerr << "Хуита: " << msg << endl;
+	// Метод для проверки входных данных
+	void validate(const std::string& N, int L, int A,
+		const std::string& CM, const std::string& CP,
+		const std::string& FF, const std::string& P,
+		const std::string& S) {
+		if (N.empty())
+			throw std::invalid_argument("Имя не может быть пустым.");
+		if (L <= 0)
+			throw std::invalid_argument("Длина должна быть положительной.");
+		if (A < 0 || A > 100)
+			throw std::invalid_argument("Возраст должен быть в диапазоне от 0 до 100.");
+		if (N.length() > 50 || CM.length() > 50 || CP.length() > 50 ||
+			FF.length() > 50 || P.length() > 50 || S.length() > 50) {
+			throw std::invalid_argument("Длина строки не может превышать 50 символов.");
+		}
 	}
 
+	virtual void print() const { cerr << "Внимание! Еслы вы видите это сообщение значит объекты в список занесены неверно, возможна потеря данных"; }
+	
 };
-//
 
-// Класс для обработки исключений связанных со string
-class ListExpString : public ListExp {
-
-
-
-
-
-};
-//

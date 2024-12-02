@@ -33,6 +33,10 @@ private:
 public:
 	BlueSpottedSalamander() {} // Конструктор для саламандры
 	BlueSpottedSalamander(string N, string CM, string CP, float L, int A, string FF, string P, string S) {
+
+		ListExp list;
+		list.validate(N, L, A, CM, CP, FF, P, S); // Проверка данных при создании объекта
+
 		Name = N;
 		ColorMane = CM;
 		ColorPattern = CP;
@@ -202,6 +206,10 @@ private:
 	node* head;
 	node* tail;
 	int size;
+
+	vector<BlueSpottedSalamander*> salamanders; // Вектор для хранения указателей на объекты
+	vector<string> invalidEntries; // Вектор для хранения сообщений об ошибках
+
 public:
 	List() { head = NULL; tail = NULL; size = NULL; }
 	void push(BlueSpottedSalamander* sp);
@@ -211,6 +219,24 @@ public:
 	bool findAll(bool condition(BlueSpottedSalamander& sp1)); // Найти всех соломандр по условию
 	bool DeleteCond(bool condition(BlueSpottedSalamander& sp1));
 	BlueSpottedSalamander& getByID(int id);
+
+	void printInvalidEntries() const {
+		if (!invalidEntries.empty()) {
+			cout << "Некорректные объекты:" << endl;
+			for (const auto& entry : invalidEntries) {
+				cout << entry << endl;
+			}
+		}
+		else {
+			cout << "Некорректных объектов нет." << endl;
+		}
+	}
+
+	void printAll() const {
+		for (const auto& salamander : salamanders) {
+			cout << *salamander << endl;
+		}
+	}
 
 };
 
@@ -227,6 +253,20 @@ void List::push(BlueSpottedSalamander* sp) { // берем саламандру
 		r->prev = tail;
 	}
 	tail = r;
+
+
+
+	try {
+		// Проверка на корректность указателя
+		if (sp == nullptr) {
+			throw invalid_argument("Указатель на объект не может быть нулевым.");
+		}
+		salamanders.push_back(sp);
+	}
+	catch (const exception& e) {
+		invalidEntries.push_back(e.what());
+	}
+
 }
 
 // Будет ли тут перегрузка хороший вопрос
@@ -377,12 +417,11 @@ int main()
 {
 	setlocale(LC_ALL, "RUS");
 
+	ListExp list;
+	List lstSalamander;
+
 	try {
-
-		if()
-
 		// Проверка корректности значений в списке (не превышения значений int, и прочее) ошибка памяти(превышения размера int, string и тд), ошибка файла
-		// Создать trow для списка- вывод неправльных вариантво и что с ними не так
 		//string N, string CM, string CP, float L, int A, string FF, string P, string S
 		BlueSpottedSalamander sp1(" Огниво", " Черный ", " Оранжевый ", 21.0, 5, " Моллюски ", " Полосатая ", " Тигровая "); cout << sp1;
 		BlueSpottedSalamander sp2(" Винтер", " Черный ", " Синий ", 8.0, 17, " Моллюски ", " Полосатая ", " Пятнистая "); cout << sp2;
@@ -391,16 +430,15 @@ int main()
 		BlueSpottedSalamander sp5(" Можжевельник", " Коричневый ", " Оранжевый ", 9.0, 27, " Гусиницы ", " Крапинки ", " Северозападная "); cout << sp5;
 		BlueSpottedSalamander sp6(" Флейм", " Черный ", " Желтый ", 18.0, 3, " Моллюски ", " Полосатая ", " Тигровая "); cout << sp6;
 		BlueSpottedSalamander sp7(" Бёрн", " Желтый ", " Черный ", 21.0, 5, " Улитки ", " Полосатая ", " Тигровая "); cout << sp7;
-		BlueSpottedSalamander sp8(" Ривер", " Серая ", " Синий ", 7.5, 1700000000000, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp8;
-		BlueSpottedSalamander sp9("", " Серая ", " Синий ", 7.5, 17, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp9;
-		BlueSpottedSalamander sp10(" Мунн", " Серая ", " Синий ", 7.5, -17, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp10;
+
+		BlueSpottedSalamander sp8(" Ривер", " Серая ", " Синий ", 7.5, 12, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp8;
+		BlueSpottedSalamander sp9(" Луна", " Серая ", " Синий ", 7.5, 17, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp9;
+		BlueSpottedSalamander sp10("Мунн", " Серая ", " Синий ", 7.5, 17, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp10;
 
 
 		cout << endl;
 
 		BlueSpottedSalamander sp;
-
-		List lstSalamander;
 
 
 		lstSalamander.push(&sp1);
@@ -415,8 +453,6 @@ int main()
 		lstSalamander.push(&sp10);
 
 
-
-
 		// Функия для выбора саламандры
 		int choice;
 		int choiseMove;
@@ -427,19 +463,74 @@ int main()
 		lstSalamander.DeleteCond(NonCorrect); cout << endl; // удаляет некоректные данные
 		lstSalamander.ListPrint();
 
-		try {
-			cout << "C какой саламандрой вы хотите познакомиться поближе (Введите номер варианта)? ";
 
-			// Проверка на корректной ввод
-			if (!(cin >> choice)) { // Проверка ввода
+		cout << "C какой саламандрой вы хотите познакомиться поближе (Введите номер варианта)? ";
+
+		// Проверка на корректной ввод
+		if (!(cin >> choice)) { // Проверка ввода
+			cin.clear(); // Сброс состояния cin
+			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
+			throw ExptectionsVar(&choice);
+		}
+		//
+
+		// Проверка, что введенное число в пределах допустимых значений
+		if (choice > 10) {
+			cin.clear(); // Сброс состояния cin
+			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
+			throw ExptctionOverFlow(&choice);
+		}
+		//
+
+		// Проверка, на введения 0
+		if (choice == 0) {
+			cin.clear(); // Сброс состояния cin
+			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
+			throw ExpectionZero(&choice);
+		}
+		//
+
+
+		BlueSpottedSalamander b = lstSalamander.getByID(choice);
+
+		cout << "Вариант 1: Вы решаете погладить" << endl;
+		cout << "Вариант 2: Вы решаете присмотреться" << endl;
+		cout << "Вариант 3: Вы решаете посмотреть на взаимодействие " << b.getName() << " и другой саламандрой" << endl;
+
+		cout << "Что вы хотите сделать? ";
+
+		// Проверка на корректный ввод
+		if (!(cin >> choiseMove)) { // Проверка ввода
+			cin.clear(); // Сброс состояния cin
+			cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
+			throw ExptectionsVar(&choiseMove);
+		}
+		//
+
+		BlueSpottedSalamander a;
+
+		switch (choiseMove) {
+		case 1:
+			b.ToReact();
+			break;
+		case 2:
+			b.ToLook();
+			break;
+		case 3:
+			cout << "\n С какой саламандрой будет взаимодействовать ваша избранная? " << endl;
+			int inp;
+			cout << "Саламандра взаимодействует с вашей избранной: ";
+
+			// Проверка на корректный ввод
+			if (!(cin >> inp)) { // Проверка ввода
 				cin.clear(); // Сброс состояния cin
 				cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
-				throw ExptectionsVar(&choice);
+				throw ExptectionsVar(&inp);
 			}
 			//
 
-			// Проверка, что введенное число в пределах допустимых значений
-			if (choice > 8) {
+			// Проверка на недопустимые варианты
+			if (inp > choice) {
 				cin.clear(); // Сброс состояния cin
 				cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
 				throw ExptctionOverFlow(&choice);
@@ -447,105 +538,56 @@ int main()
 			//
 
 			// Проверка, на введения 0
-			if (choice == 0) {
+			if (inp == 0) {
 				cin.clear(); // Сброс состояния cin
 				cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
 				throw ExpectionZero(&choice);
 			}
 			//
 
-
-			BlueSpottedSalamander b = lstSalamander.getByID(choice);
-
-			cout << "Вариант 1: Вы решаете погладить" << endl;
-			cout << "Вариант 2: Вы решаете присмотреться" << endl;
-			cout << "Вариант 3: Вы решаете посмотреть на взаимодействие " << b.getName() << " и другой саламандрой" << endl;
-
-			cout << "Что вы хотите сделать? ";
-
-			// Проверка на корректный ввод
-			if (!(cin >> choiseMove)) { // Проверка ввода
-				cin.clear(); // Сброс состояния cin
-				cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
-				throw ExptectionsVar(&choiseMove);
-			}
-			//
-
-			BlueSpottedSalamander a;
-
-			switch (choiseMove) {
-			case 1:
-				b.ToReact();
-				break;
-			case 2:
-				b.ToLook();
-				break;
-			case 3:
-				cout << "\n С какой саламандрой будет взаимодействовать ваша избранная? " << endl;
-				int inp;
-				cout << "Саламандра взаимодействует с вашей избранной: ";
-
-				// Проверка на корректный ввод
-				if (!(cin >> inp)) { // Проверка ввода
-					cin.clear(); // Сброс состояния cin
-					cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
-					throw ExptectionsVar(&inp);
-				}
-				//
-
-				// Проверка на недопустимые варианты
-				if (inp > choice) {
-					cin.clear(); // Сброс состояния cin
-					cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
-					throw ExptctionOverFlow(&choice);
-				}
-				//
-
-				// Проверка, на введения 0
-				if (inp == 0) {
-					cin.clear(); // Сброс состояния cin
-					cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
-					throw ExpectionZero(&choice);
-				}
-				//
-
-				a = lstSalamander.getByID(inp);
-				b.ToIteract(a);
-				break;
-			default:
-				cout << "Вы уходите" << endl;
-				break;
-			}
-
-			// Вывести только тех у которых оранжевый узор и узоры
-			cout << "\n Ваш друг решил приютить несколько саламандр. Он выбрал тигровых и тех у которых цвет узора оранжевый \n";
-			lstSalamander.findAll(CondColorPatternAndSpesies);
-
-			// Вывести только только самаандры у которых ТОЛЬКО имя "Сумрак" и любят бабочек
-			cout << "\n Вам захотели к себе тоже взять саламандр. Вы выбрали ту которая любит бабочек -  дружелюбную Сумрак\n";
-			lstSalamander.findAll(CondFavorFoodAndName);
-
-			if (sp1.similarity(sp7, condition)) {
-				cout << " Саламандры одного вида почему то шипят друг на друга, и не могут поделить еду!" << endl;
-			}
-			else {
-				cout << " Саламандры спокойно лежат!" << endl;
-			}
-
-			// 
-			cout << "\n Тигровые и пятнистые черные салмандры уползли. Остались они\n";
-			lstSalamander.DeleteCond(CondColorManeAndSpesies); cout << endl;
-			lstSalamander.ListPrint();
+			a = lstSalamander.getByID(inp);
+			b.ToIteract(a);
+			break;
+		default:
+			cout << "Вы уходите" << endl;
+			break;
 		}
+
+		// Вывести только тех у которых оранжевый узор и узоры
+		cout << "\n Ваш друг решил приютить несколько саламандр. Он выбрал тигровых и тех у которых цвет узора оранжевый \n";
+		lstSalamander.findAll(CondColorPatternAndSpesies);
+
+		// Вывести только только самаандры у которых ТОЛЬКО имя "Сумрак" и любят бабочек
+		cout << "\n Вам захотели к себе тоже взять саламандр. Вы выбрали ту которая любит бабочек -  дружелюбную Сумрак\n";
+		lstSalamander.findAll(CondFavorFoodAndName);
+
+		if (sp1.similarity(sp7, condition)) {
+			cout << " Саламандры одного вида почему то шипят друг на друга, и не могут поделить еду!" << endl;
+		}
+		else {
+			cout << " Саламандры спокойно лежат!" << endl;
+		}
+
+		// 
+		cout << "\n Тигровые и пятнистые черные салмандры уползли. Остались они\n";
+		lstSalamander.DeleteCond(CondColorManeAndSpesies); cout << endl;
+		lstSalamander.ListPrint();
+
+
+		cout << endl;
+
+		// Печать всех корректных объектов
+		cout << "Корректные объекты:" << endl;
+		lstSalamander.printAll();
+
+		// Печать некорректных объектов
+		lstSalamander.printInvalidEntries();
+
 	}
 	
 
-// Ловли исключений
-//-------------------------------------------------------------------------------------------------------------------
-	// Ловля исключения ввода нуля
-	catch (const ListExpInt& msg) {
-		msg.print();
-	}
+	// Ловли исключений
+	//-------------------------------------------------------------------------------------------------------------------
 
 	// Ловля исключения некорректного ввода
 	catch (const ExptectionsVar& expvar) {
@@ -562,9 +604,14 @@ int main()
 		zrd.print();
 	}
 
-	
+	catch (const invalid_argument& e) {
+		list.print(); // Выводим сообщение об ошибке
+		cerr << " " << e.what() << endl;	
+		
+	}	
 
-		system("pause");
+	system("pause");
+
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
