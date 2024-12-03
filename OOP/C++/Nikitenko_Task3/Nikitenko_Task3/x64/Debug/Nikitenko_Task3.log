@@ -1,5 +1,5 @@
 ﻿  Nikitenko_Task3.cpp
-C:\projects\homework\OOP\C++\Nikitenko_Task3\Nikitenko_Task3\Nikitenko_Task3.cpp(38,20): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
-C:\projects\homework\OOP\C++\Nikitenko_Task3\Nikitenko_Task3\Nikitenko_Task3.cpp(408): warning C4715: List::getByID: значение возвращается не при всех путях выполнения
-C:\projects\homework\OOP\C++\Nikitenko_Task3\Nikitenko_Task3\Nikitenko_Task3.cpp(128): warning C4715: BlueSpottedSalamander::ToIteract: значение возвращается не при всех путях выполнения
+C:\projects\homework\OOP\C++\Nikitenko_Task3\Nikitenko_Task3\Nikitenko_Task3.cpp(40,20): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+C:\projects\homework\OOP\C++\Nikitenko_Task3\Nikitenko_Task3\Nikitenko_Task3.cpp(419): warning C4715: List::getByID: значение возвращается не при всех путях выполнения
+C:\projects\homework\OOP\C++\Nikitenko_Task3\Nikitenko_Task3\Nikitenko_Task3.cpp(130): warning C4715: BlueSpottedSalamander::ToIteract: значение возвращается не при всех путях выполнения
   Nikitenko_Task3.vcxproj -> C:\projects\homework\OOP\C++\Nikitenko_Task3\x64\Debug\Nikitenko_Task3.exe

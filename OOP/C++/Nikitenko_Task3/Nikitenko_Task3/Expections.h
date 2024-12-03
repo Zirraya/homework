@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 
@@ -53,23 +54,40 @@ class ListExp {
 
 public:
 	// Метод для проверки входных данных
-	void validate(const std::string& N, int L, int A,
-		const std::string& CM, const std::string& CP,
-		const std::string& FF, const std::string& P,
-		const std::string& S) {
+	void validate(const string& N, int L, int A,
+		const string& CM, const string& CP,
+		const string& FF, const string& P,
+		const string& S) {
 		if (N.empty())
-			throw std::invalid_argument("Имя не может быть пустым.");
+			throw invalid_argument("Имя не может быть пустым.");
 		if (L <= 0)
-			throw std::invalid_argument("Длина должна быть положительной.");
+			throw invalid_argument("Длина должна быть положительной.");
 		if (A < 0 || A > 100)
-			throw std::invalid_argument("Возраст должен быть в диапазоне от 0 до 100.");
+			throw invalid_argument("Возраст должен быть в диапазоне от 0 до 100.");
 		if (N.length() > 50 || CM.length() > 50 || CP.length() > 50 ||
 			FF.length() > 50 || P.length() > 50 || S.length() > 50) {
-			throw std::invalid_argument("Длина строки не может превышать 50 символов.");
+			throw invalid_argument("Длина строки не может превышать 50 символов.");
 		}
 	}
 
-	virtual void print() const { cerr << "Внимание! Еслы вы видите это сообщение значит объекты в список занесены неверно, возможна потеря данных"; }
+	virtual void print() const { cerr << "Внимание! Еслы вы видите это сообщение значит объекты в список занесены неверно, возможна потеря данных. Программа аварийно завершает свою работу"; }
 	
 };
+//
+ 
+// Класс для вывода сообщения ошибки чтения файла
+class ExpFile : public exception {
+public:
+	// Конструктор принимает сообщение об ошибке
+	ExpFile(const string& message) : message(message) {}
+
+	// Переопределение метода what() для возврата сообщения об ошибке
+	virtual const char* what() const noexcept override {
+		return message.c_str();
+	}
+
+private:
+	string message; // Сообщение об ошибке
+};
+//
 

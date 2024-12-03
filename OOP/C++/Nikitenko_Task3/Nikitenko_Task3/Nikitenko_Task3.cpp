@@ -4,6 +4,8 @@
 #include <limits> // Для std::numeric_limits
 #include <stdexcept> // Для std::runtime_error
 #include <vector>
+#include <fstream>
+#include <exception>
 
 using namespace std;
 
@@ -238,9 +240,18 @@ public:
 		}
 	}
 
+	// Итераторы для обхода списка
+	auto begin() { return salamanders.begin(); }
+	auto end() { return salamanders.end(); }
+
+	auto begin() const { return salamanders.cbegin(); }
+	auto end() const { return salamanders.cend(); }
+
+
 };
 
 void List::push(BlueSpottedSalamander* sp) { // берем саламандру
+
 	node* r = new node;
 	r->inf = sp;
 	r->next = NULL;
@@ -421,6 +432,8 @@ int main()
 	List lstSalamander;
 
 	try {
+
+
 		// Проверка корректности значений в списке (не превышения значений int, и прочее) ошибка памяти(превышения размера int, string и тд), ошибка файла
 		//string N, string CM, string CP, float L, int A, string FF, string P, string S
 		BlueSpottedSalamander sp1(" Огниво", " Черный ", " Оранжевый ", 21.0, 5, " Моллюски ", " Полосатая ", " Тигровая "); cout << sp1;
@@ -433,7 +446,7 @@ int main()
 
 		BlueSpottedSalamander sp8(" Ривер", " Серая ", " Синий ", 7.5, 12, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp8;
 		BlueSpottedSalamander sp9(" Луна", " Серая ", " Синий ", 7.5, 17, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp9;
-		BlueSpottedSalamander sp10("Мунн", " Серая ", " Синий ", 7.5, 17, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp10;
+		BlueSpottedSalamander sp10(" Мунн", " Серая ", " Синий ", 7.5, 17, " Моллюски ", " Крапинки ", " Пятнистая "); cout << sp10;
 
 
 		cout << endl;
@@ -453,12 +466,37 @@ int main()
 		lstSalamander.push(&sp10);
 
 
+
+		cout << endl;
+		// Открываем файл для записи
+		const string filename = "salamanders.txt";
+		ifstream inFile(filename);
+
+		// Проверяем, пуст ли файл
+		if (inFile.peek() != EOF) {
+			throw ExpFile("Файл не пустой: " + filename + ". Запись невозможна.");
+		}
+
+		inFile.close(); // Закрываем файл после проверки
+
+		ofstream outFile(filename); // Открываем файл для записи
+		if (!outFile) {
+			throw ExpFile("Не удалось открыть файл: " + filename + ". Проверьте существование файла или путь к нему.");
+		}
+
+		// Записываем данные о саламандрах в файл
+		outFile << sp1 << sp2<<sp3<<sp4<<sp5<<sp6<<sp7<<sp8<<sp9<<sp10; // Эммм, грубо но рабоатет..
+
+		outFile.close();
+		cout << "Информация о саламандрах записана в файл salamanders.txt. Успех!" << endl;
+		cout << endl;
+
 		// Функия для выбора саламандры
 		int choice;
 		int choiseMove;
 
 		cout << "Несколько саламандр греются на солнышке. Их можно погладить, но некоторые виды этих созданий не любят, когда их трогают. Так что может лучше последить за их поведением?\n";
-		cout << "Ой, ой вы не можете взаимодействовать со всеми, так как некоторые данные занесены не верно \n ";
+
 		cout << "Вы выбираете саламандру..." << endl;
 		lstSalamander.DeleteCond(NonCorrect); cout << endl; // удаляет некоректные данные
 		lstSalamander.ListPrint();
@@ -530,7 +568,7 @@ int main()
 			//
 
 			// Проверка на недопустимые варианты
-			if (inp > choice) {
+			if (inp <= choice) {
 				cin.clear(); // Сброс состояния cin
 				cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Игнорируем некорректный ввод
 				throw ExptctionOverFlow(&choice);
@@ -604,11 +642,17 @@ int main()
 		zrd.print();
 	}
 
+	// Ловля исключений связанных со списком
 	catch (const invalid_argument& e) {
-		list.print(); // Выводим сообщение об ошибке
+		list.print(); 
 		cerr << " " << e.what() << endl;	
 		
 	}	
+
+	// Ловля исключиения отсутсвия файла
+	catch (const ExpFile& e) {
+		std::cerr << e.what() << std::endl; 
+	}
 
 	system("pause");
 
