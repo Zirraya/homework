@@ -1,0 +1,4 @@
+C:\projects\homework\NIR\Matrix_Nikitenko_211\Matrix_Nikitenko_211\x64\Debug\Matrix_Nikitenko_211.vcxproj.AssemblyReference.cache
+C:\projects\homework\NIR\Matrix_Nikitenko_211\Matrix_Nikitenko_211\x64\Debug\Matrix_Nikitenko_211.vcxproj.SuggestedBindingRedirects.cache
+C:\projects\homework\NIR\Matrix_Nikitenko_211\Matrix_Nikitenko_211\x64\Debug\MatrixNikitenko211.MatrixForm.resources
+C:\projects\homework\NIR\Matrix_Nikitenko_211\Matrix_Nikitenko_211\x64\Debug\Matrix_Nikitenko_211.vcxproj.GenerateResource.cache
