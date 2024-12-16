@@ -54,19 +54,18 @@ namespace _3_6__Nikitenko_211
         //
 
         // Преобразование из матрицы в переменную типа double (среднее арифметическое)
-        public static explicit operator double(Matrix matrix)
+        // Метод для получения среднего арифметического
+        public double GetAverage()
         {
             long sum = 0;
-            int count = matrix.rows * matrix.columns;
-
-            for (int i = 0; i < matrix.rows; i++)
+            int count = rows * columns;
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < matrix.columns; j++)
+                for (int j = 0; j < columns; j++)
                 {
-                    sum += matrix.elements[i, j];
+                    sum += elements[i, j];
                 }
             }
-
             return (double)sum / count;
         }
         //
@@ -148,9 +147,10 @@ namespace _3_6__Nikitenko_211
             Console.WriteLine("Матрица из единственного числа:");
             singleValueMatrix.Display();
 
-           
-            double average = (double)matrix1; // Преобразование матрицы в double (среднее арифметическое)
-            Console.WriteLine($"Среднеее арифметическое Матрицы №1: {average}");
+
+            // Получение среднего арифметического
+            double average = matrix1.GetAverage(); // Вызов метода для получения среднего арифметического
+            Console.WriteLine($"Среднее арифметическое Матрицы №1: {average}");
         }
 
 
