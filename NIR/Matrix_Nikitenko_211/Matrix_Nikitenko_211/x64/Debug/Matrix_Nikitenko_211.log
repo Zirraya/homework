@@ -1,5 +1,12 @@
 ﻿  MatrixForm.cpp
+C:\projects\homework\NIR\Matrix_Nikitenko_211\Matrix_Nikitenko_211\MatrixForm.h(1535,28): warning C4244: -=: преобразование "double" в "int", возможна потеря данных
+C:\projects\homework\NIR\Matrix_Nikitenko_211\Matrix_Nikitenko_211\MatrixForm.h(1622,1): warning C4965: неявная упаковка целого числа 0; используйте nullptr или явное приведение типов
   MatrixSource.cpp
+C:\projects\homework\NIR\Matrix_Nikitenko_211\Matrix_Nikitenko_211\MatrixForm.h(1535,28): warning C4244: -=: преобразование "double" в "int", возможна потеря данных
+C:\projects\homework\NIR\Matrix_Nikitenko_211\Matrix_Nikitenko_211\MatrixForm.h(1622,1): warning C4965: неявная упаковка целого числа 0; используйте nullptr или явное приведение типов
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
   Создание кода...
+C:\projects\homework\NIR\Matrix_Nikitenko_211\Matrix_Nikitenko_211\MatrixForm.h(884): warning C4715: MatrixNikitenko211::MatrixForm::Det: значение возвращается не при всех путях выполнения
+C:\projects\homework\NIR\Matrix_Nikitenko_211\Matrix_Nikitenko_211\MatrixForm.h(884): warning C4715: MatrixNikitenko211::MatrixForm::Det: значение возвращается не при всех путях выполнения
   MatrixForm.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   Matrix_Nikitenko_211.vcxproj -> C:\projects\homework\NIR\Matrix_Nikitenko_211\x64\Debug\Matrix_Nikitenko_211.exe
