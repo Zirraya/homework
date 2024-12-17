@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _19_4zadania_Nikitenko211 // Вариант 18, а не 19
+namespace _19_4zadania_Nikitenko211 // Вариант 18, а не 19 второе зданаие из 4 лабы
 {
     // Абстрактный класс
     public abstract class FlatFigure
@@ -12,11 +12,17 @@ namespace _19_4zadania_Nikitenko211 // Вариант 18, а не 19
         
 
         // Конструктор по умалочанию
-        public FlatFigure() {Perimeter = 1000; SurfaceArea = 1000; CountFigure++;}
+        public FlatFigure() 
+        {
+            Perimeter = 1000; SurfaceArea = 1000; CountFigure++;
+        }
         //
 
         // Конструктор с параматрами
-        public FlatFigure(double per, double surf) { Perimeter = per; SurfaceArea = surf; CountFigure++; }
+        public FlatFigure(double per, double surf) 
+        { 
+            Perimeter = per; SurfaceArea = surf; CountFigure++; 
+        }
         //
 
         // Возвращает чилсо плоских фигур
@@ -49,6 +55,15 @@ namespace _19_4zadania_Nikitenko211 // Вариант 18, а не 19
         }
         //
 
+        // 
+        public abstract double GetPerimeter();
+        //
+
+        //
+        public abstract double GetSurfaceArea();
+
+        //
+
     }
     //
 
@@ -56,13 +71,45 @@ namespace _19_4zadania_Nikitenko211 // Вариант 18, а не 19
     {
         static void Main()
         {
-            
+            Console.Title = " Пример работы полиморфных классов";
+            Console.WriteLine("          Плоские фигуры       ");
 
+            Circle cs1= new Circle();
+            Console.WriteLine(cs1.ToString());
 
+            string s = "  периметер {0} \n" +
+                        " площадь плоскости {1} \n";
 
+            Console.WriteLine(s, cs1.GetPerimeter(), cs1.GetSurfaceArea());
 
+            Circle cs2= new Circle(2, 3.5, 7);
+            Console.WriteLine(cs2.ToString());
+            Console.WriteLine(s, cs2.GetPerimeter(), cs2.GetSurfaceArea());
 
+            RoundRing rr1=new RoundRing();
+            Console.WriteLine(rr1.ToString());
+            Console.WriteLine(s, rr1.GetPerimeter(), rr1.GetSurfaceArea());
 
+            RoundRing rr2=new RoundRing(2,5,9,7);
+            Console.WriteLine(rr2.ToString());
+            Console.WriteLine(s, rr2.GetPerimeter(), rr2.GetSurfaceArea());
+
+            Console.WriteLine(" Всего плоских фигур: {0} шт\n ", FlatFigure.countfigure);
+
+            // Масив кругов
+            Circle[] circles = new Circle[4];
+            circles[0] = cs1;
+            circles[1] = cs2;
+            circles[2] = rr1;
+            circles[3] = rr2;
+
+            foreach(Circle c in circles)
+            {
+                Console.WriteLine(" Вычисление характиристик плоских фигур:\n" + s, c.GetPerimeter(), c.GetSurfaceArea() );
+            }
+            Console.Read();
+
+            //
         }
     }
 }

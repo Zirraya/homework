@@ -1,0 +1,16 @@
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\bin\Debug\net5.0\19(4zadania)Nikitenko211.exe
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\bin\Debug\net5.0\19(4zadania)Nikitenko211.deps.json
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\bin\Debug\net5.0\19(4zadania)Nikitenko211.runtimeconfig.json
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\bin\Debug\net5.0\19(4zadania)Nikitenko211.runtimeconfig.dev.json
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\bin\Debug\net5.0\19(4zadania)Nikitenko211.dll
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\bin\Debug\net5.0\19(4zadania)Nikitenko211.pdb
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\obj\Debug\net5.0\19(4zadania)Nikitenko211.csproj.AssemblyReference.cache
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\obj\Debug\net5.0\19(4zadania)Nikitenko211.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\obj\Debug\net5.0\19(4zadania)Nikitenko211.AssemblyInfoInputs.cache
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\obj\Debug\net5.0\19(4zadania)Nikitenko211.AssemblyInfo.cs
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\obj\Debug\net5.0\19(4zadania)Nikitenko211.csproj.CoreCompileInputs.cache
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\obj\Debug\net5.0\19(4zadania)Nikitenko211.dll
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\obj\Debug\net5.0\refint\19(4zadania)Nikitenko211.dll
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\obj\Debug\net5.0\19(4zadania)Nikitenko211.pdb
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\obj\Debug\net5.0\19(4zadania)Nikitenko211.genruntimeconfig.cache
+C:\projects\homework\OOP\C#\19(4zadania)Nikitenko211\19(4zadania)Nikitenko211\obj\Debug\net5.0\ref\19(4zadania)Nikitenko211.dll

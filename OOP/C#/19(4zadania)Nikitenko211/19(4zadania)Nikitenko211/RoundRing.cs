@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace _19_4zadania_Nikitenko211
 {
-    public class RoundRing : FlatFigure // inner radius внутренний радиус
+    public class RoundRing : Circle // inner radius внутренний радиус
     {
         protected double InnerRadius;
 
         // Конструктор по умолчанию 
         public RoundRing() : base()
         {
-            InnerRadius = 1;
+            InnerRadius = Math.PI*((Radius*2)-(InnerRadius*2));
         }
         //
 
@@ -27,10 +27,47 @@ namespace _19_4zadania_Nikitenko211
             get { return base.radius; }
             set
             {
-                if (value <= base.radius)
-                    throw new Exception("Радиус не может быть отрицательным!");
-                base.radius = value;
+                if (value > base.radius) // Проверка на отрицательное значение
+                    throw new Exception(" Внутренний радиус не может быть больше чем внешний радиус!");
+                base.radius = value; // Установка нового значения радиуса
             }
+        }
+        //
+
+        //  Возвращает или устанавливает внутренний радиус
+        public double innerradius
+        {
+            get { return InnerRadius; }
+            set
+            {
+                if (value <= 0)
+                    throw new Exception(" Внутренний радиус не может быть отрицательным или равным нуля!");
+                InnerRadius = value;
+            }
+        }
+        //
+
+
+        // Характиристика круга
+        public override string ToString()
+        {
+            return "\n - внутренний радиус кольца: " + InnerRadius;
+
+        }
+        //
+
+        // Возвращает периметер кольца
+        public override double GetPerimeter()
+        {
+            return (Math.PI * radius * 2);
+        }
+        //
+
+        // Возвращает площадь кольца
+        public override double GetSurfaceArea()
+        {
+            return (Math.PI * Math.Pow(radius, 2));
+
         }
         //
 
