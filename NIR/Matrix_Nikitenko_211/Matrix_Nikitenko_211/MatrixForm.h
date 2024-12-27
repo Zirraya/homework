@@ -772,6 +772,60 @@ namespace MatrixNikitenko211 {
 		}
 
 
+		// Функции для очистки полей
+
+		//очистка первой таблицы
+		void clearMatr1() {	
+			errorM1->Clear();
+			for (int i = 0; i < Matrix1->RowCount; i++) {
+				for (int j = 0; j < Matrix1->ColumnCount; j++) {
+					Matrix1->Rows[i]->Cells[j]->Value = nullptr;
+				}
+			}
+		}
+		//
+		
+		//очистка второй таблицы
+		void clearMatr2() {	
+			errorM2->Clear();
+			for (int i = 0; i < Matrix2->RowCount; i++) {
+				for (int j = 0; j < Matrix2->ColumnCount; j++) {
+					Matrix2->Rows[i]->Cells[j]->Value = nullptr;
+				}
+			}
+		}
+		//
+
+		//очистка первого вектора
+		void clearVect1() {	
+			errorV1->Clear();
+			for (int i = 0; i < Vector1->RowCount; i++) {
+				for (int j = 0; j < Vector1->ColumnCount; j++) {
+					Vector1->Rows[i]->Cells[j]->Value = nullptr;
+				}
+			}
+		}
+		//
+
+		//очистка второго вектора
+		void clearVect2() {	
+			errorV2->Clear();
+			for (int i = 0; i < Vector2->RowCount; i++) {
+				for (int j = 0; j < Vector2->ColumnCount; j++) {
+					Vector2->Rows[i]->Cells[j]->Value = nullptr;
+				}
+			}
+		}
+		//
+
+		//очистка матрицы результата
+		void clearMatrRes() {	
+			errorResult->Clear();
+		}
+		//
+
+		//
+
 // Фукнции для проверки
 		// Функция для проверки матрицы 1
 		bool checkMatr1() {
@@ -884,7 +938,6 @@ namespace MatrixNikitenko211 {
 		}
 		//
 
-
 //
 
 #pragma endregion
@@ -901,7 +954,7 @@ private: System::Void AddString_Click(System::Object^ sender, System::EventArgs^
 		errorM1->SetError(Matrix1, "Столбцы должны быть добавлены перед добавлением строк.");
 		return;
 	}
-
+	clearMatr1();
 	this->Matrix1->Rows->Add(1);
 	
 	if (this->Matrix1->Rows->Count > 0) {
@@ -920,7 +973,7 @@ private: System::Void DeleteString_Click(System::Object^ sender, System::EventAr
 		errorM1->SetError(Matrix1, " Что бы удалить строку, нужно в начале добавить ее "); //  Установка ошибки, если нет строк
 		return;
 	}
-
+	clearMatr1();
 	// Удаление
 	if (!this->Matrix1->CurrentRow->IsNewRow) {
 		int i = this->Matrix1->CurrentRow->Index;
@@ -942,6 +995,7 @@ private: System::Void AddColumn_Click(System::Object^ sender, System::EventArgs^
 	for (int i = 0; i < this->Matrix1->Columns->Count; i++) {
 		this->Matrix1->Columns[i]->Width = System::Convert::ToInt32(this->Matrix1->Width / (1.25 * this->Matrix1->Columns->Count));
 	}
+	clearMatr1();
 	
 }
 
@@ -954,7 +1008,7 @@ private: System::Void DeleteColumn_Click(System::Object^ sender, System::EventAr
 		errorM1->SetError(Matrix1, " Что бы удалить столбец, нужно в начале добавить его "); //  Установка ошибки, если нет строк
 		return; //  Выход из метода
 	}
-
+		clearMatr1();
 
 	// Проверяем, есть ли столбцы в DataGridView
 	if (this->Matrix1->Columns->Count > 0) {
@@ -985,6 +1039,7 @@ private: System::Void AddString2_Click(System::Object^ sender, System::EventArgs
 	}
 
 	this->Matrix2->Rows->Add(1);
+	clearMatr2();
 
 	if (this->Matrix2->Rows->Count > 0) {
 		errorM2->SetError(Matrix2, "");
@@ -999,7 +1054,7 @@ private: System::Void DeleteString2_Click(System::Object^ sender, System::EventA
 		errorM2->SetError(Matrix2, " Что бы удалить строку, нужно в начале добавить ее "); //  Установка ошибки, если нет строк
 		return;
 	}
-
+	clearMatr2();
 	// Удаление
 	if (!this->Matrix2->CurrentRow->IsNewRow) {
 		int i = this->Matrix2->CurrentRow->Index;
@@ -1012,6 +1067,7 @@ private: System::Void DeleteString2_Click(System::Object^ sender, System::EventA
 private: System::Void AddColumn2_Click(System::Object^ sender, System::EventArgs^ e) {
 
 	this->Matrix2->Columns->Add("COLUMN", " ");
+	clearMatr2();
 
 	if (this->Matrix2->Columns->Count > 0) {
 		errorM2->SetError(Matrix2, "");
@@ -1029,7 +1085,7 @@ private: System::Void DeleteColumn2_Click(System::Object^ sender, System::EventA
 		return; //  Выход из метода
 	}
 
-
+	clearMatr2();
 	// Проверяем, есть ли столбцы в DataGridView
 	if (this->Matrix2->Columns->Count > 0) {
 		// Получение индекса последнего столбца 
@@ -1050,7 +1106,7 @@ private: System::Void AddStringV_Click(System::Object^ sender, System::EventArgs
 
 	this->Vector1->ColumnCount = 1;
 	this->Vector1->Rows->Add(1);
-
+	clearVect1();
 	if (this->Vector1->Rows->Count > 0) {
 		errorV1->SetError(Vector1, "");
 	}
@@ -1067,7 +1123,7 @@ private: System::Void DeleteStringV_Click(System::Object^ sender, System::EventA
 		errorV1->SetError(Vector1, " Что бы удалить строку, нужно в начале добавить ее "); //  Установка ошибки, если нет строк
 		return;
 	}
-
+	clearVect1();
 	// Удаление
 	if (!this->Vector1->CurrentRow->IsNewRow) {
 		int i = this->Vector1->CurrentRow->Index;
@@ -1085,7 +1141,7 @@ private: System::Void AddStringV2_Click(System::Object^ sender, System::EventArg
 
 	Vector2->ColumnCount = 1;
 	this->Vector2->Rows->Add(1);
-
+	clearVect2();
 	if (this->Vector2->Rows->Count > 0) {
 		errorV2->SetError(Vector2, "");
 	}
@@ -1099,7 +1155,7 @@ private: System::Void DeleteStringV2_Click(System::Object^ sender, System::Event
 		errorV2->SetError(Vector2, " Что бы удалить строку, нужно в начале добавить ее "); //  Установка ошибки, если нет строк
 		return;
 	}
-
+	clearVect2();
 	// Удаление
 	if (!this->Vector2->CurrentRow->IsNewRow) {
 		int i = this->Vector2->CurrentRow->Index;
@@ -1113,6 +1169,20 @@ private: System::Void DeleteStringV2_Click(System::Object^ sender, System::Event
 // Вычислить
 
 private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	//очистка ошибок и результата
+	errorM1->Clear();
+	errorM2->Clear();
+	errorV1->Clear();
+	errorV2->Clear();
+	clearMatrRes();
+	ResultText->Text = "";
+	errorChoiceAct->Clear();
+	errorInPut->Clear();
+	errorMatrixSize->Clear();
+	//
+
+
 
 	int X;
 	int N;
@@ -1418,16 +1488,25 @@ private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e
 
 		  // Вектороное произведение
 	case 9: {
+		// Для исключение ошибки связанной с индексами
+		if (this->Vector1->RowCount < 3) {
+			errorV1->SetError(Vector1, "Вектор должен содержать как минимум 3 числа.");
+			return;
+		}
+		if (this->Vector2->RowCount < 3) {
+			errorV2->SetError(Vector2, "Вектор должен содержать как минимум 3 числа.");
+			return;
+		}
+		//
+
 		if (this->Vector1->RowCount == 0) {
-			errorV1->SetError(Vector1, " Пустая таблица. Нужно создать строки ");
+			errorV1->SetError(Vector1, "Пустая таблица. Нужно создать строки.");
 			return;
 		}
-
 		if (this->Vector2->RowCount == 0) {
-			errorV1->SetError(Vector2, " Пустая таблица. Нужно создать строки ");
+			errorV2->SetError(Vector2, "Пустая таблица. Нужно создать строки.");
 			return;
 		}
-
 		else if (Vector1->RowCount != Vector2->RowCount) {
 			errorResult->SetError(Result, "Несоответствие размеров");
 			return;
@@ -1440,17 +1519,12 @@ private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e
 		}
 		else {
 			ResultText->Text = "Векторное произведение векторов:" + "\r\n";
-
-			int line = 3; int col = 3;
+			int line = 3;
+			int col = 3;
 			int** mas = new int* [line];
-			for (int i = 0; i < col; i++)
+			for (int i = 0; i < line; i++)
 				mas[i] = new int[col];
 
-			for (int i = 0; i < line; i++) {
-				for (int j = 0; j < col; j++) {
-					mas[i][j] = 1;
-				}
-			}
 			for (int i = 0; i < col; i++) {
 				mas[1][i] = System::Convert::ToInt32(Vector1->Rows[i]->Cells[0]->Value);
 			}
