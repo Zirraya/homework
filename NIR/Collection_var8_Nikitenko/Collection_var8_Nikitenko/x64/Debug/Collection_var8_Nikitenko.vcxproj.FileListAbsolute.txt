@@ -1,0 +1,4 @@
+C:\projects\homework\NIR\Collection_var8_Nikitenko\Collection_var8_Nikitenko\x64\Debug\Collection_var8_Nikitenko.vcxproj.AssemblyReference.cache
+C:\projects\homework\NIR\Collection_var8_Nikitenko\Collection_var8_Nikitenko\x64\Debug\Collection_var8_Nikitenko.vcxproj.SuggestedBindingRedirects.cache
+C:\projects\homework\NIR\Collection_var8_Nikitenko\Collection_var8_Nikitenko\x64\Debug\Collectionvar8Nikitenko.CollectionNikitenko1.resources
+C:\projects\homework\NIR\Collection_var8_Nikitenko\Collection_var8_Nikitenko\x64\Debug\Collection_var8_Nikitenko.vcxproj.GenerateResource.cache
