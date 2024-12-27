@@ -1,0 +1,4 @@
+C:\projects\homework\NIR\File_var3_Nikitenko\File_var3_Nikitenko\x64\Debug\File_var3_Nikitenko.vcxproj.AssemblyReference.cache
+C:\projects\homework\NIR\File_var3_Nikitenko\File_var3_Nikitenko\x64\Debug\File_var3_Nikitenko.vcxproj.SuggestedBindingRedirects.cache
+C:\projects\homework\NIR\File_var3_Nikitenko\File_var3_Nikitenko\x64\Debug\Filevar3Nikitenko.PlaneForm.resources
+C:\projects\homework\NIR\File_var3_Nikitenko\File_var3_Nikitenko\x64\Debug\File_var3_Nikitenko.vcxproj.GenerateResource.cache
