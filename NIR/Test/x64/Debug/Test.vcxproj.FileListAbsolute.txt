@@ -1,0 +1,14 @@
+C:\Users\user\Desktop\!учеба!\3 сем\нир\Test\x64\Debug\Test.vcxproj.AssemblyReference.cache
+C:\Users\user\Desktop\!учеба!\3 сем\нир\Test\x64\Debug\Test.MyForm.resources
+C:\Users\user\Desktop\!учеба!\3 сем\нир\Test\x64\Debug\Test.vcxproj.GenerateResource.cache
+C:\Users\user\Desktop\!учеба!\3 сем\нир\Test\x64\Debug\Test.exe
+C:\Users\lenovo\Downloads\нир (1)\нир\Test\x64\Debug\Test.vcxproj.AssemblyReference.cache
+C:\Users\lenovo\Downloads\нир (1)\нир\Test\x64\Debug\Test.vcxproj.SuggestedBindingRedirects.cache
+C:\Users\lenovo\Downloads\нир (1)\нир\Test\x64\Debug\Test.MyForm.resources
+C:\Users\lenovo\Downloads\нир (1)\нир\Test\x64\Debug\Test.vcxproj.GenerateResource.cache
+C:\Users\lenovo\Downloads\нир (1)\нир\Test\x64\Debug\Test.exe
+C:\projects\homework\NIR\Test\x64\Debug\Test.vcxproj.AssemblyReference.cache
+C:\projects\homework\NIR\Test\x64\Debug\Test.vcxproj.SuggestedBindingRedirects.cache
+C:\projects\homework\NIR\Test\x64\Debug\Test.MyForm.resources
+C:\projects\homework\NIR\Test\x64\Debug\Test.vcxproj.GenerateResource.cache
+C:\projects\homework\NIR\Test\x64\Debug\Test.exe
