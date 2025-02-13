@@ -1,0 +1,53 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{private}\PYG{o}{:}\PYG{+w}{ }\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Void}\PYG{+w}{ }\PYG{n}{NewQ\PYGZus{}Click}\PYG{p}{(}\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Object}\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{sender}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{EventArgs}\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{e}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+
+
+\PYG{+w}{	}\PYG{c+c1}{// Очистка текстового поля для новой очереди}
+\PYG{+w}{	}\PYG{n}{NewQOut}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Text}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{String}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Empty}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Предположим, что у нас есть текстовое поле для вывода новой очереди}
+
+\PYG{+w}{	}\PYG{c+c1}{// Получение элементов из OutPutQu}
+\PYG{+w}{	}\PYG{n}{array}\PYG{o}{\PYGZlt{}}\PYG{n}{String}\PYG{o}{\PYGZca{}}\PYG{o}{\PYGZgt{}}\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{elements}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{OutPutQu}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Text}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Split}\PYG{p}{(}\PYG{l+s+sc}{\PYGZsq{}}\PYG{l+s+sc}{ }\PYG{l+s+sc}{\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{	}\PYG{c+c1}{// Переменные для хранения максимального значения и нового элемента}
+\PYG{+w}{	}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{maxElement}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Int32}\PYG{o}{:}\PYG{o}{:}\PYG{n}{MinValue}\PYG{p}{;}
+\PYG{+w}{	}\PYG{n}{String}\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{newElement}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{NewElIn}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Text}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Trim}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Получаем новый элемент из текстового поля}
+
+\PYG{+w}{	}\PYG{c+c1}{// Проверка, является ли новый элемент целым числом}
+\PYG{+w}{	}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{newElementValue}\PYG{p}{;}
+\PYG{+w}{	}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{Int32}\PYG{o}{:}\PYG{o}{:}\PYG{n}{TryParse}\PYG{p}{(}\PYG{n}{newElement}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{newElementValue}\PYG{p}{)}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{		}\PYG{n}{MessageBox}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Show}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Введите корректное целое число для нового элемента.}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Ошибка}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{MessageBoxButtons}\PYG{o}{:}\PYG{o}{:}\PYG{n}{OK}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{MessageBoxIcon}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Error}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{		}\PYG{k}{return}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Выход из функции, если ввод некорректен}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{	}\PYG{c+c1}{// Поиск максимального элемента}
+\PYG{+w}{	}\PYG{k}{for}\PYG{+w}{ }\PYG{n}{each}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{String}\PYG{+w}{ }\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{element}\PYG{+w}{ }\PYG{n}{in}\PYG{+w}{ }\PYG{n}{elements}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{		}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{number}\PYG{p}{;}
+\PYG{+w}{		}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Int32}\PYG{o}{:}\PYG{o}{:}\PYG{n}{TryParse}\PYG{p}{(}\PYG{n}{element}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Trim}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{number}\PYG{p}{)}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{			}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{number}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{maxElement}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{				}\PYG{n}{maxElement}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{number}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Обновляем максимальный элемент}
+\PYG{+w}{			}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{		}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{	}\PYG{c+c1}{// Создание новой очереди с вставкой нового элемента после максимальных}
+\PYG{+w}{	}\PYG{n}{String}\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{newQueue}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{String}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Empty}\PYG{p}{;}
+\PYG{+w}{	}\PYG{k}{for}\PYG{+w}{ }\PYG{n}{each}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{String}\PYG{+w}{ }\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{element}\PYG{+w}{ }\PYG{n}{in}\PYG{+w}{ }\PYG{n}{elements}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{		}\PYG{n}{newQueue}\PYG{+w}{ }\PYG{o}{+}\PYG{o}{=}\PYG{+w}{ }\PYG{n}{element}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Trim}\PYG{p}{(}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ }\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Добавляем текущий элемент в новую очередь}
+\PYG{+w}{		}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{number}\PYG{p}{;}
+\PYG{+w}{		}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Int32}\PYG{o}{:}\PYG{o}{:}\PYG{n}{TryParse}\PYG{p}{(}\PYG{n}{element}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Trim}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{number}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{number}\PYG{+w}{ }\PYG{o}{=}\PYG{o}{=}\PYG{+w}{ }\PYG{n}{maxElement}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{			}\PYG{n}{newQueue}\PYG{+w}{ }\PYG{o}{+}\PYG{o}{=}\PYG{+w}{ }\PYG{n}{newElement}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ }\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Вставляем новый элемент после максимального}
+\PYG{+w}{		}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+
+
+\PYG{+w}{	}\PYG{c+c1}{// Удаление первого элемента (если он есть)}
+\PYG{+w}{	}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{firstCommaIndex}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{newQueue}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{IndexOf}\PYG{p}{(}\PYG{l+s+sc}{\PYGZsq{}}\PYG{l+s+sc}{ }\PYG{l+s+sc}{\PYGZsq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{	}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{firstCommaIndex}\PYG{+w}{ }\PYG{o}{!}\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{		}\PYG{n}{newQueue}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{newQueue}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Substring}\PYG{p}{(}\PYG{n}{firstCommaIndex}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Удаляем все символы до первого пробела}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{	}\PYG{c+c1}{// Вывод новой очереди в текстовое поле}
+\PYG{+w}{	}\PYG{n}{NewQOut}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Text}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{newQueue}\PYG{p}{;}
+
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

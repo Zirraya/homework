@@ -1,5 +1,3 @@
 ﻿  MyForm.cpp
-  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
-  Создание кода...
   MyForm.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
-  FactorialNikitenko.vcxproj -> C:\projects\homework\FactorialNikitenko\x64\Debug\FactorialNikitenko.exe
+  FactorialNikitenko.vcxproj -> C:\projects\homework\NIR\FactorialNikitenko\x64\Debug\FactorialNikitenko.exe

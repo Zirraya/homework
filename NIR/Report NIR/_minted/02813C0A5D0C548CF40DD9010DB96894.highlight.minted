@@ -1,0 +1,39 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{private}\PYG{o}{:}\PYG{+w}{ }\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Void}\PYG{+w}{ }\PYG{n}{CreateQ\PYGZus{}Click}\PYG{p}{(}\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Object}\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{sender}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{EventArgs}\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{e}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+
+\PYG{+w}{	}\PYG{n}{q}\PYG{p}{.}\PYG{n}{Clear}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{	}
+\PYG{+w}{	}\PYG{n}{errorProvider1}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Clear}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{	}
+
+\PYG{+w}{	}\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{String}\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{str}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Convert}\PYG{o}{:}\PYG{o}{:}\PYG{n}{ToString}\PYG{p}{(}\PYG{k}{this}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{InPutQu}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{Text}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{		}\PYG{n}{str}\PYG{+w}{ }\PYG{o}{+}\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ }\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+\PYG{+w}{	 }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{X}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{at}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{pos}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{	 }\PYG{n}{at}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{str}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{IndexOf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ }\PYG{l+s}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{k}{while}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{at}\PYG{+w}{ }\PYG{o}{!}\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{		}\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{String}\PYG{+w}{ }\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{str1}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{str}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{Substring}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{,}\PYG{n}{at}\PYG{o}{\PYGZhy{}}\PYG{n}{pos}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{		 }\PYG{n}{pos}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{at}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{+w}{		 }\PYG{k+kt}{bool}\PYG{+w}{ }\PYG{n}{res}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Int32}\PYG{o}{:}\PYG{o}{:}\PYG{n}{TryParse}\PYG{p}{(}\PYG{n}{str1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{X}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{		 }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{X}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{			 }\PYG{n}{errorProvider1}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{n}{SetError}\PYG{p}{(}\PYG{n}{InPutQu}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{В строке есть не числа}\PYG{l+s}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{			 }\PYG{k}{return}\PYG{p}{;}
+\PYG{+w}{		 }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{		 }\PYG{n}{q}\PYG{p}{.}\PYG{n}{Enqueue}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{		 }\PYG{n}{at}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{str}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{IndexOf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ }\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{pos}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{		}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{	 }\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Collections}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Generic}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Queue}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{buf}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{String}\PYG{+w}{ }\PYG{o}{\PYGZca{}}\PYG{+w}{ }\PYG{n}{str2}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+\PYG{+w}{	 }\PYG{k}{while}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{q}\PYG{p}{.}\PYG{n}{Count}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{		 }\PYG{n}{buf}\PYG{p}{.}\PYG{n}{Enqueue}\PYG{p}{(}\PYG{n}{q}\PYG{p}{.}\PYG{n}{Peek}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{		 }\PYG{n}{str2}\PYG{+w}{ }\PYG{o}{+}\PYG{o}{=}\PYG{+w}{ }\PYG{n}{System}\PYG{o}{:}\PYG{o}{:}\PYG{n}{Convert}\PYG{o}{:}\PYG{o}{:}\PYG{n}{ToString}\PYG{p}{(}\PYG{n}{q}\PYG{p}{.}\PYG{n}{Peek}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ }\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{		 }\PYG{n}{q}\PYG{p}{.}\PYG{n}{Dequeue}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ 		}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{	 }\PYG{k}{while}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{buf}\PYG{p}{.}\PYG{n}{Count}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{		 }\PYG{n}{q}\PYG{p}{.}\PYG{n}{Enqueue}\PYG{p}{(}\PYG{n}{buf}\PYG{p}{.}\PYG{n}{Peek}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{		 }\PYG{n}{buf}\PYG{p}{.}\PYG{n}{Dequeue}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{		}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{		 }\PYG{k}{this}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{OutPutQu}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{Text}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{str2}\PYG{p}{;}\PYG{+w}{ }
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

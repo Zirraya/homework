@@ -2,3 +2,7 @@ C:\projects\homework\FactorialNikitenko\FactorialNikitenko\x64\Debug\FactorialNi
 C:\projects\homework\FactorialNikitenko\FactorialNikitenko\x64\Debug\FactorialNikitenko.vcxproj.SuggestedBindingRedirects.cache
 C:\projects\homework\FactorialNikitenko\FactorialNikitenko\x64\Debug\FactorialNikitenko.MyForm.resources
 C:\projects\homework\FactorialNikitenko\FactorialNikitenko\x64\Debug\FactorialNikitenko.vcxproj.GenerateResource.cache
+C:\projects\homework\NIR\FactorialNikitenko\FactorialNikitenko\x64\Debug\FactorialNikitenko.vcxproj.AssemblyReference.cache
+C:\projects\homework\NIR\FactorialNikitenko\FactorialNikitenko\x64\Debug\FactorialNikitenko.vcxproj.SuggestedBindingRedirects.cache
+C:\projects\homework\NIR\FactorialNikitenko\FactorialNikitenko\x64\Debug\FactorialNikitenko.MyForm.resources
+C:\projects\homework\NIR\FactorialNikitenko\FactorialNikitenko\x64\Debug\FactorialNikitenko.vcxproj.GenerateResource.cache

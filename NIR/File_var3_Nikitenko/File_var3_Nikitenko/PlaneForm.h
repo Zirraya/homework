@@ -475,6 +475,7 @@ namespace Filevar3Nikitenko {
 		   // Открытие файла
 	private: System::Void OpenFile_Click(System::Object^ sender, System::EventArgs^ e) {
 
+
 		if (this->openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 			System::IO::Stream^ myStream;
 			if ((myStream = openFileDialog1->OpenFile()) != nullptr) {
@@ -486,6 +487,10 @@ namespace Filevar3Nikitenko {
 				int pos = 0;
 				int at = 0;
 				int i = 0;
+
+				// Очищаем старые данные из Table1
+				this->Table1->Rows->Clear();
+
 				while (sw->Peek() > -1) {
 					this->Table1->Rows->Add(1);
 
@@ -615,7 +620,7 @@ namespace Filevar3Nikitenko {
 			}
 		}
 		else {
-			errorProvider2->SetError(ChoiceRace, "Сначала выберите рейс");
+			errorProvider2->SetError(ChoiceRace, "Сначала выберите гостиницу");
 		}
 
 	}//

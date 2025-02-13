@@ -112,6 +112,8 @@ namespace MatrixNikitenko211 {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::Label^ label8;
+	private: System::Windows::Forms::RadioButton^ RangMatrix;
+
 
 	private: System::ComponentModel::IContainer^ components;
 
@@ -175,6 +177,7 @@ namespace MatrixNikitenko211 {
 			this->ResultText = (gcnew System::Windows::Forms::TextBox());
 			this->errorMatrixSize = (gcnew System::Windows::Forms::ErrorProvider(this->components));
 			this->ChoiceAct = (gcnew System::Windows::Forms::GroupBox());
+			this->RangMatrix = (gcnew System::Windows::Forms::RadioButton());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->errorChoiceAct = (gcnew System::Windows::Forms::ErrorProvider(this->components));
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -489,10 +492,10 @@ namespace MatrixNikitenko211 {
 			this->OprM->AutoSize = true;
 			this->OprM->Location = System::Drawing::Point(409, 102);
 			this->OprM->Name = L"OprM";
-			this->OprM->Size = System::Drawing::Size(250, 21);
+			this->OprM->Size = System::Drawing::Size(202, 21);
 			this->OprM->TabIndex = 26;
 			this->OprM->TabStop = true;
-			this->OprM->Text = L"Опрделитель и ранг матрицы 1";
+			this->OprM->Text = L"Опрделитель матрицы 1";
 			this->OprM->UseVisualStyleBackColor = true;
 			// 
 			// TransM
@@ -621,6 +624,7 @@ namespace MatrixNikitenko211 {
 			// ChoiceAct
 			// 
 			this->ChoiceAct->BackColor = System::Drawing::Color::LightSeaGreen;
+			this->ChoiceAct->Controls->Add(this->RangMatrix);
 			this->ChoiceAct->Controls->Add(this->pictureBox1);
 			this->ChoiceAct->Controls->Add(this->label3);
 			this->ChoiceAct->Controls->Add(this->InPutNumber);
@@ -647,6 +651,17 @@ namespace MatrixNikitenko211 {
 			this->ChoiceAct->TabIndex = 39;
 			this->ChoiceAct->TabStop = false;
 			this->ChoiceAct->Text = L"Действие";
+			// 
+			// RangMatrix
+			// 
+			this->RangMatrix->AutoSize = true;
+			this->RangMatrix->Location = System::Drawing::Point(409, 207);
+			this->RangMatrix->Name = L"RangMatrix";
+			this->RangMatrix->Size = System::Drawing::Size(140, 21);
+			this->RangMatrix->TabIndex = 45;
+			this->RangMatrix->TabStop = true;
+			this->RangMatrix->Text = L"Ранг матрицы 1";
+			this->RangMatrix->UseVisualStyleBackColor = true;
 			// 
 			// pictureBox1
 			// 
@@ -1204,6 +1219,7 @@ private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e
 	else if (OprM->Checked) n = 11;
 	else if (CreateMV->Checked) n = 12;
 	else if (CreateM1->Checked) n = 13;
+	else if (RangMatrix->Checked) n = 14;
 
 	switch (n)
 	{
@@ -1546,7 +1562,7 @@ private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e
 		if (this->Matrix1->RowCount == 0) {
 			errorM1->SetError(Matrix1, " Пустая таблица. Нужно создать стоблцы и строки ");
 			return;
-		}	
+		}
 		else if (Matrix1->ColumnCount != Matrix2->RowCount) {
 			errorResult->SetError(Result, "Несоответствие размеров");
 			return;
@@ -1554,7 +1570,7 @@ private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e
 		else if (!checkMatr1()) {
 			errorM1->SetError(Matrix1, "В таблице есть не числа");
 		}
-	
+
 		else {
 			Result->RowCount = Matrix1->ColumnCount;
 			Result->ColumnCount = Matrix1->RowCount;
@@ -1568,7 +1584,7 @@ private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e
 		break;
 	}//
 
-		   // Определитель и ранг матрицы 1
+		   // Определитель 
 	case 11: {
 		if (this->Matrix1->RowCount == 0) {
 			errorM1->SetError(Matrix1, " Пустая таблица. Нужно создать стоблцы и строки ");
@@ -1582,6 +1598,7 @@ private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e
 		else if (!checkMatr1()) {
 			errorM1->SetError(Matrix1, "В таблице есть не числа");
 		}
+
 		else {
 			ResultText->Text = "Определитель матрицы: ";
 			int opred = 0;
@@ -1598,50 +1615,15 @@ private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e
 
 			opred = Det(mas, line);
 			ResultText->Text += System::Convert::ToString(opred) + "\r\n";
-
-			int rank = line;
-			for (int row = 0; row < rank; row++) {
-				if (mas[row][row]) {
-					for (int col = 0; col < line; col++) {
-						if (col != row) {
-							double mlt = (double)mas[col][row] / mas[row][row];
-							for (int i = 0; i < rank; i++)
-								mas[col][i] -= mlt * mas[row][i];
-						}
-					}
-				}
-				else {
-					bool flag = true;
-					for (int i = row + 1; i < line; i++) {
-						if (mas[i][row]) {
-							// свапаем(mas, row, i, rank);
-							for (int ii = 0; ii < rank; ii++) {
-								int tmp = mas[row][ii];
-								mas[row][ii] = mas[i][ii];
-								mas[i][ii] = tmp;
-							}
-							//
-							flag = false;
-							break;
-						}
-					}
-					if (flag) {
-						rank--;
-						for (int i = 0; i < line; i++)
-							mas[i][row] = mas[i][rank];
-					}
-					row--;
-				}
-			}
-
-			ResultText->Text += "Ранг матрицы: " + System::Convert::ToString(rank);
+	
 		}
 		break;
+	
 	}//
 
 		   // Создание матрицы 1 как набора векторов
 	case 12: {
-		
+
 		if (this->Vector1->RowCount == 0) {
 			errorV1->SetError(Vector1, " Пустая таблица. Нужно создать строки ");
 			return;
@@ -1676,7 +1658,7 @@ private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e
 
 		   // Создание еденичной матрицы
 	case 13: {
-		
+
 		if (!resN)
 			errorMatrixSize->SetError(MatrixSize, "Введено не число");
 		else {
@@ -1701,18 +1683,70 @@ private: System::Void Execute_Click(System::Object^ sender, System::EventArgs^ e
 		}
 		break;
 	}
-	default:
-		if (n == 0) {
-			errorChoiceAct->SetError(ChoiceAct, " Нужно выбрать действие");
-			return;
-		}
-		break;
-	}//
 
-}	
+	case 14: {
+			  
+		int opred = 0;
+		int line = Matrix1->RowCount;
+		int column = Matrix1->ColumnCount;
+
+		// Создаем массив для хранения значений матрицы
+		int** mas = new int* [line];
+		for (int i = 0; i < line; i++)
+			mas[i] = new int[column];
+
+		for (int i = 0; i < line; i++) {
+			for (int j = 0; j < column; j++) {
+				mas[i][j] = System::Convert::ToInt32(Matrix1->Rows[i]->Cells[j]->Value);
+			}
+		}
+
+		opred = Det(mas, line); // Если вам нужно вычислить определитель, он будет работать только для квадратных матриц
+
+		int rank = 0; // Инициализируем ранг
+
+		for (int row = 0; row < line; row++) {
+			// Ищем ведущий элемент в текущем столбце
+			int lead = -1;
+			for (int col = 0; col < column; col++) {
+				if (mas[row][col] != 0) {
+					lead = col;
+					break;
+				}
+			}
+
+			// Если не найден ведущий элемент, продолжаем
+			if (lead == -1) {
+				continue;
+			}
+
+			// Приводим строки ниже текущей к нулю
+			for (int i = row + 1; i < line; i++) {
+				if (mas[i][lead] != 0) {
+					double mlt = (double)mas[i][lead] / mas[row][lead];
+					for (int j = lead; j < column; j++) {
+						mas[i][j] -= mlt * mas[row][j];
+					}
+				}
+			}
+
+			rank++; // Увеличиваем ранг за каждую найденную ведущую строку
+		}
+
+		// Выводим результат
+		ResultText->Text += "Ранг матрицы: " + System::Convert::ToString(rank);
+		   }
+		   default:
+			   if (n == 0) {
+				   errorChoiceAct->SetError(ChoiceAct, " Нужно выбрать действие");
+				   return;
+			   }
+			   break;
+
+	}//
+}
 
 //
-
 
 };
 }
