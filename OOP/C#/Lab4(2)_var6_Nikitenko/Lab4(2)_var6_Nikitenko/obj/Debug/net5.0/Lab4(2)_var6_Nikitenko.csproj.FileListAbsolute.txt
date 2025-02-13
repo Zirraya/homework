@@ -1,0 +1,16 @@
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\bin\Debug\net5.0\Lab4(2)_var6_Nikitenko.exe
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\bin\Debug\net5.0\Lab4(2)_var6_Nikitenko.deps.json
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\bin\Debug\net5.0\Lab4(2)_var6_Nikitenko.runtimeconfig.json
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\bin\Debug\net5.0\Lab4(2)_var6_Nikitenko.runtimeconfig.dev.json
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\bin\Debug\net5.0\Lab4(2)_var6_Nikitenko.dll
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\bin\Debug\net5.0\Lab4(2)_var6_Nikitenko.pdb
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\obj\Debug\net5.0\Lab4(2)_var6_Nikitenko.csproj.AssemblyReference.cache
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\obj\Debug\net5.0\Lab4(2)_var6_Nikitenko.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\obj\Debug\net5.0\Lab4(2)_var6_Nikitenko.AssemblyInfoInputs.cache
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\obj\Debug\net5.0\Lab4(2)_var6_Nikitenko.AssemblyInfo.cs
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\obj\Debug\net5.0\Lab4(2)_var6_Nikitenko.csproj.CoreCompileInputs.cache
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\obj\Debug\net5.0\Lab4(2)_var6_Nikitenko.dll
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\obj\Debug\net5.0\refint\Lab4(2)_var6_Nikitenko.dll
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\obj\Debug\net5.0\Lab4(2)_var6_Nikitenko.pdb
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\obj\Debug\net5.0\Lab4(2)_var6_Nikitenko.genruntimeconfig.cache
+C:\projects\homework\OOP\C#\Lab4(2)_var6_Nikitenko\Lab4(2)_var6_Nikitenko\obj\Debug\net5.0\ref\Lab4(2)_var6_Nikitenko.dll

@@ -1,0 +1,16 @@
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\bin\Debug\net5.0\4_9var_Nikitenko_211_1task.exe
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\bin\Debug\net5.0\4_9var_Nikitenko_211_1task.deps.json
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\bin\Debug\net5.0\4_9var_Nikitenko_211_1task.runtimeconfig.json
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\bin\Debug\net5.0\4_9var_Nikitenko_211_1task.runtimeconfig.dev.json
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\bin\Debug\net5.0\4_9var_Nikitenko_211_1task.dll
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\bin\Debug\net5.0\4_9var_Nikitenko_211_1task.pdb
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\obj\Debug\net5.0\4_9var_Nikitenko_211_1task.csproj.AssemblyReference.cache
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\obj\Debug\net5.0\4_9var_Nikitenko_211_1task.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\obj\Debug\net5.0\4_9var_Nikitenko_211_1task.AssemblyInfoInputs.cache
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\obj\Debug\net5.0\4_9var_Nikitenko_211_1task.AssemblyInfo.cs
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\obj\Debug\net5.0\4_9var_Nikitenko_211_1task.csproj.CoreCompileInputs.cache
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\obj\Debug\net5.0\4_9var_Nikitenko_211_1task.dll
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\obj\Debug\net5.0\refint\4_9var_Nikitenko_211_1task.dll
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\obj\Debug\net5.0\4_9var_Nikitenko_211_1task.pdb
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\obj\Debug\net5.0\4_9var_Nikitenko_211_1task.genruntimeconfig.cache
+C:\projects\homework\OOP\C#\4_9var_Nikitenko_211_1task\4_9var_Nikitenko_211_1task\obj\Debug\net5.0\ref\4_9var_Nikitenko_211_1task.dll

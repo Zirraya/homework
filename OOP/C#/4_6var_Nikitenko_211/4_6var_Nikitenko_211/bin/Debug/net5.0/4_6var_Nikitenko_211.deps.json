@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "4_6var_Nikitenko_211/1.0.0": {
+        "dependencies": {
+          "Librarysincos": "1.0.0.0"
+        },
+        "runtime": {
+          "4_6var_Nikitenko_211.dll": {}
+        }
+      },
+      "Librarysincos/1.0.0.0": {
+        "runtime": {
+          "Librarysincos.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "4_6var_Nikitenko_211/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Librarysincos/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,6 @@
+C:\projects\homework\OOP\C#\Librarysincos\Librarysincos\bin\Debug\Librarysincos.dll
+C:\projects\homework\OOP\C#\Librarysincos\Librarysincos\bin\Debug\Librarysincos.pdb
+C:\projects\homework\OOP\C#\Librarysincos\Librarysincos\obj\Debug\Librarysincos.csproj.AssemblyReference.cache
+C:\projects\homework\OOP\C#\Librarysincos\Librarysincos\obj\Debug\Librarysincos.csproj.CoreCompileInputs.cache
+C:\projects\homework\OOP\C#\Librarysincos\Librarysincos\obj\Debug\Librarysincos.dll
+C:\projects\homework\OOP\C#\Librarysincos\Librarysincos\obj\Debug\Librarysincos.pdb
