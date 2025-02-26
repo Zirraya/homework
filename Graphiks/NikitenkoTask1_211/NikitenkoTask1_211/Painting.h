@@ -95,15 +95,17 @@ namespace NikitenkoTask1211 {
 		g->DrawString("Harpie", drawFont, drawBrush, 40, 100);
 		//
 		
-		
-		//// Контрольный вопрос №9
-		//Pen^ whitePen = gcnew Pen(Color::White, 10);
-		//g->DrawLine(whitePen, 90, 50, this->ClientRectanglethis->ClientRectangle.Width, 200);
-		////
-
-
+		// Контрольный вопрос №9
+		int offsetX = 10; // расстояние по горизонтали
+		int offsetY = 10; // расстояние по вертикали
+		Pen^ whitePen = gcnew Pen(Color::White, 10);
+		// Координаты конца линии
+		int endX = this->ClientRectangle.Width - offsetX;
+		int endY = this->ClientRectangle.Height - offsetY;
+		//
+		g->DrawLine(whitePen, 90, 50, endX, endY);
+		//
 	}
-
 	private: System::Void Painting_Resize(System::Object^ sender, System::EventArgs^ e) {
 		Refresh();
 	}
