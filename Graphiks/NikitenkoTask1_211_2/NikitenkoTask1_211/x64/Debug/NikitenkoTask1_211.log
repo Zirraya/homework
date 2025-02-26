@@ -1,0 +1,6 @@
+﻿  Painting.cpp
+C:\projects\homework\Graphiks\NikitenkoTask1_211 — копия\NikitenkoTask1_211\Painting.h(266,12): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+C:\projects\homework\Graphiks\NikitenkoTask1_211 — копия\NikitenkoTask1_211\Painting.h(267,13): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+C:\projects\homework\Graphiks\NikitenkoTask1_211 — копия\NikitenkoTask1_211\Painting.h(282,23): warning C4018: <: несоответствие типов со знаком и без знака
+  Painting.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+  NikitenkoTask1_211.vcxproj -> C:\projects\homework\Graphiks\NikitenkoTask1_211 — копия\x64\Debug\NikitenkoTask1_211.exe
