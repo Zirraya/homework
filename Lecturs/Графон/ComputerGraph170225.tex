@@ -179,7 +179,7 @@ $y' = y^{(2)}+y_a = (x-x_a) csin \vartheta + (y-y_a) cos \vartheta +y_a$
 
 \vspace{5mm}
 
-\begin{bmatrix}
+$*\begin{bmatrix}
     x' \\
     y' \\ 
 \end{bmatrix}
@@ -191,7 +191,7 @@ $y' = y^{(2)}+y_a = (x-x_a) csin \vartheta + (y-y_a) cos \vartheta +y_a$
 \begin{bmatrix}
     x \\
     y \\
-\end{bmatrix}
+\end{bmatrix}*$
 
 \subsection{Однородные координаты}
     \subsubsection{Евклидовые координаты}
@@ -220,7 +220,7 @@ $y' = y^{(2)}+y_a = (x-x_a) csin \vartheta + (y-y_a) cos \vartheta +y_a$
 
     Матрица масштабирвоания 
 
-    \begin{bmatrix}
+    $*\begin{bmatrix}
         \chi' \\
         \gamma ' \\ 
         \alpha ' \\
@@ -236,13 +236,13 @@ $y' = y^{(2)}+y_a = (x-x_a) csin \vartheta + (y-y_a) cos \vartheta +y_a$
         \chi \\
         \gamma  \\ 
         \alpha  \\
-    \end{bmatrix}
+    \end{bmatrix}*$
 
 
     Матрица поворота
 
 
-    \begin{bmatrix}
+    $*\begin{bmatrix}
         \chi' \\
         \gamma ' \\ 
         \alpha ' \\
@@ -258,7 +258,7 @@ $y' = y^{(2)}+y_a = (x-x_a) csin \vartheta + (y-y_a) cos \vartheta +y_a$
         \chi \\
         \gamma  \\ 
         \alpha  \\
-    \end{bmatrix}
+    \end{bmatrix}*$
 \hspace{5mm}
 
 $\chi ' = \alpha x' = \alpha x + Y_x \alpha$
@@ -270,7 +270,7 @@ $\alpha ' = \alpha$
 
 Матрица для переноса
 
-\begin{bmatrix}
+$*\begin{bmatrix}
     \chi' \\
     \gamma ' \\ 
     \alpha ' \\
@@ -286,11 +286,11 @@ $\alpha ' = \alpha$
     \chi \\
     \gamma  \\ 
     \alpha  \\
-\end{bmatrix}
+\end{bmatrix}*$
 
 Универсальная формула
 
-\begin{bmatrix}
+$*\begin{bmatrix}
     \chi' \\
     \gamma ' \\ 
     \alpha ' \\
@@ -316,7 +316,7 @@ $\alpha ' = \alpha$
     \chi \\
     \gamma  \\ 
     \alpha  \\
-\end{bmatrix}
+\end{bmatrix}*$
 
 
 \textbf{03.03.25}
@@ -329,20 +329,19 @@ P - столбец
 M - матрица
 
 P=
-\begin{bmatrix}
+$*\begin{bmatrix}
     \chi \\
     \gamma  \\ 
     \alpha  \\
 
-\end{bmatrix}
-
+\end{bmatrix}*$
 P=
-\begin{bmatrix}
+$*\begin{bmatrix}
     \chi' \\
     \gamma ' \\ 
     \alpha ' \\
 
-\end{bmatrix}
+\end{bmatrix}*$
 
 
 M' - обратная матрица
@@ -355,7 +354,7 @@ $P=M'(MP) \\Rightarrow  M'=M^-1$
 
 
 Translate ($T_x, T_y$) = 
-\begin{bmatrix}
+$*\begin{bmatrix}
     1 & 0  & T_x \\[0.3em]
     0 & 1  & T_y \\[0.3em]
     0 & 0  & 1 \\[0.3em]
@@ -364,7 +363,7 @@ Translate ($T_x, T_y$) =
     1 & 0  & -T_x \\[0.3em]
     0 & 1  & -T_y \\[0.3em]
     0 & 0  & 1 \\[0.3em]
-\end{bmatrix}
+\end{bmatrix}*$
 
 
 T($T_x,T_y$)
@@ -373,7 +372,7 @@ T($T_x,T_y$)
 \subsection{Преобразование масштабирвоание}
 
 Scale ($S_x,S_y$) 
-\begin{bmatrix}
+$*\begin{bmatrix}
     S_x & 0  & 0 \\[0.3em]
     0 & S_y  & 0 \\[0.3em]
     0 & 0  & 1 \\[0.3em]
@@ -382,14 +381,14 @@ Scale ($S_x,S_y$)
     1/S_x & 0  & 0 \\[0.3em]
     0 & 1/S_y  & 0 \\[0.3em]
     0 & 0  & 1 \\[0.3em]
-\end{bmatrix}
+\end{bmatrix}*$
 
 S($S_x,S_y$) 
 
 \subsection{Преобразование поворот}
 
 Rotate($\vartheta$) = 
-\begin{bmatrix}
+$*\begin{bmatrix}
     cos \vartheta & -sin \vartheta  & 0 \\[0.3em]
     sin \vartheta &  cos \vartheta  & 0 \\[0.3em]
     0 & 0  & 1 \\[0.3em]
@@ -398,7 +397,7 @@ Rotate($\vartheta$) =
     cos \vartheta & sin \vartheta  & 0 \\[0.3em]
     -sin \vartheta &  cos \vartheta  & 0 \\[0.3em]
     0 & 0  & 1 \\[0.3em]
-\end{bmatrix}
+\end{bmatrix}*$
 
 
 \section{Совмещенное преобразование}
@@ -417,12 +416,135 @@ $M' = M' (M_{\Delta }^{-1}, M_{2}^{-1},M_{3}^{-1})$
 
 У нас есть матрица
 
-\begin{bmatrix}
+$*\begin{bmatrix}
     1 & 0 & T_x \\
     0 & 1 & T_y \\
     0 & 0 & 1 \\
-\end{bmatrix}
+\end{bmatrix}*$
 
+Масштабирвоание равно преобразованию....
+
+
+Напоминание: Операция кордирования $x' = \frac{x-V_{cx}}{V_x} W_x + W_{cx}$
+
+$y' = \frac{y-V_{cy}}{V_y} W_y + W_{cy}$
+
+$\frac{W_x}{V_x} < \frac{W_y}{V_y}$
+
+
+$\frac{2}{V_x} < \frac{2}{V_y}$
+
+
+$1 = \frac{2}{2} < \frac{V_x}{V_y}$ - aspect - соотношение сторон
+
+Если соотношение сторон больше 1 масштабируем по x, если же наоборот то по y.
+ (Для вписания картинки в квадрат )
+
+$\frac{W_x}{V_x}$ или $\frac{W_y}{V_y}$
+
+
+$\frac{2}{V_x}$ или $\frac{2}{V_y}$
+
+
+
+
+$* \begin{cases}
+ V_{x}^{'} \\  
+\hspace{1cm} \text{Размеры модели после вписания в квадрат 2x2} \\
+V_{y}^{'} \\
+\end{cases} *$
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{1.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{2.png}
+\end{figure}
+
+\textbf{Команды:}
+
+translate x  y
+
+
+rotate $\vartheta$
+
+
+scale S
+
+
+figure 
+
+Вспомогательные команды
+
+popTransform - забираем из стка
+
+
+pushTransform - добавляем в стек
+
+\vspace{1cm}
+
+scale 1.25
+
+pushTransform
+
+translate 0 -R
+
+translate x y
+
+
+
+translate -x -y
+
+rotate 22.5
+
+translate x y
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{3.png}
+\end{figure}
+
+
+
+
+Сокращение картинки:
+
+scale 1.25
+
+translate 0 -R
+
+pushTransform
+
+translate x y
+
+figure
+
+popTransform
+
+rotate 22.5
+
+pushTransform
+
+translate x Y
+
+figure
+
+
+$*\begin{cases}
+    
+pushTransform \\
+
+rotate 22.5 \\
+
+pushTransform \\
+
+translate x y \\
+
+figure \\
+
+\end{cases}*$
+
+popTransform
 
 
 \end{document}
