@@ -1,0 +1,428 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage[english, russian] {babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage{minted}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\title{Компьютерная графика}
+\author{silvia.lesnaia }
+\date{February 2025}
+
+\begin{document}
+
+\maketitle
+
+\textbf{17.02.25}
+
+\section{Собъективно-ориентированное программирование}
+
+Это парадигма программирования которая представляет отрезок вменении во время которого возникают определенные события. Программа выполняется не линейно, программа описывается как набор обработчиков/ обработчик события.
+
+Некоторые события происходят автоматически, какие то нужно/можно инициализировать.
+
+Примеры обработчиков:
+
+Paint
+
+Load
+
+Resize
+
+\vspace{5mm}
+
+Некоторые обработчики могут быть инициализированы
+
+Refresh
+
+\section{Полигональная КГ}
+
+Объект описывается с помощью вершин/точек, которые соединенны отрезками. Перед описанием объекта нужно знать и задать координаты точек.
+
+\section{Модели}
+
+Модель строиться набором отрезков, которые определенным образом соединенны в точках, в некоторой системе координат. \textbf{Модельная система координат, объектная система координат,локальная система координат}
+
+Правая система координат - система повернута против часовой стрелки под 90 градусов
+
+Система координат экрана - (нужно заполнить тут) 
+
+Правая декартовая СК (мировая система координат) - "виртуальный мир", в котором существеют модели.
+
+\section{Кадрирование}
+
+Операция кадрирования - совмещенние одного кадра с другим, преобразования одного кадра
+
+Кадр - прямоуглник, стороны которого парарлельны осям координат и у которого есть параметры
+ 
+Размер по горизонтале - Vx
+
+Размер по вертикале - Vy
+
+Координты нижного угла -  Vcx, Vcy
+
+
+Исходный кадр обозоначается как - Wx, Wy, Wcx, Wcy
+
+Безразмерные координаты :
+
+
+$x_1 = x-V_cx$ \hspace{21mm} $y_1 = y-V_cy$
+\vspace{1mm}
+
+$x_2 = \frac{x-V_cx}{V_x}$ \hspace{22mm} $y_2 = \frac{y-V_cy}{V_y}$
+\vspace{1mm}
+
+$x_3 = \frac{x-V_cx}{V_x}*W_x$ \hspace{15mm} $y_3 = \frac{y-V_cy}{V_y}*W_y$
+\vspace{1mm}
+
+$x' = \frac{x-V_cx}{V_x}*W_x+W_cx$ \hspace{3mm} $y' = \frac{y-V_cy}{V_y}*W_y+W_cy$
+
+\vspace{5mm}
+
+
+Если умножить на - 1 еденицу, то картинка перевернется (касается перевернутых картинок)
+
+$x_4=\frac{x-V_cx}{V_x}*W_x+W_cx$ \hspace{3mm}  $y_4= \frac{y-V_cy}{V_y}*W_y-W_cy$
+
+\vspace{1mm}
+
+$x_5 = \frac{x-V_cx}{V_x}*W_x+W_cx$ \hspace{3mm} $y_5 = \frac{y-V_cy}{V_y}*W_x+2W_cy$
+
+
+$x' = \frac{x-C_cx}{V_x}* W_x+W_cx$ \hspace{3mm}$y' = W_cy- \frac{x-C_cx}{V_x}* W_y$
+
+\vspace{5mm}
+
+\textbf{24.02.25}
+
+\textbf{Продолжение}
+
+$x' = \frac{x-V_{cx}}{V_x} * W_x+W_c$
+
+\vspace{5mm}
+
+$y' = W_y - \frac{y-V_{cy}}{V_y} * W_y$
+
+
+\section{Преобразование изображения}
+\subsection{Элементарные преобразования}
+
+\textbf{1. Перенос/Сдвиг}
+
+Смысл преобразования: объект в одной системе координат 
+нужно сдвинуть в "другую систнму координат".
+
+Пример: 
+
+$x_1 \implies x'_1$ между ними расстояние $T_x$ \hspace{5mm} $y_1 \implies y'_1$ между ними расстояние $T_y$
+
+$x_2 \implies x'_2$ между ними расстояние $V_x$ \hspace{5mm} $y_2 \implies y'_2$ между ними расстояние $V_y$
+
+
+Итог: $x'=x+T_x$ \hspace{5mm} $y'=y+T_y$
+
+\vspace{5mm}
+
+\textbf{2. Масштабирвоание относительно начала координат}
+
+Это озночает, все точки преобразуются за исключением начальной точки.
+На месте остается только точка начала координат.
+
+Пример:
+
+$3 \implies 4.5$ и т.д
+
+Итог: $x'=x*S_x$ \hspace{5mm} $y'=y*S_y$ 
+
+\vspace{5mm}
+
+\textbf{3. Поворот относительно начала координат против часовой стрелки на угол $\vartheta$}
+
+Нужно соеденить лучом точку с началом координат. Преоброзовать точку означает, повернуть этот
+отрезок на заданный угол $\vartheta$. В результате полчвется новая точка.
+
+$x' = r cos(\alpha + \vartheta)^x = r cos \alpha cos \vartheta - r sin \alpha sin \varTheta
+= x cos \vartheta - y sin \vartheta$
+
+$y' = r sin(\alpha + \vartheta)^x = r sin \alpha cos \vartheta + r sin \vartheta cos \alpha
+= y cos \vartheta + x sin \vartheta$
+
+Итог : $x' = x cos \vartheta - y sin \vartheta$ \hspace{5mm}$y'= y cos \vartheta + x sin \vartheta$
+
+\textbf{4. Зеракальное отражение. Частный случай масштабирвоание}
+
+$x' = x*-1$ \hspace{5mm} $y' = y*-1$
+
+
+
+
+\section{Совмещенние преобразований}
+
+Пример: поворот на угол $\vartheta$ против часовой стрелки относительно т. $A(x_a, y_a)$
+
+$x^{(1)}=x-x_a$ \hspace{5mm} $y^{(1)}=y-y_a$ 
+
+$x^{(2)}=x^{(1)} cos \vartheta - y^{(2)} sin \vartheta $ \hspace{5mm}
+$y^{(2)}=x^{(1)} csin \vartheta + y^{(2)} cos \vartheta $
+
+\vspace{2mm}
+
+$x' = x^{(2)}+x_a = (x-x_a) cos \vartheta - (y-y_a) sin \vartheta +x_a$
+
+$y' = y^{(2)}+y_a = (x-x_a) csin \vartheta + (y-y_a) cos \vartheta +y_a$
+
+
+\vspace{5mm}
+
+\begin{bmatrix}
+    x' \\
+    y' \\ 
+\end{bmatrix}
+=
+\begin{bmatrix}
+    a_{11} & a_{12}  \\[0.3em]
+    a_{21} & a_{22}  \\[0.3em]
+\end{bmatrix}
+\begin{bmatrix}
+    x \\
+    y \\
+\end{bmatrix}
+
+\subsection{Однородные координаты}
+    \subsubsection{Евклидовые координаты}
+
+    В однородных координатах координаты объекта задается с точностью какого то множетеля. Например,
+    для прямой вида $A_x + B_y + C = 0$. Можно скзаать, что координаты прямой задаются тройкой $(A,B,C)$.
+    В таком случае, если домножить эту тройку, то она все еще будет указывать на иходную прямую.
+
+    Для евклидовой точки $(x,y)$ выберем некоторую произвольную
+
+
+    \textbf{ Переход от однородных в евклидовые координаты}
+
+    Предположим были однородные координаты $(\chi, \gamma, \alpha)$ 
+    и нам нужно получить $(\chi ', \gamma ', \alpha ')$
+
+    \subsection{Однородные преобразоавания}
+
+    Формула для масштабирвоание 
+
+    $\chi ' = \chi S_\chi$
+
+    $\gamma ' = \gamma S_\gamma$
+
+    $\alpha ' = \alpha$
+
+    Матрица масштабирвоания 
+
+    \begin{bmatrix}
+        \chi' \\
+        \gamma ' \\ 
+        \alpha ' \\
+
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        S_x & 0  & 0 \\[0.3em]
+        0 & S_y  & 0 \\[0.3em]
+        0 & 0  & 1 \\[0.3em]
+    \end{bmatrix}
+    \begin{bmatrix}
+        \chi \\
+        \gamma  \\ 
+        \alpha  \\
+    \end{bmatrix}
+
+
+    Матрица поворота
+
+
+    \begin{bmatrix}
+        \chi' \\
+        \gamma ' \\ 
+        \alpha ' \\
+
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        cos \vartheta & -sin \vartheta  & 0 \\[0.3em]
+        sin \vartheta &  cos \vartheta  & 0 \\[0.3em]
+        0 & 0  & 1 \\[0.3em]
+    \end{bmatrix}
+    \begin{bmatrix}
+        \chi \\
+        \gamma  \\ 
+        \alpha  \\
+    \end{bmatrix}
+\hspace{5mm}
+
+$\chi ' = \alpha x' = \alpha x + Y_x \alpha$
+
+$\gamma ' = \gamma x' = \gamma x + Y_x \alpha$
+
+$\alpha ' = \alpha$
+
+
+Матрица для переноса
+
+\begin{bmatrix}
+    \chi' \\
+    \gamma ' \\ 
+    \alpha ' \\
+
+\end{bmatrix}
+=
+\begin{bmatrix}
+    1 & 0  & T_x \\[0.3em]
+    0 & 1  & T_y \\[0.3em]
+    0 & 0  & 1 \\[0.3em]
+\end{bmatrix}
+\begin{bmatrix}
+    \chi \\
+    \gamma  \\ 
+    \alpha  \\
+\end{bmatrix}
+
+Универсальная формула
+
+\begin{bmatrix}
+    \chi' \\
+    \gamma ' \\ 
+    \alpha ' \\
+
+\end{bmatrix}
+=
+\begin{bmatrix}
+    cos \vartheta & -sin \vartheta  & 0 \\[0.3em]
+    sin \vartheta &  cos \vartheta  & 0 \\[0.3em]
+    0 & 0  & 1 \\[0.3em]
+\end{bmatrix}
+\begin{bmatrix}
+    S_x & 0  & 0 \\[0.3em]
+    0 & S_y  & 0 \\[0.3em]
+    0 & 0  & 1 \\[0.3em]
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0  & T_x \\[0.3em]
+    0 & 1  & T_y \\[0.3em]
+    0 & 0  & 1 \\[0.3em]
+\end{bmatrix}
+\begin{bmatrix}
+    \chi \\
+    \gamma  \\ 
+    \alpha  \\
+\end{bmatrix}
+
+
+\textbf{03.03.25}
+
+
+$P'= MP$ В таком виде записывается матричное преообразование
+
+P - столбец
+
+M - матрица
+
+P=
+\begin{bmatrix}
+    \chi \\
+    \gamma  \\ 
+    \alpha  \\
+
+\end{bmatrix}
+
+P=
+\begin{bmatrix}
+    \chi' \\
+    \gamma ' \\ 
+    \alpha ' \\
+
+\end{bmatrix}
+
+
+M' - обратная матрица
+
+
+$P=M'(MP) \\Rightarrow  M'=M^-1$
+
+
+\subsection{Преобразование перенос}
+
+
+Translate ($T_x, T_y$) = 
+\begin{bmatrix}
+    1 & 0  & T_x \\[0.3em]
+    0 & 1  & T_y \\[0.3em]
+    0 & 0  & 1 \\[0.3em]
+\end{bmatrix}
+\begin{bmatrix}
+    1 & 0  & -T_x \\[0.3em]
+    0 & 1  & -T_y \\[0.3em]
+    0 & 0  & 1 \\[0.3em]
+\end{bmatrix}
+
+
+T($T_x,T_y$)
+
+
+\subsection{Преобразование масштабирвоание}
+
+Scale ($S_x,S_y$) 
+\begin{bmatrix}
+    S_x & 0  & 0 \\[0.3em]
+    0 & S_y  & 0 \\[0.3em]
+    0 & 0  & 1 \\[0.3em]
+\end{bmatrix}
+\begin{bmatrix}
+    1/S_x & 0  & 0 \\[0.3em]
+    0 & 1/S_y  & 0 \\[0.3em]
+    0 & 0  & 1 \\[0.3em]
+\end{bmatrix}
+
+S($S_x,S_y$) 
+
+\subsection{Преобразование поворот}
+
+Rotate($\vartheta$) = 
+\begin{bmatrix}
+    cos \vartheta & -sin \vartheta  & 0 \\[0.3em]
+    sin \vartheta &  cos \vartheta  & 0 \\[0.3em]
+    0 & 0  & 1 \\[0.3em]
+\end{bmatrix}
+\begin{bmatrix}
+    cos \vartheta & sin \vartheta  & 0 \\[0.3em]
+    -sin \vartheta &  cos \vartheta  & 0 \\[0.3em]
+    0 & 0  & 1 \\[0.3em]
+\end{bmatrix}
+
+
+\section{Совмещенное преобразование}
+
+Смысл:
+
+$P' = (M_2...M_3,M_2,M_1)P$
+
+$E = M' (M_3,M_2,M_1)$
+
+$M' = M' (M_{\Delta }^{-1}, M_{2}^{-1},M_{3}^{-1})$
+
+
+\section{Принцип двойтсвенности}
+Двойственное преобразование
+
+У нас есть матрица
+
+\begin{bmatrix}
+    1 & 0 & T_x \\
+    0 & 1 & T_y \\
+    0 & 0 & 1 \\
+\end{bmatrix}
+
+
+
+\end{document}
