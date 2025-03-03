@@ -1,0 +1,58 @@
+Turbo Assembler	 Version 2.0	    09/28/24 20:42:11	    Page 1
+Task2.ASM
+
+
+
+      1	0000			     .model small		  ;Модель	памяти SMALL использует		    +
+      2				     сегменты
+      3								  ;размером не более 64Кб
+      4	0000			     .stack 100h		  ;Сегмент стека размером 100h (256	байт)
+      5	0000			     .data			  ;Начало	сегмента данных
+      6	0000  4E 69 6B 69 74 65	6E+  Niki db 'Nikitenko	Yana 211$'
+      7	      6B 6F 20 59 61 6E	61+
+      8	      20 32 31 31 24
+      9	0013			     .code			  ;Начало	сегмента кода
+     10	0000			     start:			  ;Точка входа в программу start
+     11								  ;Предопределенная метка @data		    +
+     12				     обозначает
+     13								  ;адрес сегмента данных в момент	    +
+     14				     запуска программы,
+     15	0000  B8 0000s		     mov AX, @data		  ;который сначала загрузим в AX,
+     16	0003  8E D8		     mov DS,AX			  ;а затем перенесем из AX в DS
+     17	0005  B4 09		     mov AH,09h
+     18	0007  BA 0000r		     mov DX,offset Niki
+     19	000A  CD 21		     int 21h
+     20	000C  B8 4C00		     mov AX,4C00h
+     21	000F  CD 21		     int 21h
+     22				     end start
+Turbo Assembler	 Version 2.0	    09/28/24 20:42:11	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "09/28/24"
+??FILENAME			  Text	 "Task2	  "
+??TIME				  Text	 "20:42:11"
+??VERSION			  Number 0200
+@CODE				  Text	 _TEXT
+@CODESIZE			  Text	 0
+@CPU				  Text	 0101H
+@CURSEG				  Text	 _TEXT
+@DATA				  Text	 DGROUP
+@DATASIZE			  Text	 0
+@FILENAME			  Text	 TASK2
+@MODEL				  Text	 2
+@WORDSIZE			  Text	 2
+NIKI				  Byte	 DGROUP:0000
+START				  Near	 _TEXT:0000
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+DGROUP				  Group
+  STACK				  16  0100 Para	  Stack	  STACK
+  _DATA				  16  0013 Word	  Public  DATA
+_TEXT				  16  0011 Word	  Public  CODE
+

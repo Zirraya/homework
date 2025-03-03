@@ -1,0 +1,57 @@
+Turbo Assembler	 Version 2.0	    09/20/24 08:52:20	    Page 1
+T2.asm
+
+
+
+      1	0000			     .model small		  ;Модель	памяти SMALL использует		    +
+      2				     сегменты
+      3								  ;размером не более 64Кб
+      4	0000			     .stack 100h		  ;Сегмент стека размером 100h (256	байт)
+      5	0000			     .data			  ;Начало	сегмента данных
+      6	0000  48 65 6C 6C 6F 2C	20+  Hello db 'Hello, World!$'
+      7	      57 6F 72 6C 64 21	24
+      8	000E			     .code			  ;Начало	сегмента кода
+      9	0000			     start:			  ;Точка входа в программу start
+     10								  ;Предопределенная метка @data		    +
+     11				     обозначает
+     12								  ;адрес сегмента данных в момент	    +
+     13				     запуска программы,
+     14	0000  B8 0000s		     mov AX, @data		  ;который сначала загрузим в AX,
+     15	0003  8E D8		     mov DS,AX			  ;а затем перенесем из AX в DS
+     16	0005  B4 09		     mov AH,09h
+     17	0007  BA 0000r		     mov DX,offset Hello
+     18	000A  CD 21		     int 21h
+     19	000C  B8 4C00		     mov AX,4C00h
+     20	000F  CD 21		     int 21h
+     21				     end start
+Turbo Assembler	 Version 2.0	    09/20/24 08:52:20	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "09/20/24"
+??FILENAME			  Text	 "T2	  "
+??TIME				  Text	 "08:52:20"
+??VERSION			  Number 0200
+@CODE				  Text	 _TEXT
+@CODESIZE			  Text	 0
+@CPU				  Text	 0101H
+@CURSEG				  Text	 _TEXT
+@DATA				  Text	 DGROUP
+@DATASIZE			  Text	 0
+@FILENAME			  Text	 T2
+@MODEL				  Text	 2
+@WORDSIZE			  Text	 2
+HELLO				  Byte	 DGROUP:0000
+START				  Near	 _TEXT:0000
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+DGROUP				  Group
+  STACK				  16  0100 Para	  Stack	  STACK
+  _DATA				  16  000E Word	  Public  DATA
+_TEXT				  16  0011 Word	  Public  CODE
+

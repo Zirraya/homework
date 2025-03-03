@@ -1,0 +1,59 @@
+Turbo Assembler	 Version 2.0	    09/28/24 20:22:53	    Page 1
+Task1.ASM
+
+
+
+      1	0000			     stak segment stack	'stack'	     ;Начало сегмента стека
+      2	0000  0100*(??)		     db	256 dup	(?)		     ;Резервируем 256 байт для стека
+      3	0100			     stak ends			     ;Конец сегмента стека
+      4	0000			     data segment 'data'	     ;Начало сегмента данных
+      5	0000  4E 69 6B 69 74 65	6E+  Niki db 'Nikitenko	Yana 211$'	 ;Строка для вывода
+      6	      6B 6F 20 59 61 6E	61+
+      7	      20 32 31 31 24
+      8	0013			     data ends			     ;Конец сегмента данных
+      9	0000			     code segment 'code'	     ;Начало сегмента кода
+     10				     assume CS:code,DS:data,SS:stak  ;Сегментный регистр CS будет		    +
+     11				     указывать	на сегмент команд,
+     12								     ;регистр DS	- на сегмент данных, SS –  +
+     13				     на стек
+     14	0000			     start:			     ;Точка входа в программу start
+     15				     ;Обязательная инициализация регистра DS в начале	    +
+     16				     программы
+     17	0000  B8 0000s		     mov AX,data		     ;Адрес сегмента данных сначала	    +
+     18				     загрузим в AX,
+     19	0003  8E D8		     mov DS,AX			     ;а затем перенесем из AX в DS
+     20	0005  B4 09		     mov AH,09h			     ;Функция DOS 9h вывода на экран
+     21	0007  BA 0000r		     mov DX,offset Niki		    ;Адрес	начала строки  записывается +
+     22				     в	регистр DX
+     23	000A  CD 21		     int 21h			     ;Вызов функции	DOS
+     24	000C  B8 4C00		     mov AX,4C00h		     ;Функция 4Ch завершения программы с +
+     25				     кодом	возврата 0
+     26	000F  CD 21		     int 21h			     ;Вызов функции	DOS
+     27	0011			     code ends			     ;Конец сегмента кода
+     28				     end start			     ;Конец текста программы с точкой    +
+     29				     входа
+Turbo Assembler	 Version 2.0	    09/28/24 20:22:53	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "09/28/24"
+??FILENAME			  Text	 "Task1	  "
+??TIME				  Text	 "20:22:53"
+??VERSION			  Number 0200
+@CPU				  Text	 0101H
+@CURSEG				  Text	 CODE
+@FILENAME			  Text	 TASK1
+@WORDSIZE			  Text	 2
+NIKI				  Byte	 DATA:0000
+START				  Near	 CODE:0000
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+CODE				  16  0011 Para	  none	  CODE
+DATA				  16  0013 Para	  none	  DATA
+STAK				  16  0100 Para	  Stack	  STACK
+
