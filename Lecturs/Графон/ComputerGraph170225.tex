@@ -766,4 +766,143 @@ cross-prodect - Псевдоскалярное произведение
 
 \textbf{17.03.25}
 
+
+\section{Одномерноые координаты}
+
+$e = (A,B,C) (0,0,3)$
+
+$A_x+B_y+C=0$
+
+$P ~ (\chi,\gamma, \alpha) = (\frac{\chi}{\alpha}, \frac{\gamma}{\alpha})$
+
+$(2,3,0)$
+
+\vspace{3mm}
+
+$A_\chi + B_\gamma + C+\alpha = 0$
+
+$(A,B,C) (\chi,\gamma,\alpha) = 0$
+
+$P_1(\chi_1,\gamma_1,\alpha_1)$ и $P_2(\chi_2,\gamma_2,\alpha_2) $
+
+\vspace{3mm}
+
+$P_1 x P_2 = e$
+
+$e_1 x e_2 = P$
+
+\textbf{Одномерноые координаты не будут использоваться в этом курсе, но пусть будут как факт}
+
+
+Плюкерова координата - $\beta=LP$
+
+L - представление как матрицы 4x4
+
+\textbf{Все выше перечисленное не бует на экзамене, это чисто для общего развитися}
+
+\section{Построение 2D - графика}
+
+Задана некая функция, нужно изобразить на экране.
+Функция бесконечная, как и графика.
+Нужно определить кадр, выделить его.
+Здаем кадр на экране.
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-17 123016.png}
+\end{figure}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-17 123224.png}
+\end{figure}
+
+$\Delta$ - шаг 
+
+Что получается
+
+$x_0 = V_{cx}\longrightarrow x_{0}^{'} = W_{cx}$ - кадрирование
+
+$y_0 = f(x_0)\longrightarrow y_{0}^{'}$ - кадрирование
+
+$x_i = x_{i-1} + x \longrightarrow x_{0}^{'}$ - кадрирование
+
+
+$y_i = f(x_0) + x \longrightarrow y_{0}^{'}$ - кадрирование
+
+отрезок от $x_{i-1}^{'}, y_{i-1}^{'}$ до $x_{i}^{'}, y_{i}^{'}$
+
+цикл $x_i < W_{cx}+W_x$
+
+\vspace{3mm}
+
+Как выбрать $\Delta_x$?
+
+Нужно отталкиваться от экрана, в завимисмоти от этого и выбиратьеся $\Delta_x$.
+Экран растровое пространство. По сути это сетка - точка растра.
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-17 125154.png}
+\end{figure}
+
+
+Цикл отриосовки:
+
+пока $x_{i}^{'} <= W_{cx}+W_x$
+
+$x_{i}^{'} = x_{i-1}^{'}+1 \longrightarrow x_i$ кадр
+
+$y_{i}^{'} \longleftarrow y_i (f_i)$ кадр
+
+обработка от $(x_{i-1}^{'}, y_{i-1}^{'})$ до $(x_{i}^{'}, y_{i}^{'})$
+
+$x_i = x_{i-1} + \frac{V_x}{W_x}$
+
+\vspace{3mm}
+
+Все усложняется, когда появляется разрыв... 
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-17 130158.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-17 131649.png}
+\end{figure}
+
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-17 132004.png}
+\end{figure}
+
+Так будет масштобироваться в окне
+
+\section{Построение 3D-граифка}
+
+Трехмерный график формирктся из двумерных графиков
+
+
+Пусть:
+
+
+Бужем обозначать $y = f(x,z)$. Теперь график зависит еще и от z
+
+\begin{figure} [H]
+    \includegraphics[width=1\linewidth]{tri.png}
+\end{figure}
+
+
+\begin{figure} [H]
+    \includegraphics[width=1\linewidth]{Снимок экрана 2025-03-17 132538.png}
+\end{figure}
+
+
+Для рисования такого используется "Алгоритм художника".
+Вначале начинаем с заднегго плана и от него идет вплоть до самого ближнего плана
+
+
+\begin{figure} [H]
+    \includegraphics[width=1\linewidth]{Снимок экрана 2025-03-17 132808.png}
+\end{figure}
+
 \end{document}
