@@ -10,7 +10,7 @@
 \usepackage{mathtools}
 
 \title{Компьютерная графика}
-\author{silvia.lesnaia }
+\author{Harpie}
 \date{February 2025}
 
 \begin{document}
@@ -179,7 +179,7 @@ $y' = y^{(2)}+y_a = (x-x_a) csin \vartheta + (y-y_a) cos \vartheta +y_a$
 
 \vspace{5mm}
 
-$*\begin{bmatrix}
+$\begin{bmatrix}
     x' \\
     y' \\ 
 \end{bmatrix}
@@ -191,7 +191,7 @@ $*\begin{bmatrix}
 \begin{bmatrix}
     x \\
     y \\
-\end{bmatrix}*$
+\end{bmatrix}$
 
 \subsection{Однородные координаты}
     \subsubsection{Евклидовые координаты}
@@ -220,7 +220,7 @@ $*\begin{bmatrix}
 
     Матрица масштабирвоания 
 
-    $*\begin{bmatrix}
+    $\begin{bmatrix}
         \chi' \\
         \gamma ' \\ 
         \alpha ' \\
@@ -236,13 +236,13 @@ $*\begin{bmatrix}
         \chi \\
         \gamma  \\ 
         \alpha  \\
-    \end{bmatrix}*$
+    \end{bmatrix}$
 
 
     Матрица поворота
 
 
-    $*\begin{bmatrix}
+    $\begin{bmatrix}
         \chi' \\
         \gamma ' \\ 
         \alpha ' \\
@@ -258,7 +258,7 @@ $*\begin{bmatrix}
         \chi \\
         \gamma  \\ 
         \alpha  \\
-    \end{bmatrix}*$
+    \end{bmatrix}$
 \hspace{5mm}
 
 $\chi ' = \alpha x' = \alpha x + Y_x \alpha$
@@ -270,7 +270,7 @@ $\alpha ' = \alpha$
 
 Матрица для переноса
 
-$*\begin{bmatrix}
+$\begin{bmatrix}
     \chi' \\
     \gamma ' \\ 
     \alpha ' \\
@@ -286,11 +286,11 @@ $*\begin{bmatrix}
     \chi \\
     \gamma  \\ 
     \alpha  \\
-\end{bmatrix}*$
+\end{bmatrix}$
 
 Универсальная формула
 
-$*\begin{bmatrix}
+$\begin{bmatrix}
     \chi' \\
     \gamma ' \\ 
     \alpha ' \\
@@ -316,7 +316,7 @@ $*\begin{bmatrix}
     \chi \\
     \gamma  \\ 
     \alpha  \\
-\end{bmatrix}*$
+\end{bmatrix}$
 
 
 \textbf{03.03.25}
@@ -329,19 +329,19 @@ P - столбец
 M - матрица
 
 P=
-$*\begin{bmatrix}
+$\begin{bmatrix}
     \chi \\
     \gamma  \\ 
     \alpha  \\
 
-\end{bmatrix}*$
+\end{bmatrix}$
 P=
-$*\begin{bmatrix}
+$\begin{bmatrix}
     \chi' \\
     \gamma ' \\ 
     \alpha ' \\
 
-\end{bmatrix}*$
+\end{bmatrix}$
 
 
 M' - обратная матрица
@@ -354,7 +354,7 @@ $P=M'(MP) \\Rightarrow  M'=M^-1$
 
 
 Translate ($T_x, T_y$) = 
-$*\begin{bmatrix}
+$\begin{bmatrix}
     1 & 0  & T_x \\[0.3em]
     0 & 1  & T_y \\[0.3em]
     0 & 0  & 1 \\[0.3em]
@@ -363,7 +363,7 @@ $*\begin{bmatrix}
     1 & 0  & -T_x \\[0.3em]
     0 & 1  & -T_y \\[0.3em]
     0 & 0  & 1 \\[0.3em]
-\end{bmatrix}*$
+\end{bmatrix}$
 
 
 T($T_x,T_y$)
@@ -372,7 +372,7 @@ T($T_x,T_y$)
 \subsection{Преобразование масштабирвоание}
 
 Scale ($S_x,S_y$) 
-$*\begin{bmatrix}
+$\begin{bmatrix}
     S_x & 0  & 0 \\[0.3em]
     0 & S_y  & 0 \\[0.3em]
     0 & 0  & 1 \\[0.3em]
@@ -381,14 +381,14 @@ $*\begin{bmatrix}
     1/S_x & 0  & 0 \\[0.3em]
     0 & 1/S_y  & 0 \\[0.3em]
     0 & 0  & 1 \\[0.3em]
-\end{bmatrix}*$
+\end{bmatrix}$
 
 S($S_x,S_y$) 
 
 \subsection{Преобразование поворот}
 
 Rotate($\vartheta$) = 
-$*\begin{bmatrix}
+$\begin{bmatrix}
     cos \vartheta & -sin \vartheta  & 0 \\[0.3em]
     sin \vartheta &  cos \vartheta  & 0 \\[0.3em]
     0 & 0  & 1 \\[0.3em]
@@ -397,7 +397,7 @@ $*\begin{bmatrix}
     cos \vartheta & sin \vartheta  & 0 \\[0.3em]
     -sin \vartheta &  cos \vartheta  & 0 \\[0.3em]
     0 & 0  & 1 \\[0.3em]
-\end{bmatrix}*$
+\end{bmatrix}$
 
 
 \section{Совмещенное преобразование}
@@ -416,11 +416,11 @@ $M' = M' (M_{\Delta }^{-1}, M_{2}^{-1},M_{3}^{-1})$
 
 У нас есть матрица
 
-$*\begin{bmatrix}
+$\begin{bmatrix}
     1 & 0 & T_x \\
     0 & 1 & T_y \\
     0 & 0 & 1 \\
-\end{bmatrix}*$
+\end{bmatrix}$
 
 Масштабирвоание равно преобразованию....
 
@@ -448,11 +448,11 @@ $\frac{2}{V_x}$ или $\frac{2}{V_y}$
 
 
 
-$* \begin{cases}
+$ \begin{cases}
  V_{x}^{'} \\  
 \hspace{1cm} \text{Размеры модели после вписания в квадрат 2x2} \\
 V_{y}^{'} \\
-\end{cases} *$
+\end{cases} $
 
 
 \begin{figure} [H]
@@ -530,7 +530,7 @@ translate x Y
 figure
 
 
-$*\begin{cases}
+$\begin{cases}
     
 pushTransform \\
 
@@ -542,9 +542,228 @@ translate x y \\
 
 figure \\
 
-\end{cases}*$
+\end{cases}$
 
 popTransform
 
+
+
+\textbf{10.03.25}
+
+\section{Операции над векторами}
+\subsection{Двумерные вектора}
+У веторов две характиристики:
+
+длина
+
++
+
+направлнение
+
+Подобные вектора называется свободными векторами
+если, есть точка из которой он начинается, 
+то он называется связанным
+
+Угол вектора $(r,\varphi)$
+
+Угол ветора против часовой стрелки
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{Снимок экрана 2025-03-10 121857.png}
+\end{figure}
+
+
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{4.png}
+\end{figure}
+Радиус вектор точка P
+
+$\bar{P} (x,\varphi)$
+
+$x = r cos \varphi$
+
+$y = r sin \varphi$
+
+
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{5.png}
+\end{figure}
+
+
+\textbf{Сложение векторов(сумма)}
+
+$\bar{u} u \bar{v}$
+
+$\bar{u} + \bar{v}$
+
+
+$\bar{u} = (u_x,u_y)$
+
+$\bar{v} = (v_x,v_y)$
+
+$\bar{u} + \bar{v} = (u_x+v_x,u_y+v_y)$
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{6.png}
+\end{figure}
+
+\textbf{Разность векторов}
+$\bar{u} u \bar{v}$
+
+$\bar{u} - \bar{v}$
+
+
+$\bar{u} - \bar{v} = (u_x-v_x,u_y-v_y)$
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{7.png}
+\end{figure}
+
+
+\textbf{пупуп }
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{8.png}
+\end{figure}
+
+$k\bar{u} = (ku_x,ku_y)$
+
+
+\textbf{Скалярное произведение векторов}
+
+$\bar{u}  \bar{v}$
+
+$\bar{u} * \bar{v} = |\bar{u}| |\bar{v}| cos \widehat{\bar{u} \bar{v}} $
+
+$\bar{u} = (r,\varphi)$
+
+$|\bar{u}| = r$
+
+$\bar{u} = \bar{u_x+\bar{u_y}}$
+
+$\bar{u} * \bar{v} = (\bar{u_x+\bar{u_y}})*(\bar{v_x} + \bar{v_y})= $
+$(|u_x|e_1 + |u_y|e_2) *(|v_x|e_1 *|v_x|e_1)$
+
+
+$\bar{u}*\bar{v} = |\bar{u_x}||\bar{v_x}||\bar{u_x}+|\bar{v_y}| $ - основная формула
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{9.png}
+\end{figure}
+
+
+$\bar{u} \bar{i}$
+
+$\bar{u}*\bar{i} = |\bar{u}| |\bar{i}| cos \widehat{\bar{u} \bar{i}} =$
+$|\bar{u}| cos\widehat{\bar{u} \bar{i}}$
+
+
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{10.png}
+\end{figure}
+
+
+dot-prodect - Скалярное произведение
+
+\textbf{Псевдоскалярное произведение}
+
+$\bar{u} \bar{v}$
+
+$\bar{u} x \bar{v} = |\bar{u}|\bar{v}|sin < \bar{u} \bar{v}$
+
+$\bar{u} x \bar{v} = -\bar{u} x \bar{v}$
+
+
+$ e_1 x e_1 = 0
+e_1 x e_2 = 1
+e_2 x e_1 = -1
+e_2 x e_2 = 0
+= u_xv_y - u_yv_x > \bar{u} x \bar{v} = $ 
+$ \begin{bmatrix}
+    u_x & u_y \\
+    v_x & v_y \\
+
+\end{bmatrix} $
+
+cross-prodect - Псевдоскалярное произведение 
+
+
+
+\subsection{Трехмерные вектора}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{КоординатыПравЛев.png}
+    \text{Левосторонняя и правостороняя}
+\end{figure}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{Снимок экрана 2025-03-10 131058.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{Снимок экрана 2025-03-10 131148.png}
+\end{figure}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{Снимок экрана 2025-03-10 131219.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{Снимок экрана 2025-03-10 131255.png}
+\end{figure}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{Снимок экрана 2025-03-10 131408.png}
+    \text{Сложение вектора по координатам}
+\end{figure}
+
+
+\textbf{!Скалярное произведение аналогично двухмерному}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{Снимок экрана 2025-03-10 131719.png}
+    \text{Через матрицу}
+\end{figure}
+
+\textbf{Векторное произведение}
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{Снимок экрана 2025-03-10 131820.png}
+\end{figure}
+
+
+Угол может быть как положительным, так и отрицательным
+
+Не важно в какую сторону отмереяться угол
+
+Если положительный результат, то вверх, 
+отрицательный же вниз
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{11.png}
+\end{figure}
+
+
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.50\linewidth]{Снимок экрана 2025-03-10 133749.png}
+    \text{Матрица векторного произведения}
+\end{figure}
+
+
+
+\textbf{17.03.25}
 
 \end{document}
