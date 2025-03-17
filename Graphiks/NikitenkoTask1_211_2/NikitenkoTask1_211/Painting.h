@@ -257,10 +257,18 @@ namespace NikitenkoTask1211 {
 	};
 //
 	unsigned int arrayLength = sizeof(linesFish) / sizeof(float);
+	float VxF = 13.5f; // размер рисунка по горизонтали
+	float VyF = 13.5f; // размер рисунка по вертикали
+	float aspectFigF = VxF / VyF; // соотношение сторон рисунка
+
+
+
+
+
 	unsigned int arrayLengthR = sizeof(lines) / sizeof(float);
-	float Vx = 8.5f; // размер рисунка по горизонтали
-	float Vy = 8.5f; // размер рисунка по вертикали
-	float aspectFig = Vx / Vy; // соотношение сторон рисунка
+	float VxR = 8.5f; // размер рисунка по горизонтали
+	float VyR = 8.5f; // размер рисунка по вертикали
+	float aspectFigR = VxR / VyR; // соотношение сторон рисунка
 	//
 
 	/// <summary>
@@ -308,7 +316,7 @@ namespace NikitenkoTask1211 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(920, 483);
+			this->ClientSize = System::Drawing::Size(647, 466);
 			this->DoubleBuffered = true;
 			this->Name = L"Painting";
 			this->Text = L"Painting";
@@ -326,7 +334,7 @@ namespace NikitenkoTask1211 {
 	private: System::Void Painting_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 
 		Graphics^ g = e->Graphics;
-		g->Clear(Color::SteelBlue);
+		g->Clear(Color::PowderBlue);
 
 		// Перо
 		Pen^ orangePen = gcnew Pen(Color::OrangeRed, 2.5f);
@@ -335,32 +343,36 @@ namespace NikitenkoTask1211 {
 		 float Wy = ClientRectangle.Height; // размер окна по вертикали
 		
 		float aspectForm = Wx / Wy; // соотношение сторон окна рисования
-		 float Sx, Sy;
+		float SxR, SyR, SxF, SyF;
 		 if (keepAspectRatio) {
 			 // коэффициенты увеличения при сохранении исходного соотношения сторон
-				 Sx = Sy = aspectFig < aspectForm ? Wy / Vy : Wx / Vx;
+				 SxR = SyR = aspectFigR < aspectForm ? Wy / VyR : Wx / VxR;
+				 SxF = SyF = aspectFigF < aspectForm ? Wy / VyF : Wx / VxF;
 			
 		}
 		 else {
-			 Sx = Wx / Vx; // коэффициент увеличения по оси Ox
-			 Sy = Wy / Vy; // коэффициент увеличения по оси Oy	
+			 SxR = Wx / VxR; // коэффициент увеличения по оси Ox
+			 SyR = Wy / VyR; // коэффициент увеличения по оси Oy	
+
+			 SxF = Wx / VxF; // коэффициент увеличения по оси Ox
+			 SyF = Wy / VyF; // коэффициент увеличения по оси Oy	
 		}
 
 		 if (!changeImage) { // Кролик
-			 float Ty = Sy * Vy; // смещение в положительную сторону по оси Oy после смены знака
+			 float Ty = SyR * VyR; // смещение в положительную сторону по оси Oy после смены знака
 			 for (int i = 0; i < arrayLengthR; i += 4) {
-				 g->DrawLine(orangePen, Sx * lines[i], Ty - Sy * lines[i + 1], Sx * lines[i + 2], Ty - Sy * lines[i + 3]);
+				 g->DrawLine(orangePen, SxR * lines[i], Ty - SyR * lines[i + 1], SxR * lines[i + 2], Ty - SyR * lines[i + 3]);
 			 }
 
 			 
 		 }
 		 else { // Рыбка
-			 float TyF = Sy * Vy; // смещение в положительную сторону по оси Oy после смены знака
+			 float TyF = SyF * VyF; // смещение в положительную сторону по оси Oy после смены знака
 			 for (int i = 0; i < arrayLength; i += 4) {
-				 g->DrawLine(orangePen, Sx * linesFish[i], TyF - Sy * linesFish[i + 1], Sx * linesFish[i + 2], TyF - Sy * linesFish[i + 3]);
+				 g->DrawLine(orangePen, SxF * linesFish[i], TyF - SyF * linesFish[i + 1], SxF * linesFish[i + 2], TyF - SyF * linesFish[i + 3]);
 			 }
 
-			 
+	 
 		 }
 		//
 	}
