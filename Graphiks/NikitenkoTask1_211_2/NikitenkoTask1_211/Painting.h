@@ -257,8 +257,8 @@ namespace NikitenkoTask1211 {
 	};
 //
 	unsigned int arrayLength = sizeof(linesFish) / sizeof(float);
-	float VxF = 13.5f; // размер рисунка по горизонтали
-	float VyF = 13.5f; // размер рисунка по вертикали
+	float VxF = 13.3f; // размер рисунка по горизонтали
+	float VyF = 11.0f; // размер рисунка по вертикали
 	float aspectFigF = VxF / VyF; // соотношение сторон рисунка
 
 
