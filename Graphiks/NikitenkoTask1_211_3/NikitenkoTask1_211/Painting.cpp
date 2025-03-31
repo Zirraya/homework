@@ -1,3 +1,5 @@
+#include "Matrix.h"
+#include "Transform.h"
 #include "Painting.h"
 
  using namespace System;

@@ -128,6 +128,7 @@
     <ClInclude Include="Painting.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Painting.resx">

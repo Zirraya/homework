@@ -256,20 +256,31 @@ namespace NikitenkoTask1211 {
 		// 
 	};
 //
+	// Рыбка
 	unsigned int arrayLength = sizeof(linesFish) / sizeof(float);
-	float VxF = 13.3f; // размер рисунка по горизонтали
-	float VyF = 11.0f; // размер рисунка по вертикали
+	float VxF = 9.5f; // размер рисунка по горизонтали
+	float VyF = 7.5f; // размер рисунка по вертикали
 	float aspectFigF = VxF / VyF; // соотношение сторон рисунка
 
 
 
 
-
+	// Кролик
 	unsigned int arrayLengthR = sizeof(lines) / sizeof(float);
 	float VxR = 8.5f; // размер рисунка по горизонтали
 	float VyR = 8.5f; // размер рисунка по вертикали
 	float aspectFigR = VxR / VyR; // соотношение сторон рисунка
 	//
+
+	// Кролик
+	// Матрицы, для 3 задания
+	mat3 TR = mat3(1.f); // матрица, в которой накапливаются все преобразования
+	mat3 initTR; // матрица начального преобразования
+
+	// Рыбка
+	mat3 TF = mat3(1.f); // матрица, в которой накапливаются все преобразования
+	// первоначально - единичная матрица
+	mat3 initTF; // матрица начального преобразования
 
 	/// <summary>
 	/// Сводка для Painting
@@ -358,18 +369,38 @@ namespace NikitenkoTask1211 {
 			 SyF = Wy / VyF; // коэффициент увеличения по оси Oy	
 		}
 
+
+		 // Кролик
+		 float TyR = SyR * VyR; // смещение в положительную сторону по оси Oy после смены з
+		 initTR = translate(0.f, TyR) * scale(SxR, -SyR); // преобразования применяются справа налево
+		 mat3 MR = TR * initTR; // совмещение начального преобразования и
+		 // накопленных преобразованийй
+
+		 // Рыбка
+		 float TyF = SyF * VyF; // смещение в положительную сторону по оси Oy после смены знака
+		 initTF = translate(0.f, TyF) * scale(SxF, -SyF); // преобразования применяются справа налево
+		 mat3 MF = TF * initTF; // совмещение начального преобразования и
+		 // накопленных преобразовани
+
+
 		 if (!changeImage) { // Кролик
-			 float Ty = SyR * VyR; // смещение в положительную сторону по оси Oy после смены знака
 			 for (int i = 0; i < arrayLengthR; i += 4) {
-				 g->DrawLine(orangePen, SxR * lines[i], Ty - SyR * lines[i + 1], SxR * lines[i + 2], Ty - SyR * lines[i + 3]);
+				 vec3 AR = vec3(lines[i], lines[i + 1], 1.f); // начало отрезка в однородных координатах
+				 vec3 BR = vec3(lines[i + 2], lines[i + 3], 1.f); // конец отрезка в однородных координатах
+				 vec2 ar = normalize(MR * AR); // начало отрезка после преобразования
+				 vec2 br = normalize(MR * BR); // конец отрезка после преобразования
+				 g->DrawLine(orangePen, ar.x, ar.y, br.x, br.y); // отрисовка отрезка
 			 }
 
 			 
 		 }
 		 else { // Рыбка
-			 float TyF = SyF * VyF; // смещение в положительную сторону по оси Oy после смены знака
 			 for (int i = 0; i < arrayLength; i += 4) {
-				 g->DrawLine(orangePen, SxF * linesFish[i], TyF - SyF * linesFish[i + 1], SxF * linesFish[i + 2], TyF - SyF * linesFish[i + 3]);
+				 vec3 AF = vec3(linesFish[i], linesFish[i + 1], 1.6f); // начало отрезка в однородных координатах
+				 vec3 BF = vec3(linesFish[i + 2], linesFish[i + 3], 1.6f); // конец отрезка в однородных координатах
+				 vec2 af = normalize(MF * AF); // начало отрезка после преобразования
+				 vec2 bf = normalize(MF * BF); // конец отрезка после преобразования
+				 g->DrawLine(orangePen, af.x, af.y, bf.x, bf.y); // отрисовка отрезка
 			 }
 
 	 
@@ -385,6 +416,9 @@ namespace NikitenkoTask1211 {
 	}
 	private: System::Void Painting_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 	
+		float Wcx = ClientRectangle.Width / 2.f; // координаты центра
+		float Wcy = ClientRectangle.Height / 2.f; // текущего окна
+
 
 		switch (e->KeyCode) {
 		 case Keys::M:
@@ -401,6 +435,56 @@ namespace NikitenkoTask1211 {
 		default:
 			break;
 		}
+
+		// Для рыбки
+		switch (e->KeyCode) {
+		case Keys::Q:
+			TF = translate(-Wcx, -Wcy) * TF; // перенос начала координат в (Wcx, Wcy)
+			TF = rotate(0.01f) * TF; // поворот на 0.01 радиан относительно
+			// нового центра
+			TF = translate(Wcx, Wcy) * TF; // перенос начала координат обратно
+			break;
+		}
+
+		switch (e->KeyCode) {
+		case Keys::W:
+			TF = translate(0.f, -1.f) * TF; // сдвиг вверх на один пиксел
+			break;
+
+		}
+
+		switch (e->KeyCode) {
+		case Keys::Escape:
+			TF = mat3(1.f); // присвоили T единичную матрицу
+			break;
+		}
+		//
+
+		// Для кролика
+		switch (e->KeyCode) {
+		case Keys::Q:
+			TR = translate(-Wcx, -Wcy) * TR; // перенос начала координат в (Wcx, Wcy)
+			TR = rotate(0.01f) * TR; // поворот на 0.01 радиан относительно
+			// нового центра
+			TR = translate(Wcx, Wcy) * TR; // перенос начала координат обратно
+			break;
+		}
+
+		switch (e->KeyCode) {
+		case Keys::W:
+			TR = translate(0.f, -1.f) * TR; // сдвиг вверх на один пиксел
+			break;
+
+		}
+
+		switch (e->KeyCode) {
+		case Keys::Escape:
+			TR = mat3(1.f); // присвоили T единичную матрицу
+			break;
+		}
+		//
+
+
 		Refresh();
 	}
 	};
