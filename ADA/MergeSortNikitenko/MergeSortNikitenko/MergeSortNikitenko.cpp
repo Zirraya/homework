@@ -5,6 +5,7 @@
 #include <vector>
 #include <random> // Для генерации случайных чисел
 #include <limits> // Для std::numeric_limits
+#include <chrono>  // Для измерения времени
 using namespace std;
 
 // Слияния двух подмассивов arr[].
@@ -101,12 +102,20 @@ int main()
         arr[i] = rand() % 100; // Генерация случайного числа от 0 до 99
     }
 
+    // Измерение времени сортировки
+    auto start = chrono::high_resolution_clock::now();
+
     // Сортировка
     mergeSort(arr, 0, n - 1);
 
-    // Вывод отсортированного массива
-    cout << "\nОтсортированный массив: \n";
-    printVector(arr);
+    auto end = chrono::high_resolution_clock::now();
+
+    // Вывод времени выполнения сортировки
+    cout << "Время выполнения сортировки: "
+        << chrono::duration<double, milli>(end - start).count()
+        << " миллисекунд." << endl;
+
+  
 
     return 0;
 }

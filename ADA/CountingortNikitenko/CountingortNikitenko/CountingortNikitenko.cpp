@@ -17,7 +17,7 @@ vector<int> countSort(vector<int>& inputArray)
         M = max(M, inputArray[i]);
 
    
-    vector<int> countArray(M + 1, 0); // Массив для хранения всех вхождений входного массива
+    vector<int> countArray(M + 1, 0); // Массив  запоненный нулями для хранения всех вхождений входного массива
 
     //
     for (int i = 0; i < N; i++)      // Элементы из ввода сопоставленны с индексами

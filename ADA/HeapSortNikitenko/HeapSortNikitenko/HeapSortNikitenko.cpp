@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random> // Для генерации случайных чисел
 #include <limits> // Для std::numeric_limits
+#include <chrono>  // Для измерения времени
 using namespace std;
 
 // Для создания кучи поддерева с корнем в узле i, который
@@ -80,10 +81,19 @@ int main() {
     }
     //
 
+    // Измерение времени сортировки
+    auto start = chrono::high_resolution_clock::now();
+
     heapSort(arr, n);  // Сортировка кучи
 
-    cout << "Отсортированный массив: \n";
-    printArray(arr, n);
+   /* cout << "Отсортированный массив: \n";
+    printArray(arr, n);*/
+    auto end = chrono::high_resolution_clock::now();
+
+    // Вывод времени выполнения сортировки
+    cout << "Время выполнения сортировки: "
+        << chrono::duration<double, milli>(end - start).count()
+        << " миллисекунд." << endl;
 
     delete[] arr; // Освобождение выделенной памяти
     return 0;
