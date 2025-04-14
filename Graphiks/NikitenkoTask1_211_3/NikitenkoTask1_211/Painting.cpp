@@ -1,6 +1,11 @@
 #include "Matrix.h"
 #include "Transform.h"
+#include <vector>
+#include "Figure.h"
+#include <fstream>
+#include <sstream>
 #include "Painting.h"
+
 
  using namespace System;
  using namespace System::Windows::Forms;

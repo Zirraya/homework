@@ -124,6 +124,7 @@
     <ClCompile Include="Painting.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Figure.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Painting.h">
       <FileType>CppForm</FileType>

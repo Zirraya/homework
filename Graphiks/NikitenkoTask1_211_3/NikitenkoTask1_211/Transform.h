@@ -27,3 +27,19 @@ mat3 rotate(float theta) {
 	(*res)[1][0] = -(*res)[0][1]; // синус во второй строке (с минусом)
 	return *res;
 }
+
+
+// Матрицы для зеркального отображения
+mat3 mirrorX() {
+	mat3* res = new mat3(1.f);
+	(*res)[0][0] = 1.f;
+	(*res)[1][1] = -1.f;
+	return *res;
+}
+mat3 mirrorY() {
+	mat3* res = new mat3(1.f);
+	(*res)[0][0] = -1.f;
+	(*res)[1][1] = 1.f;
+	return *res;
+}
+//
