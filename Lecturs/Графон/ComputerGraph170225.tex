@@ -905,4 +905,523 @@ $x_i = x_{i-1} + \frac{V_x}{W_x}$
     \includegraphics[width=1\linewidth]{Снимок экрана 2025-03-17 132808.png}
 \end{figure}
 
+
+
+\textbf{24.03.25}
+
+Пропуск лекции из-за досдачи
+
+\textbf{31.03.25}
+
+\subsection{3D - преобразоавания}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{тра.png}
+\end{figure}
+
+Матричная форма $\bar{p'}=$
+$\begin{bmatrix}
+    e^{'T}_{1} \\
+    e^{'T}_{2} \\
+\end{bmatrix}
+\bar{p}
+$
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-31 123501.png}
+\end{figure}
+
+
+\section{Система координат наблюдателя}
+
+\textbf{Замечание}
+
+Модель это набор отрезков, на данный момент.
+
+Вершины заданы в какой-то система координат.
+
+Преобразование накапливается.
+
+Для каждого набора точек, своя модель преобразоавания.
+
+Есть неизменяемые вершинные данные, изменяются только преобразования.
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{пре.png}
+\end{figure}
+
+\vspace{1cm}
+
+Точка наблюдене - точка зрения наблюдателя(camera). 
+
+Вектор наблюдения - вектор направленый от взляда наблюдателя в точку наблюдения.
+
+Система координат - правая декартовая система координат, лежащая от глаз наблюдателя
+
+Ось x направленна влевео вниз от наблюдателя
+
+Ось y направленна вверх от наблюдателя
+
+Ось z направленна вправо от наблюдателя
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-31 125809.png}
+\end{figure}
+
+\vspace{5mm}
+
+\textbf{Преобразование:}
+
+\vspace{2mm}
+1. Поворот
+
+$\begin{bmatrix}
+    0 && 0 && 0 && -S_1 \\
+    0 && 1 && 0 && -S_2 \\
+    0 && 0 && 1 && -S_3 \\
+    0 && 0 && 0 && 1 \\
+\end{bmatrix}
+$
+
+\vspace{5mm}
+
+2. Вращение. Нужно определить матрицу вращения
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-31 130326.png}
+\end{figure}
+
+Определить первый базисный вектор
+
+Определить второй базисный вектор
+
+Определить третий базисный вектор
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-31 130527.png}
+\end{figure}
+
+После всех превращений нужно... 
+
+LookAt - получет матрицу вращений. Преобразование системы переходы из  мировой системы координат
+в ситсему координат наблюдателя
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-31 130706.png}
+\end{figure}
+
+Вверху на кортинке опечатка: лишняя единица и на глваной диагонали нехваетает единицы
+
+\vspace{2mm}
+
+$\begin{bmatrix}
+    0 && 0 && 0 && -S_1 \\
+    0 && 1 && 0 && -S_2 \\
+    0 && 0 && 1 && -S_3 \\
+    0 && 0 && 0 && 1 \\
+\end{bmatrix}
+$
+
+\vspace{2mm}
+
+Правильная матрица
+
+
+Плоскость наблюдения (круг).
+
+Окно наблюдения(квадрат) кадр
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{набл.png}
+\end{figure}
+
+near - расстояние от наблюдателя до окна наблюдения
+
+\section{Трехмерные преобазования}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-31 133559.png}
+\end{figure}
+
+Перспектива - это намернное искажения изображения с целью приданию глубины
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-31 133646.png}
+\end{figure}
+
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{куб.png}
+\end{figure}
+
+\subsection{Перспекитвное преобразование}
+
+
+
+
+
+
+тут должно быть изображение с изображением того что на доске (смотреть в телефоне)
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-03-31 133818.png}
+\end{figure}
+
+
+\vspace{5cm}
+
+\textbf{07.04.25}
+
+\subsection{Отсечение невидмых частей сцены}
+
+
+1) \textbf{Проволоченое} изрбражение - это объект заданный отрезками, 
+здесь можно переспективное преобзразование применить,
+или прямоугольная проекция.
+
+2) Когда изображение задананно гранями оно называется \textbf{контурным}
+
+Можно описать грани как: последовательность отрезков, 
+получается мы описываем их как набор многоугольников.
+
+3) \textbf{Полутонове} изображение у каждой грани есть атрибуты.
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{prpov.png}
+\end{figure}
+
+
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 121652.png}
+\end{figure}
+
+
+\textbf{Отсечение}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 121741.png}
+\end{figure}
+
+\vspace{5cm}
+
+\textbf{Простраснтво отсечения}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 121816.png}
+\end{figure}
+
+\textbf{Пирамида видимости}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 121910.png}
+\end{figure}
+
+\textbf{Пространство отсечения}
+
+Система координат ростравнсвто отсечения - промежуточная система координат,
+....... прямоугольная проекция.
+
+Главный вопрос насколько мы далеко "отодвинули", "раздвинула"
+
+В этом преобзравние оси x и z меняются местами. Система координат левая.
+
+Будем говорить, что наблюдатель видит все что до far, за far его область
+видимости пропадает.
+
+far - расстояние
+
+-far - координата
+
+\textbf{FRUSTUM} - усеченная пирамида, по русски это называется пирамида видимости.
+Она ограничина плоскостью горизонта, областью видимости наблюдателя.
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 122337.png}
+\end{figure}
+
+Задаем окно наблюдения - оно ограниченно 
+
+left,rirgt - x - параметры наблюдения, координаты
+
+top, bottom - y - параметры наблюдения, координаты
+
+Вся плоскость наблюдения ограниченна -near
+
+near, far - расстояния
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 122342.png}
+\end{figure}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 122403.png}
+\end{figure}
+
+\textbf{Переход в пространтсво отсечения}
+
+Если взять окно наблюдения, то оно передет в одну из сторон куба, 
+left,top,-near перейдет в (-1,1,-1), а
+right,bottom,-near перейдет в (1,-1,-1),
+z=-far перейдет в z=1
+
+\vspace{1cm}
+
+В начале нужно провести оперцию кодрирования
+
+Это переспективное преобразование
+
+$Vcx = left$     \hspace{2cm}  $Wcx = -1$
+
+$Vcy = bottom$  \hspace{2cm}    $Wyx = -1$
+
+$Vx = right-lefft$  \hspace{2cm} $Wy = 2$
+
+$Vy = top-bottom$   \hspace{2cm} $Wy = 2$
+
+$x" = \frac{x'right-lefft}{}$ это недописано
+
+$y" = \frac{y'right-lefft}{}$ это недописано
+
+А это переспективное проекция
+
+$x"=\frac{\frac{nearx}{-z}-left}{right - left}*2-1$
+
+$y"=\frac{\frac{neary}{-z}-bottom}{top - bottom}*2-1$
+
+
+
+
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 122537.png}
+\end{figure}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 122544.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 122640.png}
+\end{figure}
+
+
+А тперь преобразование
+\vspace{5mm}
+
+$x" =\frac{\frac{nearx+zleft}{-z}}{right - left}*2-1$
+
+\vspace{5mm}
+
+$x"=\frac{\frac{nearx+zlef}{right - left}}{-z}*2-1$
+
+\vspace{5mm}
+
+$x"=\frac{\frac{nearx+zlef}{right - left}}{-z}*2-1$
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 122649.png}
+\end{figure}
+
+\subsection{Матрица перспективного преобразования}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 122839.png}
+\end{figure}
+
+$\alpha" = -z $
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 122852.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 122855.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 122904.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 123233.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 123325.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 123353.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 123428.png}
+\end{figure}
+
+
+$\frac{a_{34}}{-far} - \frac{a_{34}}{-near} = -2$
+
+
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 123451.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-07 123520.png}
+\end{figure}
+
+Эта матрица зависит от этих параметров
+
+тут можно еще можно дополнить (произошел спидран лекции), вот час побудет подробнее
+
+
+
+
+\vspace{1cm}
+
+
+\textbf{14.04.25}
+
+
+Модельная система коордниат(МСК) $\implies^{model veiew}$ Мировая система координат $\implies^{LookAt}$ СКН 
+$\implies ^{FRUSTUM}$ СКПО
+
+far y field f view Oy
+
+aspect aspect ratio
+
+near
+
+far
+
+
+Частный случай:
+
+left right
+
+bottop top
+
+near far
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{прям.png}
+\end{figure}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-14 125319.png}
+\end{figure}
+
+Матрица частного слуя преобразоавания
+
+
+
+$\begin{bmatrix}
+    \chi \\ 
+    \gamma \\
+    \zeta \\
+    \alpha \\
+\end{bmatrix}$
+=
+$\begin{bmatrix}
+    \frac{1}{aspect}ctg\frac{fovy}{2} & 0 & 0 & 0 \\
+    0 & ctg\frac{fovy}{2} & 0 & 0 \\
+    0 & 0 & -\frac{far+near}{far-near} & \frac{-2far*near}{far-ner} \\
+    0 & 0 & -1 & 0 \\
+\end{bmatrix}$
+=
+$\begin{bmatrix}
+    x\\
+    y\\
+    z\\
+    1\\
+\end{bmatrix}$
+
+Perspective(fovy,aspect,near,far)
+
+\vspace{5cm}
+
+\textbf{Прямоугольная проекция}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-14 125703.png}
+\end{figure}
+
+
+$x'=\frac{x-Vcx}{Vx}Wx+Wcx$ \vspace{1cm} Vx = right-left
+
+$y'=\frac{y-Vcy}{Vy}Wy+Wcy$ \vspace{1cm} Vy = top-bottom
+
+$z'= Wcx- \frac{z-Vcz}{Vz}Wz$   \vspace{1cm} Vz = far-near
+
+(-1,-1,-1)
+\vspace{1mm}
+Wcx=Wcy+Wcz
+\vspace{1mm}
+
+$x'=\frac{x-left}{righht-left}2-1$ \vspace{1cm} = $\frac{2x}{right-left}+\frac{-2left-right+left}{right-left}$
+
+$y'=\frac{y-Vcy}{top-bottom}2-1y$ \vspace{1cm} = $\frac{2y}{top-botton}+\frac{-2bottom-top+bottom}{top-bottom}$
+
+$z'= -1 - \frac{z+near}{far-near}2$   \vspace{1cm} = $\frac-{2z}{far-near}+\frac{-2near-far+near}{far-near}$
+
+
+\vspace{5cm}
+Матрица преобразование Ortho. В основном используется в OpenGL
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-14 131345.png}
+\end{figure}
+
+
+
+
+\section{Организация движения в трехмерном пространтсве}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-14 133843.png}
+\end{figure}
+
+
+
+Чтобы применить преобразование LookAt нужно:
+
+1. В которую переходит глаз наблюдателя
+
+2. Точка в которую смотрит наблюдатель
+
+3. Вектор направление вверх
+
+LookAt(S,P,$\bar{u}$)
+
+
+LookAt((0,0,-1),(0,0,-2),(0,1,0))
+
+LookAt((0,0,1),(0,0,0),(0,1,0))
+
+и т.д 
+
+Подобное происходит и напрвалением вверх/вниз
+
+LookAt((0,1,0),(0,1,-1),(0,1,0))
+
+и т.д
+
+
+
+
+
+
+
 \end{document}
