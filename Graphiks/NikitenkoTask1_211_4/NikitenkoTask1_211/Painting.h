@@ -9,12 +9,13 @@ namespace NikitenkoTask1211 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Diagnostics; 
 	using namespace std;
 
 
 	vector<model> models;
-	float VxR; // размер рисунка по горизонтали
-	float VyR; // размер рисунка по вертикали
+	float Vx; // размер рисунка по горизонтали
+	float Vy; // размер рисунка по вертикали
 	float aspectFigR; // соотношение сторон рисунка
 
 	// Матрицы, для 3 задания
@@ -128,31 +129,26 @@ namespace NikitenkoTask1211 {
 		Pen^ rectPen = gcnew Pen(Color::Black, 2);
 		g->DrawRectangle(rectPen, left, top, Wx, Wy);
 
-		// Перо
-			 for (int k = 0; k < models.size(); k++) {
-				 vector<path> figure = models[k].figure; // список ломаных очередного рисунка
-				  path lines = figure[k]; // lines - очередная ломаная линия
-				  mat3 TM = TR * models[k].modelM; // матрица общего преобразования рисунка
-				  for (int i = 0; i < figure.size(); i++) {
-					   path lines = figure[i]; // lines - очередная ломаная линия
-					   Pen ^ pen = gcnew Pen(Color::FromArgb(lines.color.x, lines.color.y, lines.color.z));
-					   pen->Width = lines.thickness;
+		for (int k = 0; k < models.size(); k++) {
+			vector<path> figure = models[k].figure; // список ломаных очередного рисунка
+			mat3 TM = TR * models[k].modelM; // матрица общего преобразования рисунка
+			for (int i = 0; i < figure.size(); i++) {
+				path lines = figure[i]; // lines - очередная ломаная линия
+				Pen^ pen = gcnew Pen(Color::FromArgb(lines.color.x, lines.color.y, lines.color.z));
+				pen->Width = lines.thickness;
 
-				  vec2 start = normalize(TM * vec3(lines.vertices[0], 1.2)); // первая начальная точка
-				  for (int j = 1; j < lines.vertices.size(); j++) { // цикл по конечным точкам (от единицы)
-					  vec2 end = normalize(TM * vec3(lines.vertices[j], 1.2)); // конечная точка
-					  vec2 tmpEnd = end; // продублировали координаты точки для будущего использования
-					  if (clip(start, end, minX, minY, maxX, maxY)) { // если отрезок видим
-						  // после отсечения, start и end - концы видимой части отрезка
-						  g->DrawLine(pen, start.x, start.y, end.x, end.y); // отрисовка видимых частей  
-					  }
-					  start = tmpEnd; // конечная точка неотсеченного отрезка становится начальной точкой следующего
-				  }
-					 
-				 }
-				 
-			 }	  
-		//
+				vec2 start = normalize(TM * vec3(lines.vertices[0], 1.0)); // первая начальная точка
+				for (int j = 1; j < lines.vertices.size(); j++) { // цикл по конечным точкам (от единицы)
+					vec2 end = normalize(TM * vec3(lines.vertices[j], 1.0)); // конечная точка
+					vec2 tmpEnd = end; // продублировали координаты точки для будущего использования
+					if (clip(start, end, minX, minY, maxX, maxY)) { // если отрезок видим
+						// после отсечения, start и end - концы видимой части отрезка
+						g->DrawLine(pen, start.x, start.y, end.x, end.y); // отрисовка видимых частей  
+					}
+					start = tmpEnd; // конечная точка неотсеченного отрезка становится начальной точкой следующего
+				}
+			}
+		}			  
 	}
 	private: System::Void Painting_Resize(System::Object^ sender, System::EventArgs^ e) {
 		rectCalc();
@@ -168,208 +164,168 @@ namespace NikitenkoTask1211 {
 		float Wcy = ClientRectangle.Height / 2.f; // текущего окна
 
 		switch (e->KeyCode) {
-		case Keys::Escape:
-			TR = initTR; 
+		case Keys::M:
+			keepAspectRatio = !keepAspectRatio;
 			break;
-		}
-		//Повороты на 0.01
-		// поворот изображения против часовой стрелке на 0.01 радиан относительно
-		// текущего центра окна
-		switch (e->KeyCode) {
+
+		case Keys::Escape:
+			TR = initTR;
+			break;
+			//Повороты на 0.01
+			// поворот изображения против часовой стрелке на 0.01 радиан относительно
+			// текущего центра окна
 		case Keys::Q:
-			TR = translate(-Wcx, -Wcy) * TR; // перенос начала координат в (Wcx, Wcy)
+			TR = translate(-Wx / 2 - left, -Wy / 2 - top) * TR; // перенос начала координат в (Wcx, Wcy)
 			TR = rotate(0.01f) * TR; // поворот на 0.01 радиан относительно
 			// нового центра
-			TR = translate(Wcx, Wcy) * TR; // перенос начала координат обратно
+			TR = translate(Wx / 2 + left, Wy / 2 + top) * TR;
 			break;
-		}
-		// поворот изображения по часовой стрелке на 0.01 радиан относительно
-		// текущего центра окна
-		switch (e->KeyCode){
+			// поворот изображения по часовой стрелке на 0.01 радиан относительно
+			// текущего центра окна
+
 		case Keys::E:
-			TR = translate(-Wcx, -Wcy) * TR; // перенос начала координат в (Wcx, Wcy)
+			TR = translate(-Wx / 2 - left, -Wy / 2 - top) * TR; // перенос начала координат в (Wcx, Wcy)
 			TR = rotate(-0.01f) * TR; // поворот на 0.01 радиан относительно
 			// нового центра
-			TR = translate(Wcx, Wcy) * TR; // перенос начала координат обратно
-		default:
+			TR = translate(Wx / 2 + left, Wy / 2 + top) * TR; // перенос начала координат обратно
 			break;
-		}
-		//
 
-		//Повороты на 0.05
-		// поворот изображения против часовой стрелке на 0.05 радиан относительно
-		// текущего центра окна
-		switch (e->KeyCode) {
+			//
+			//Повороты на 0.05
+			// поворот изображения против часовой стрелке на 0.05 радиан относительно
+			// текущего центра окна
+
 		case Keys::Y:
-			TR = translate(-Wcx, -Wcy) * TR; // перенос начала координат в (Wcx, Wcy)
-			TR = rotate(0.05f) * TR; // поворот на 0.01 радиан относительно
-			// нового центра
-			TR = translate(Wcx, Wcy) * TR; // перенос начала координат обратно
-			break;
-		}
-		// поворот изображения по часовой стрелке на 0.05 радиан относительно
-		// текущего центра окна
-		switch (e->KeyCode) {
-		case Keys::R:
-			TR = translate(-Wcx, -Wcy) * TR; // перенос начала координат в (Wcx, Wcy)
+			TR = translate(-Wx / 2 - left, -Wy / 2 - top) * TR; // перенос начала координат в (Wcx, Wcy)
 			TR = rotate(-0.05f) * TR; // поворот на 0.01 радиан относительно
 			// нового центра
-			TR = translate(Wcx, Wcy) * TR; // перенос начала координат обратно
-		default:
+			TR = translate(Wx / 2 + left, Wy / 2 + top) * TR; // перенос начала координат обратно
 			break;
-		}
-		//
 
-		// Сдвиги изображения на 1 пиксель
+			// поворот изображения по часовой стрелке на 0.05 радиан относительно
+			// текущего центра окна
 
-		switch (e->KeyCode) {
+		case Keys::R:
+			TR = translate(-Wx / 2 - left, -Wy / 2 - top) * TR; // перенос начала координат в (Wcx, Wcy)
+			TR = rotate(0.05f) * TR; // поворот на 0.01 радиан относительно
+			// нового центра
+			TR = translate(Wx / 2 + left, Wy / 2 + top) * TR; // перенос начала координат обратно
+			break;
+			//
+
+			// Сдвиги изображения на 1 пиксель
 		case Keys::W:
 			TR = translate(0.f, -1.f) * TR; // сдвиг вверх на один пиксел
 			break;
 
-		}
-
-		// сдвиг изображения соответственно вниз 1 пиксел;
-		switch (e->KeyCode) {
+			// сдвиг изображения соответственно вниз 1 пиксел;
 		case Keys::S:
 			TR = translate(0.f, 1.f) * TR; // сдвиг вниз на один пиксел
-		default:
 			break;
-		}
 
-		// сдвиг изображения соответственно влево 1 пиксел;
-		switch (e->KeyCode) {
+
+			// сдвиг изображения соответственно влево 1 пиксел;
 		case Keys::A:
 			TR = translate(-1.f, 0.f) * TR; // сдвиг влево на один пиксел
-		default:
 			break;
-		}
 
-		// сдвиг изображения соответственно вправо 1 пиксел;
-		switch (e->KeyCode) {
+			// сдвиг изображения соответственно вправо 1 пиксел;
 		case Keys::D:
 			TR = translate(1.f, 0.f) * TR; // сдвиг вправо на один пиксел
-		default:
 			break;
-		}
-		//
+			//
 
+			// Сдвиг изображения на 10 пикселей 
 
-
-		// Сдвиг изображения на 10 пикселей 
-		switch (e->KeyCode) {
 		case Keys::T:
 			TR = translate(0.f, -10.f) * TR; // сдвиг вверх на один пиксел
 			break;
 
-		}
-
-		// сдвиг изображения соответственно вниз 1 пиксел;
-		switch (e->KeyCode) {
+			// сдвиг изображения соответственно вниз 1 пиксел;
 		case Keys::G:
 			TR = translate(0.f, 10.f) * TR; // сдвиг вниз на один пиксел
-		default:
 			break;
-		}
 
-		// сдвиг изображения соответственно влево 1 пиксел;
-		switch (e->KeyCode) {
+			// сдвиг изображения соответственно влево 1 пиксел;
 		case Keys::F:
 			TR = translate(-10.f, 0.f) * TR; // сдвиг влево на один пиксел
-		default:
 			break;
-		}
 
-		// сдвиг изображения соответственно вправо 1 пиксел;
-		switch (e->KeyCode) {
+
+			// сдвиг изображения соответственно вправо 1 пиксел;
+
 		case Keys::H:
 			TR = translate(10.f, 0.f) * TR; // сдвиг вправо на один пиксел
-		default:
 			break;
-		}
 
-		// Зеркальные отражения
-		// отражение по вертикали;
-		switch (e->KeyCode) {
+			// Зеркальные отражения
+			// отражение по вертикали;
 		case Keys::U:
 			TR = translate(-Wcx, -Wcy) * TR; // перенос начала координат в (Wcx, Wcy) 
 			TR = mirrorX() * TR; //  горизонтальное зеркало 
 			TR = translate(Wcx, Wcy) * TR; // перенос начала координат обратно 
-		default:
 			break;
-		}
 
-		// отражение по горизонтали;
-		switch (e->KeyCode) {
+			// отражение по горизонтали;
 		case Keys::J:
 			TR = translate(-Wcx, -Wcy) * TR; // перенос начала координат в (Wcx, Wcy) 
 			TR = mirrorY() * TR; //  вертикальное зеркало 
 			TR = translate(Wcx, Wcy) * TR; // перенос начала координат обратно 
-		default:
 			break;
-		}
-		//
+			//
 
-		// Увеличение/уменьшение изображения в 1.1 раз
-		// увеличение
-		switch (e->KeyCode) {
+			// Увеличение/уменьшение изображения в 1.1 раз
+			// увеличение
 		case Keys::Z:
-			TR = translate(-Wcx, -Wcy) * TR; // перенос начала координат в (Wcx, Wcy)
-			TR = scale(1.1f, 1.1f) * TR;
-			TR = translate(Wcx, Wcy) * TR; // перенос начала координат обратно
-		default:
+			TR = translate(-Wx / 2 - left, -Wy / 2 - top) * TR;
+			TR = scale(1.1f, 1.1f) * TR; // увеличение в 1.1 раз
+			TR = translate(Wx / 2 + left, Wy / 2 + top) * TR;
 			break;
-		}
 
-		// уменьшение
-		switch (e->KeyCode) {
+			// уменьшение
 		case Keys::X:
-			TR = translate(-Wcx, -Wcy) * TR; // перенос начала координат в (Wcx, Wcy)
+			TR = translate(-Wx / 2 - left, -Wy / 2 - top) * TR;
 			TR = scale(1.0f / 1.1f, 1.0f / 1.1f) * TR;
-			TR = translate(Wcx, Wcy) * TR; // перенос начала координат обратно
-		default:
+			TR = translate(Wx / 2 + left, Wy / 2 + top) * TR;
 			break;
-		}
 
-		// Сжатие и растяжение по горизонтали
-		// растяжение
-		switch (e->KeyCode) {
+			// Сжатие и растяжение по горизонтали
+				// растяжение
 		case Keys::I:
-			TR = scale(1.1f, 1.0f) * TR;	 
-		default:
+			TR = translate(-Wx / 2 - left, -Wy / 2 - top) * TR;
+			TR = scale(1.1f, 1.0f) * TR;
+			TR = translate(Wx / 2 + left, Wy / 2 + top) * TR;
 			break;
-		}
 
-		// сжатие
-		switch (e->KeyCode) {
+
+			// сжатие
+
 		case Keys::K:
+			TR = translate(-Wx / 2 - left, -Wy / 2 - top) * TR;
 			TR = scale(1.0f / 1.1f, 1.0f) * TR;
-		default:
+			TR = translate(Wx / 2 + left, Wy / 2 + top) * TR;
 			break;
-		}
 
-		//
+			//
 
-		// Сжатие и растяжение по вертикали
-		// растяжение
-		switch (e->KeyCode) {
+			// Сжатие и растяжение по вертикали
+			// растяжение
+
 		case Keys::O:
-			TR = scale(1.0f,1.1f) * TR;
-		default:
+			TR = translate(-Wx / 2 - left, -Wy / 2 - top) * TR;
+			TR = scale(1.0f, 1.1f) * TR;
+			TR = translate(Wx / 2 + left, Wy / 2 + top) * TR;
 			break;
-		}
 
-		// сжатие
-		switch (e->KeyCode) {
+			// сжатие
 		case Keys::L:
+			TR = translate(-Wx / 2 - left, -Wy / 2 - top) * TR;
 			TR = scale(1.0f, 1.0f / 1.1f) * TR;
-		default:
+			TR = translate(Wx / 2 + left, Wy / 2 + top) * TR;
 			break;
+			//
+			//
 		}
-		//
-
-		//
-
 		Refresh();
 	}
 	private: System::Void btnOpen_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -396,7 +352,7 @@ namespace NikitenkoTask1211 {
 				 vector<mat3> transforms; // стек матриц преобразований
 				 vector<path> figure; // список ломаных очередного рисунка
 
-					 float thickness = 2; // толщина со значением по умолчанию 2
+				float thickness = 2; // толщина со значением по умолчанию 2
 				 float r, g, b; // составляющие цвета
 				 r = g = b = 0; // значение составляющих цвета по умолчанию (черный)
 				 string cmd; // строка для считывания имени команды
@@ -411,7 +367,7 @@ namespace NikitenkoTask1211 {
 						 s >> cmd;
 						 if (cmd == "frame") { // размеры изображения
 
-							 s >> VxR >> VyR; // считываем глобальные значение Vx и Vy
+							 s >> Vx >> Vy; // считываем глобальные значение Vx и Vy
 
 							 float Wx = ClientRectangle.Width - left - right; // ширина прямоугольника
 							 float Wy = ClientRectangle.Height - top - bottom; // высота прямоугольника
@@ -419,10 +375,10 @@ namespace NikitenkoTask1211 {
 							 // коэффициент увеличения при сохранении исходного соотношения сторон
 
 							// смещение центра рисунка с началом координат
-							 mat3 T1 = translate(-VxR / 2, -VyR / 2);
+							 mat3 T1 = translate(-Vx / 2, -Vy / 2);
 							 // масштабирование остается прежним, меняется только привязка
 							 // коэффициент увеличения при сохранении исходного соотношения сторон
-							 float S = aspectFigR < aspectRect ? Wy / VyR : Wx / VxR;
+							 float S = aspectFigR < aspectRect ? Wy / Vy : Wx / Vx;
 							 mat3 S1 = scale(S, -S);
 							 // сдвиг точки привязки из начала координат в нужную позицию
 							 mat3 T2 = translate(Wx / 2 + Wcx, Wcy - Wy / 2);
