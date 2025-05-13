@@ -1419,9 +1419,133 @@ LookAt((0,1,0),(0,1,-1),(0,1,0))
 и т.д
 
 
+\vspace{1cm}
+
+\textbf{21.04.25}
+
+
+Для двежиения достаточно умнажать обшую матрицу на матрицу Tr, P и т.д
+$(0(T_r*Rot*T_r*L*M)*P)$ это преобразование LookAt.
 
 
 
+\textbf{Совмещенное преобразование}
 
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-04-21 122739.png}
+\end{figure}
+
+
+
+$\begin{bmatrix}
+    1 & 0 & 0 & T_x \\
+    0 & 1 & 0 & T_y \\
+    0 & 0 & 1 & T_z \\
+    0 & 0 & 0 & T \\ 
+\end{bmatrix} $
+
+$P=M^{-1}MP$
+
+
+
+\section{Алгоритм Коэна-Сазерленда}
+
+\textbf{Алгоритм обязятельно знать, без него не сдать экзамен!}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{отс.png}
+\end{figure}
+
+
+
+\vspace{5mm}
+
+Пропус
+
+\vspace{5mm}
+
+\textbf{05.05.25}
+
+\section{Растеризация}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-05-05 121851.png}
+\end{figure}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-05-05 122011.png}
+\end{figure}
+
+
+
+Для каждого из остальных ребер формируем тройку, где первый элемент равен $X_1$, 
+второй (это не точно, не расслышала про второй элемент)$Z_1$,третий $Y_1$.
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-05-05 122144.png}
+\end{figure}
+
+
+$x_1 0$
+
+$(r_1,g_1,b_1)$
+
+$x_2-x_1+1$
+
+\vspace{1mm}
+
+$x_2$
+
+$(r_2,g_2,b_2)$
+
+По сути это цвтеовой шаг. $x_2-x_1+1$ - отрезок
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-05-05 123436.png}
+\end{figure}
+
+
+Если мы предполагем, что у нас есть z, то она будет, такаже изменяться как и x и y.
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-05-05 123643.png}
+\end{figure}
+
+
+\subsection{Алгоритм использующий Z-буфер}
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-05-05 125223.png}
+\end{figure}
+
+
+\begin{figure} [H]
+    \includegraphics[width=0.70\linewidth]{Снимок экрана 2025-05-05 124350.png}
+\end{figure}
+
+
+\textbf{Z-буфер} это двумерный массив, 
+в котором столько элементов сколько стоблцов и сколько строк растра.
+
+
+\section{Графический конвейр в OpenGL}
+
+
+\textbf{Построение трехмерного прообраза}
+
+\textbf{modelView} - Модельное преобзравние (переход в мировую систему координат).
+
+\textbf{cameraView} - Переход в систему координат наблюдателя.
+
+\textbf{OpenGL} - это НЕ библиотека, это прежде всего спецификация, которая должна
+удевлитворяеть графическая карта, которую мы покупаем.
+
+Спецификация - (техническое задание) предполагает
 
 \end{document}
