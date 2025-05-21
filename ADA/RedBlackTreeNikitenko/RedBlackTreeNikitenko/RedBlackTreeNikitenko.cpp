@@ -7,8 +7,12 @@
 #include <queue>
 using namespace std;
 
+#define RED true
+#define BLACK false
+
 enum RBTColor { Black, Red };
 
+// Структура для дерева. Определена как шаблон функции
 template<class KeyType>
 struct RBTNode {
     KeyType key;
@@ -19,7 +23,9 @@ struct RBTNode {
     RBTNode(KeyType k, RBTColor c, RBTNode* p, RBTNode* l, RBTNode* r) :
         key(k), color(c), parent(p), left(l), right(r) { };
 };
+//
 
+// Класс для дерева. Шаблон. Тут почти список функций 
 template<class T>
 class RBTree {
 public:
@@ -39,7 +45,7 @@ private:
     void rightRotate(RBTNode<T>*& root, RBTNode<T>* y);
     void insert(RBTNode<T>*& root, RBTNode<T>* node);
     void InsertFixUp(RBTNode<T>*& root, RBTNode<T>* node);
-    void destory(RBTNode<T>*& node);
+    void destroy(RBTNode<T>*& node);
     void remove(RBTNode<T>*& root, RBTNode<T>* node);
     void removeFixUp(RBTNode<T>*& root, RBTNode<T>* node, RBTNode<T>* parent);
     RBTNode<T>* search(RBTNode<T>* node, T key) const;
@@ -58,9 +64,11 @@ private:
         if (x->right) max_height(x->right, max, deepness + 1);
     }
 
+    // Измененная функция print_helper
     void print_helper(RBTNode<T>* x, const COORD pos, const short offset) {
+        SetConsoleTextAttribute(outp, x->color == RED ? 12 : 8);
         SetConsoleCursorPosition(outp, pos);
-        cout << setw(offset + 1) << x->key << (x->color == Red ? "R" : "B");
+        cout << setw(offset + 1) << x->key;
         if (x->left) print_helper(x->left, { pos.X, short(pos.Y + 1) }, offset >> 1);
         if (x->right) print_helper(x->right, { short(pos.X + offset), short(pos.Y + 1) }, offset >> 1);
     }
@@ -79,17 +87,23 @@ private:
         return true;
     }
 };
+//
 
+// Конструктор
 template<class T>
 RBTree<T>::RBTree() : root(nullptr) {
     root = nullptr;
 }
+//
 
+// Деструктор
 template<class T>
 RBTree<T>::~RBTree() {
-    destory(root);
+    destroy(root);
 }
+//
 
+//
 template<class T>
 void RBTree<T>::leftRotate(RBTNode<T>*& root, RBTNode<T>* x) {
     RBTNode<T>* y = x->right;
@@ -108,7 +122,9 @@ void RBTree<T>::leftRotate(RBTNode<T>*& root, RBTNode<T>* x) {
     y->left = x;
     x->parent = y;
 };
+//
 
+//
 template<class T>
 void RBTree<T>::rightRotate(RBTNode<T>*& root, RBTNode<T>* y) {
     RBTNode<T>* x = y->left;
@@ -127,13 +143,17 @@ void RBTree<T>::rightRotate(RBTNode<T>*& root, RBTNode<T>* y) {
     x->right = y;
     y->parent = x;
 };
+//
 
+// Публичный метод для вставки
 template<class T>
 void RBTree<T>::insert(T key) {
     RBTNode<T>* z = new RBTNode<T>(key, Red, NULL, NULL, NULL);
     insert(root, z);
 };
+//
 
+// Добавить узел. Основная функция
 template<class T>
 void RBTree<T>::insert(RBTNode<T>*& root, RBTNode<T>* node) {
     RBTNode<T>* x = root;
@@ -157,7 +177,9 @@ void RBTree<T>::insert(RBTNode<T>*& root, RBTNode<T>* node) {
     node->color = Red;
     InsertFixUp(root, node);
 };
+//
 
+// Восстановление дерева после вставки
 template<class T>
 void RBTree<T>::InsertFixUp(RBTNode<T>*& root, RBTNode<T>* node) {
     RBTNode<T>* parent;
@@ -207,24 +229,30 @@ void RBTree<T>::InsertFixUp(RBTNode<T>*& root, RBTNode<T>* node) {
     }
     root->color = Black;
 }
+//
 
+// Функция для рекурсивного удаления указанного узла
 template<class T>
-void RBTree<T>::destory(RBTNode<T>*& node) {
+void RBTree<T>::destroy(RBTNode<T>*& node) {
     if (node == NULL)
         return;
-    destory(node->left);
-    destory(node->right);
+    destroy(node->left);
+    destroy(node->right);
     delete node;
     node = nullptr;
 }
+//
 
+// Публичный метод для следующей функции
 template<class T>
 void RBTree<T>::remove(T key) {
     RBTNode<T>* deletenode = search(root, key);
     if (deletenode != NULL)
         remove(root, deletenode);
 }
+//
 
+// Удаление узла, и все все проблемы которые могут быть с этим связаны
 template<class T>
 void RBTree<T>::remove(RBTNode<T>*& root, RBTNode<T>* node) {
     RBTNode<T>* child, * parent;
@@ -286,7 +314,9 @@ void RBTree<T>::remove(RBTNode<T>*& root, RBTNode<T>* node) {
     }
     delete node;
 }
+//
 
+// Восстановление дерева после удаления узла
 template<class T>
 void RBTree<T>::removeFixUp(RBTNode<T>*& root, RBTNode<T>* node, RBTNode<T>* parent) {
     RBTNode<T>* othernode;
@@ -346,12 +376,16 @@ void RBTree<T>::removeFixUp(RBTNode<T>*& root, RBTNode<T>* node, RBTNode<T>* par
     if (node)
         node->color = Black;
 }
+//
 
+// Публчный метод для поиска
 template<class T>
 RBTNode<T>* RBTree<T>::search(T key) {
     return search(root, key);
 }
+//
 
+// Функция для поиска уза
 template<class T>
 RBTNode<T>* RBTree<T>::search(RBTNode<T>* node, T key) const {
     if (node == NULL || node->key == key)
@@ -362,7 +396,9 @@ RBTNode<T>* RBTree<T>::search(RBTNode<T>* node, T key) const {
         else
             return search(node->left, key);
 }
+//
 
+// Функция для вывода
 template<class T>
 void RBTree<T>::print() {
     if (root == NULL)
@@ -378,9 +414,12 @@ void RBTree<T>::print() {
         COORD endPos = csbInfo.dwCursorPosition;
         print_helper(root, { 0, short(endPos.Y - max) }, width >> 1);
         SetConsoleCursorPosition(outp, endPos);
+        SetConsoleTextAttribute(outp, 7); // чтоб интерфейс не окрашивался
     }
 }
+//
 
+// Обход
 template<class T>
 void RBTree<T>::preOrder() {
     if (root == NULL)
@@ -388,16 +427,20 @@ void RBTree<T>::preOrder() {
     else
         preOrder(root);
 };
+//
 
+// Обход в прямом порядке
 template<class T>
 void RBTree<T>::preOrder(RBTNode<T>* tree) const {
     if (tree != NULL) {
-        cout << tree->key << (tree->color == Red ? "R " : "B ");
+        cout << tree->key << (tree->color == RED ? 12 : 8);
         preOrder(tree->left);
         preOrder(tree->right);
     }
 }
+//
 
+//
 template<class T>
 void RBTree<T>::inOrder() {
     if (root == NULL)
@@ -405,16 +448,20 @@ void RBTree<T>::inOrder() {
     else
         inOrder(root);
 };
+//
 
+// Обход в симметричном порядке
 template<class T>
 void RBTree<T>::inOrder(RBTNode<T>* tree) const {
     if (tree != NULL) {
         inOrder(tree->left);
-        cout << tree->key << (tree->color == Red ? "R " : "B ");
+        cout << tree->key << (tree->color == tree->color == RED ? 12 : 8);
         inOrder(tree->right);
     }
 }
+//
 
+//
 template<class T>
 void RBTree<T>::postOrder() {
     if (root == NULL)
@@ -422,15 +469,18 @@ void RBTree<T>::postOrder() {
     else
         postOrder(root);
 };
+//
 
+// Обход в обратном порядке
 template<class T>
 void RBTree<T>::postOrder(RBTNode<T>* tree) const {
     if (tree != NULL) {
         postOrder(tree->left);
         postOrder(tree->right);
-        cout << tree->key << (tree->color == Red ? "R " : "B ");
+        cout << tree->key << (tree->color == tree->color == RED ? 12 : 8);
     }
 }
+//
 
 
 // Функция для вывода меню
@@ -438,9 +488,10 @@ void menu() {
     cout << "1. Добавить узлы\n";
     cout << "2. Удалить узел\n";
     cout << "3. Вывести дерево\n";
-    cout << "4. Обход в прямом порядке\n";
-    cout << "5. Обход в симметричном порядке\n";
-    cout << "6. Обход в обратном порядке\n";
+    cout << "4. Поиск узла\n";
+    cout << "5. Обход в прямом порядке\n";
+    cout << "6. Обход в симметричном порядке\n";
+    cout << "7. Обход в обратном порядке\n";
     cout << "0. Выход\n";
 }
 //
@@ -476,17 +527,29 @@ int main()
         case 3:
             rbtree.print();
             break;
-        case 4:
+        case 4:{
+            cout << "ключ для поиска: ";
+            cin >> key;
+            if (rbtree.search(key)){
+                cout << "узел с ключом " << key << " найден.\n";
+            }
+            else {
+                cout << "узел с ключом " << key << " не найден.\n";
+            }
+            break;
+
+         }
+        case 5:
             cout << "Обход в прямом порядке: ";
             rbtree.preOrder();
             cout << endl;
             break;
-        case 5:
+        case 6:
             cout << "Обход в симметричном порядке: ";
             rbtree.inOrder();
             cout << endl;
             break;
-        case 6:
+        case 7:
             cout << "Обход в обратном порядке: ";
             rbtree.postOrder();
             cout << endl;
