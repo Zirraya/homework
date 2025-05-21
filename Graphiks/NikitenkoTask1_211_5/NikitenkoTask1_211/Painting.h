@@ -115,6 +115,7 @@ namespace NikitenkoTask1211 {
 			  float Wx_part = 0.6, Wy_part = 0.6; // доля Wx_work, Wy_work от Wx, Wy соответственно
 			  float Wcx_work, Wcy_work; // координаты левого нижнего у
 			  float Wz_work; // количество рабочих прямоугольников
+			  int numXsect = 5, numYsect = 5, numZsect = 5; // количество секций координатной сетки по осям
 
 
 	private: System::Void rectCalc() {
@@ -158,6 +159,54 @@ namespace NikitenkoTask1211 {
 
 		Pen^ rectPen = gcnew Pen(Color::Black, 2);
 		g->DrawRectangle(rectPen, left, top, Wx, Wy);	
+
+
+		// ВЫЧЕРЧИВАНИЕ КООРДИНАТНОЙ СЕТКИ
+		 Pen ^ gridPen = gcnew Pen(Color::Black, 1);
+		 SolidBrush ^ drawBrush = gcnew SolidBrush(Color::Black);
+		 System::Drawing::Font ^ drawFont = gcnew System::Drawing::Font("Arial", 8);
+		
+			 // координатная сетка по x
+			 float gridStep_x = Wx_work / numXsect; // расстояние между линиями сетки по x
+		 float grid_dX = V_work.x / numXsect; // расстояние между линиями сетки по x в мировых координатах
+		 float tick_x = Vc_work.x; // значение, соответствующее первой линии сетки
+		 for (int i = 0; i <= numXsect; i++) { // цикл по количеству линий
+			 float tmpXCoord_d = Wcx + i * gridStep_x; // нижняя координата x i-й диагональной линии
+			 float tmpXCoord_v = Wcx_work + i * gridStep_x; // координата x i-й вертикальной линии
+			 // i-я диагональная линия
+				 g->DrawLine(gridPen, tmpXCoord_d, Wcy, tmpXCoord_v, Wcy_work);
+			 // i-я вертикальная линия
+				 g->DrawLine(gridPen, tmpXCoord_v, Wcy_work, tmpXCoord_v, minY);
+			 if (i > 0 && i < numXsect) // если линия не крайняя
+				 // выводим текст в нижней точке диагональной линии
+				 g->DrawString(tick_x.ToString("F4"), drawFont, drawBrush, tmpXCoord_d, Wcy);
+			 tick_x += grid_dX; // вычисляем значение, соответствующее следующей линии
+			
+		}
+		
+			 // координатная сетка по z
+			 gridStep_x = (Wx - Wx_work) / numZsect; // расстояние между вертикальными линиями сетки по горизонтали
+		 float gridStep_y = Wz_work / numZsect; // расстояние между горизонтальными линиями сетки по вертикали
+		 float grid_dZ = V_work.z / numZsect; // расстояние между линиями сетки по $z$ в мировых координатах
+		 float tick_z = Vc_work.z; // значение, соответствующее первой линии сетки
+		 for (int i = 0; i <= numZsect; i++) { // цикл по количеству линий
+			 float tmpXCoord_v = Wcx_work - i * gridStep_x; // координата x вертикальных линий
+			 float tmpYCoord_g = Wcy_work + i * gridStep_y; // координата y горизонтальных линий
+			 float tmpXCoord_g = tmpXCoord_v + Wx_work; // вторая координата x горизонтальных линий
+			 // i-я вертикальная линия
+				 g->DrawLine(gridPen, tmpXCoord_v, tmpYCoord_g, tmpXCoord_v, tmpYCoord_g - Wy_work);
+			 // i-я горизонтальная линия
+				 g->DrawLine(gridPen, tmpXCoord_v, tmpYCoord_g, tmpXCoord_g, tmpYCoord_g);
+			 if (i > 0 && i < numZsect) // если линия не крайняя
+				 // выводим текст в правой точке горизонтальной линии
+				 g->DrawString(tick_z.ToString("F4"), drawFont, drawBrush, tmpXCoord_g, tmpYCoord_g);
+			 tick_z += grid_dZ; // вычисляем значение, соответствующее следующей линии
+			
+		}
+
+
+
+
 
 		// ОТРИСОВКА ГРАФИКА
 		 Pen ^ pen = gcnew Pen(Color::Blue, 1);
