@@ -1,0 +1,403 @@
+#pragma once
+
+
+namespace NikitenkoTask1211 {
+
+	using namespace System;
+	using namespace System::ComponentModel;
+	using namespace System::Collections;
+	using namespace System::Windows::Forms;
+	using namespace System::Data;
+	using namespace System::Drawing;
+	using namespace System::Diagnostics; 
+	using namespace std;
+
+
+	vec2 Vc; // координаты левого нижнего угла
+	vec2 V; // размеры прямоугольника в пространстве графика
+	vec2 Vc_work, V_work; // рабочие параметры прямоугольника
+
+
+	// Матрицы, для 3 задания
+	mat3 T; // матрица, в которой накапливаются все преобразования
+	mat3 initT; // матрица начального преобразования
+
+	/// <summary>
+	/// Сводка для Painting
+	/// </summary>
+	public ref class Painting : public System::Windows::Forms::Form
+	{
+	public:
+		Painting(void)
+		{
+			InitializeComponent();
+			//
+			//TODO: добавьте код конструктора
+			//
+		}
+
+	protected:
+		/// <summary>
+		/// Освободить все используемые ресурсы.
+		/// </summary>
+		~Painting()
+		{
+			if (components)
+			{
+				delete components;
+			}
+		}
+	private: System::Windows::Forms::OpenFileDialog^ openFileDialog;
+	private: System::Windows::Forms::Button^ btnOpen;
+	protected:
+
+	private:
+		/// <summary>
+		/// Обязательная переменная конструктора.
+		/// </summary>
+		System::ComponentModel::Container ^components;
+
+#pragma region Windows Form Designer generated code
+		/// <summary>
+		/// Требуемый метод для поддержки конструктора — не изменяйте 
+		/// содержимое этого метода с помощью редактора кода.
+		/// </summary>
+		void InitializeComponent(void)
+		{
+			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->btnOpen = (gcnew System::Windows::Forms::Button());
+			this->SuspendLayout();
+			// 
+			// openFileDialog
+			// 
+			this->openFileDialog->DefaultExt = L"txt";
+			this->openFileDialog->Filter = L" (*.txt)|*.txt|Все файлы (*.*)|*.*";
+			this->openFileDialog->Title = L"Открыть файл";
+			// 
+			// btnOpen
+			// 
+			this->btnOpen->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->btnOpen->AutoSize = true;
+			this->btnOpen->Location = System::Drawing::Point(729, 12);
+			this->btnOpen->Name = L"btnOpen";
+			this->btnOpen->Size = System::Drawing::Size(97, 49);
+			this->btnOpen->TabIndex = 0;
+			this->btnOpen->Text = L"Открыть";
+			this->btnOpen->UseVisualStyleBackColor = true;
+			this->btnOpen->Click += gcnew System::EventHandler(this, &Painting::btnOpen_Click);
+			// 
+			// Painting
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->ClientSize = System::Drawing::Size(857, 438);
+			this->Controls->Add(this->btnOpen);
+			this->DoubleBuffered = true;
+			this->KeyPreview = true;
+			this->Name = L"Painting";
+			this->Text = L"Painting";
+			this->Load += gcnew System::EventHandler(this, &Painting::Painting_Load);
+			this->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Painting::Painting_Paint);
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Painting::Painting_KeyDown);
+			this->Resize += gcnew System::EventHandler(this, &Painting::Painting_Resize);
+			this->ResumeLayout(false);
+			this->PerformLayout();
+
+		}
+#pragma endregion
+	private: bool keepAspectRatio; // значение - сохранять ли соотношение сторон рисунка?
+	private: bool changeImage; // замена изображения
+	private: float left = 30, right = 100, top = 20, bottom = 50; // расстояния до границ окна
+		   float minX = left, maxX; // диапазон изменения координат x
+		   float minY = top, maxY; // диапазон изменения координат y
+		   float Wcx = left, Wcy; // координаты левого нижнего угла прямоугольника
+		   float Wx, Wy; // ширина и высота прямоугольника
+
+	private: System::Void rectCalc() {
+		maxX = ClientRectangle.Width - right; // диапазон изменения координат x
+		maxY = ClientRectangle.Height - bottom; // диапазон изменения координат y
+		Wcy = maxY; // координаты левого нижнего угла прямоугольника
+		Wx = maxX - left; // ширина прямоугольника
+		Wy = maxY - top; // ширина и высота прямоугольника
+	}
+
+	private: System::Void worldRectCalc() {
+		Vc_work = normalize(T * vec3(Vc, 1.f));
+		V_work = mat2(T) * V;
+
+
+	}
+
+		   private: float f(float x) {
+			   return tan(x);
+
+
+		   }
+
+			private: bool f_exists(float x, float delta) {
+				 return fabs(2.f * acos(cos(x)) - Math::PI) > delta;
+				
+			}
+
+
+
+
+	private: System::Void Painting_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+
+		Graphics^ g = e->Graphics;
+		g->Clear(Color::PowderBlue);
+
+		Pen^ rectPen = gcnew Pen(Color::Black, 2);
+		g->DrawRectangle(rectPen, left, top, Wx, Wy);	
+
+		Pen^ pen = gcnew Pen(Color::Blue, 1);
+		float deltaX = V_work.x / Wx; // шаг по x в мировых координатах
+
+		bool hasStart;
+
+		vec2 start, end; // точка начала отрезка в координатах экрана
+		float x, y; // переменные для координат точки в мировой СК
+		start.x = Wcx; // для начальной точки первого отрезка устанавливаем координату x
+		x = Vc_work.x; // координата x начальной точки первого отрезка в мировых координатах
+		hasStart = f_exists(x, deltaX);
+		 if (hasStart) {
+			 y = f(x); // координата y начальной точки в мировых координатах
+			 // вычисляем соответствующее значение в координатах экрана
+				 start.y = Wcy - (y - Vc_work.y) / V_work.y * Wy;
+			
+		}
+		 while (start.x < maxX) {
+			 vec2 end;// точка конца отрезка в координатах экрана
+			 bool hasEnd;
+			 float deltaY; // высота точки в прямоугольнике (доля общей высоты)
+			 float red, green, blue; // компоненты цвета отрезка
+			 end.x = start.x + 1.f; // координата x отличается на единицу
+			 x += deltaX; // координата x конечной точки отрезка в мировых координатах
+			 hasEnd = f_exists(x, deltaX);
+			 if (hasEnd) {
+				 y = f(x); // координата y начальной точки в мировых координатах
+				 // вычисляем соответствующее значение в координатах экрана
+					 deltaY = (y - Vc_work.y) / V_work.y;
+				 end.y = Wcy - deltaY * Wy;
+				
+			}
+			 vec2 tmpEnd = end;
+			 bool visible = hasStart && hasEnd && clip(start, end, minX, minY, maxX, maxY);
+			 if (visible) { // если отрезок видим
+				 // после отсечения, start и end - концы видимой части отрезка
+					 if (deltaY > 1.f) deltaY = 1.f; // нормализуем значение высоты точки
+				 if (deltaY < 0.f) deltaY = 0.f; // на случай, если отрезок отсекался
+				 green = 510.f * deltaY; // предварительное вычисление произведения
+				 if (deltaY < 0.5) { // если точка ниже середины области видимости
+					 // компонента зеленого уже вычислена
+						 blue = 255.f - green; // синий дополняет зеленый
+					 red = 0.f; // красный равен нулю
+					
+				}
+				 else { // если точка не ниже середины
+					 blue = 0.f; // синий равен нулю
+					 red = green - 255.f; // вычисляем красный и зеленый
+					 green = 510.f - green; // с использованием вычисленного произведения
+					
+				}
+				 pen->Color = Color::FromArgb(red, green, blue); // меняем цвет пера
+				 g->DrawLine(pen, start.x, start.y, end.x, end.y); // отрисовка видимых частей
+				
+			}
+			 // конечная точка неотсеченного отрезка становится начальной точкой следующего
+				 start = tmpEnd;
+			 hasStart = hasEnd;
+			
+		}
+
+
+
+	}
+	private: System::Void Painting_Resize(System::Object^ sender, System::EventArgs^ e) {
+		rectCalc();
+		Refresh();
+	}
+
+	private: System::Void Painting_Load(System::Object^ sender, System::EventArgs^ e) {
+		initT = mat3(1.f);
+		T = initT;
+
+		Vc = vec2(-2.f, -2.f);
+		V = vec2(4.f, 4.f);
+
+		rectCalc();
+		worldRectCalc();
+
+	}
+	private: System::Void Painting_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+
+		float Wcx = ClientRectangle.Width / 2.f; // координаты центра
+		float Wcy = ClientRectangle.Height / 2.f; // текущего окна
+
+		float centerX = Vc_work.x + V_work.x / 2; // координаты центра прямоугольника
+		float centerY = Vc_work.y + V_work.y / 2; // в мировой системе координат
+
+		switch (e->KeyCode) {
+
+		case Keys::Escape:
+			T = initT;
+			break;
+
+		case Keys::A:
+			T = translate(-V_work.x / Wx, 0.f) * T; // сдвиг графика вправо на один пиксел
+			break;
+
+		case Keys::Z:
+			T = translate(-centerX, -centerY) * T; // перенос начала координат в центр
+			T = scale(1.1) * T; // масштабирование относительно начала координат
+			T = translate(centerX, centerY) * T; // возврат позиции начала координат
+			break;
+
+		}
+		worldRectCalc();
+		Refresh();
+	}
+	private: System::Void btnOpen_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		//if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+		//	 // в файловом диалоге нажата кновка OK
+		//		 // перезапись имени файла из openFileDialog->FileName в fileName
+		//		 wchar_t fileName[1024]; // переменная, в которой посимвольно сохраним имя файла
+		//	 for (int i = 0; i < openFileDialog->FileName->Length; i++)
+		//		 fileName[i] = openFileDialog->FileName[i];
+		//	 fileName[openFileDialog->FileName->Length] = '\0';
+		//	
+		//		 // объявление и открытие файла
+		//		 ifstream in;
+		//	 in.open(fileName);
+		//	 if (in.is_open()) {
+		//		
+		//			 // файл успешно открыт
+		//		 models.clear(); // очищаем имеющийся список рисунков
+		//		 // временные переменные для чтения из файла
+
+		//		 mat3 M = mat3(1.f); // матрица для получения модельной матрицы
+		//		 mat3 initM; // матрица для начального преобразования каждого рисунка
+		//		 vector<mat3> transforms; // стек матриц преобразований
+		//		 vector<path> figure; // список ломаных очередного рисунка
+
+		//		float thickness = 2; // толщина со значением по умолчанию 2
+		//		 float r, g, b; // составляющие цвета
+		//		 r = g = b = 0; // значение составляющих цвета по умолчанию (черный)
+		//		 string cmd; // строка для считывания имени команды
+		//		 // непосредственно работа с файлом
+		//			 string str; // строка, в которую считываем строки файла
+		//		 getline(in, str); // считываем из входного файла первую строку
+		//		 while (in) { // если очередная строка считана успешно
+		//			 // обрабатываем строку
+		//			 if ((str.find_first_not_of(" \t\r\n") != string::npos) && (str[0] != '#')) {
+		//				 // прочитанная строка не пуста и не комментарий
+		//				 stringstream s(str); // строковый поток из строки str
+		//				 s >> cmd;
+		//				 if (cmd == "frame") { // размеры изображения
+
+		//					 s >> Vx >> Vy; // считываем глобальные значение Vx и Vy
+
+		//					 float Wx = ClientRectangle.Width - left - right; // ширина прямоугольника
+		//					 float Wy = ClientRectangle.Height - top - bottom; // высота прямоугольника
+		//					 float aspectRect = Wx / Wy; // соотношение сторон прямоугольника
+		//					 // коэффициент увеличения при сохранении исходного соотношения сторон
+
+		//					// смещение центра рисунка с началом координат
+		//					 mat3 T1 = translate(-Vx / 2, -Vy / 2);
+		//					 // масштабирование остается прежним, меняется только привязка
+		//					 // коэффициент увеличения при сохранении исходного соотношения сторон
+		//					 float S = aspectFigR < aspectRect ? Wy / Vy : Wx / Vx;
+		//					 mat3 S1 = scale(S, -S);
+		//					 // сдвиг точки привязки из начала координат в нужную позицию
+		//					 mat3 T2 = translate(Wx / 2 + Wcx, Wcy - Wy / 2);
+		//					 // В initT совмещаем эти три преобразования (справа налево)
+		//					 initTR = T2 * (S1 * T1);
+
+		//					 TR = initTR;
+
+		//				 }
+		//				 else if (cmd == "color") { // цвет линии
+		//					 s >> r >> g >> b; // считываем три составляющие цвета
+
+		//				 }
+		//				 else if (cmd == "thickness") { // толщина линии
+		//					 s >> thickness; // считываем значение толщины
+
+		//				 }
+		//				 else if (cmd == "path") { // набор точек
+		//					 vector<vec2> vertices; // список точек ломаной
+		//					 int N; // количество точек
+		//					 s >> N;
+		//					 string str1; // дополнительная строка для чтения из файла
+		//					 while (N > 0) { // пока не все точки считали
+		//						 getline(in, str1); // считываем в str1 из входного файла очередную строку
+		//						 // так как файл корректный, то на конец файла проверять не нужно
+		//						 if ((str1.find_first_not_of(" \t\r\n") != string::npos) && (str1[0] != '#')) {
+		//							 // прочитанная строка не пуста и не комментарий
+		//								// значит в ней пара координат
+		//							 float x, y; // переменные для считывания
+		//							 stringstream s1(str1); // еще один строковый поток из строки str1
+		//							 s1 >> x >> y;
+		//							 vertices.push_back(vec2(x, y)); // добавляем точку в список
+		//							 N--; // уменьшаем счетчик после успешного считывания точки
+
+		//						 }
+
+		//					 }
+		//					 // все точки считаны, генерируем ломаную (path) и кладем ее в список figure
+		//					 figure.push_back(path(vertices, vec3(r, g, b), thickness));
+
+		//				 }
+		//				 else if (cmd == "model") { // начало описания нового рисунка
+
+		//					 float mVcx, mVcy, mVx, mVy; // параметры команды model
+		//					 s >> mVcx >> mVcy >> mVx >> mVy; // считываем значения переменных
+		//					 float S = mVx / mVy < 1 ? 2.f / mVy : 2.f / mVx;
+		//					 // сдвиг точки привязки из начала координат в нужную позицию
+		//						 // после которого проводим масштабирование
+		//					 initM = scale(S) * translate(-mVcx, -mVcy);
+		//					 figure.clear();
+
+		//				 }
+		//				 else if (cmd == "figure") { // формирование новой модели
+		//					 models.push_back(model(figure, M * initM));
+
+		//				 }
+		//				 else if (cmd == "translate") { // перенос
+		//					 float Tx, Ty; // параметры преобразования переноса
+		//					 s >> Tx >> Ty; // считываем параметры
+		//					 M = translate(Tx, Ty) * M; // добавляем перенос к общему преобразованию
+
+		//				 }
+		//				 else if (cmd == "scale") { // масштабирование
+		//					 float S; // параметр масштабирования
+		//					 s >> S; // считываем параметр
+		//					 M = scale(S) * M; // добавляем масштабирование к общему преобразованию
+
+		//				 }
+		//				 else if (cmd == "rotate") { // поворот
+		//					 float theta; // угол поворота в градусах
+		//					 s >> theta; // считываем параметр
+		//					 M = rotate(-theta / 180.f * Math::PI) * M; // добавляем поворот к общему преобразованию
+
+		//				 }
+		//				 else if (cmd == "pushTransform") { // сохранение матрицы в стек
+		//					 transforms.push_back(M); // сохраняем матрицу в стек
+
+		//				 }
+		//				 else if (cmd == "popTransform") { // откат к матрице из стека
+		//					 M = transforms.back(); // получаем верхний элемент стека
+		//					 transforms.pop_back(); // выкидываем матрицу из стека
+		//				 }
+		//			 }	 
+		//				 // считываем очередную строку
+		//			 // считываем очередную строку
+		//				 getline(in, str);	
+		//		}
+		//		 Refresh();
+		//	}
+		//}
+	}
+};
+}
