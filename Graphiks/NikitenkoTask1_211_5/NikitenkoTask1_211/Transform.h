@@ -43,3 +43,22 @@ mat3 mirrorY() {
 	return *res;
 }
 //
+
+mat4 translate(float Tx, float Ty, float Tz) {
+	 mat4 * res = new mat4(1.f); // создали единичную матрицу
+	 (*res)[0][3] = Tx; // поменяли
+	 (*res)[1][3] = Ty; // значения в последнем столбце
+	 (*res)[2][3] = Tz; //
+	 return *res;
+	
+}
+
+ mat4 scale(float Sx, float Sy, float Sz) {
+	 mat4 * res = new mat4(1.f); // создали единичную матрицу
+	 (*res)[0][0] = Sx; // поменяли
+	 (*res)[1][1] = Sy; // значения на главной диагонали
+	 (*res)[2][2] = Sz; //
+	
+		 return *res;
+	
+}

@@ -13,14 +13,12 @@ namespace NikitenkoTask1211 {
 	using namespace std;
 
 
-	vec2 Vc; // координаты левого нижнего угла
-	vec2 V; // размеры прямоугольника в пространстве графика
-	vec2 Vc_work, V_work; // рабочие параметры прямоугольника
+	vec3 Vc; // координаты дальнего левого нижнего угла
+	vec3 V; // размеры параллелепипеда в пространстве графика
+	vec3 Vc_work, V_work; // рабочие параметры параллелепипеда
 
-
-	// Матрицы, для 3 задания
-	mat3 T; // матрица, в которой накапливаются все преобразования
-	mat3 initT; // матрица начального преобразования
+	mat4 T; // матрица, в которой накапливаются все преобразования
+	mat4 initT; // матрица начального преобразования
 
 	/// <summary>
 	/// Сводка для Painting
@@ -107,11 +105,17 @@ namespace NikitenkoTask1211 {
 #pragma endregion
 	private: bool keepAspectRatio; // значение - сохранять ли соотношение сторон рисунка?
 	private: bool changeImage; // замена изображения
-	private: float left = 30, right = 100, top = 20, bottom = 50; // расстояния до границ окна
-		   float minX = left, maxX; // диапазон изменения координат x
-		   float minY = top, maxY; // диапазон изменения координат y
-		   float Wcx = left, Wcy; // координаты левого нижнего угла прямоугольника
-		   float Wx, Wy; // ширина и высота прямоугольника
+
+	 private: float left = 30, right = 100, top = 20, bottom = 50; // расстояния до границ окна
+			  float minX = left, maxX; // диапазон изменения координат x
+			  float minY = top, maxY; // диапазон изменения координат y
+			  float Wcx = left, Wcy; // координаты левого нижнего угла прямоугольника
+			  float Wx, Wy; // ширина и высота прямоугольника
+			  float Wx_work, Wy_work; // ширина и высота области вывода одной линии графика
+			  float Wx_part = 0.6, Wy_part = 0.6; // доля Wx_work, Wy_work от Wx, Wy соответственно
+			  float Wcx_work, Wcy_work; // координаты левого нижнего у
+			  float Wz_work; // количество рабочих прямоугольников
+
 
 	private: System::Void rectCalc() {
 		maxX = ClientRectangle.Width - right; // диапазон изменения координат x
@@ -119,25 +123,30 @@ namespace NikitenkoTask1211 {
 		Wcy = maxY; // координаты левого нижнего угла прямоугольника
 		Wx = maxX - left; // ширина прямоугольника
 		Wy = maxY - top; // ширина и высота прямоугольника
+
+		Wx_work = Wx_part * Wx; // вычисление ширины и высоты
+		Wy_work = Wy_part * Wy; // рабочего прямоугольника
+		Wcx_work = maxX - Wx_work; // вычисление координат нижнего левого
+		Wcy_work = minY + Wy_work; // угла самого дальнего рабочего прямоугольника
+		Wz_work = Wcy - Wcy_work; // количество рабочих прямоугольников
+
 	}
 
 	private: System::Void worldRectCalc() {
-		Vc_work = normalize(T * vec3(Vc, 1.f));
-		V_work = mat2(T) * V;
-
+		Vc_work = normalize(T * vec4(Vc, 1.f));
+		V_work = mat3(T) * V;
 
 	}
 
-		   private: float f(float x) {
-			   return tan(x);
+		 private: float f(float x, float z) 
+		 {
+			 return x * sin(sqrtf(x * x + z * z));
+		 }
 
-
-		   }
-
-			private: bool f_exists(float x, float delta) {
-				 return fabs(2.f * acos(cos(x)) - Math::PI) > delta;
-				
-			}
+		private: bool f_exists(float x, float z, float delta) 
+		{
+			return true;
+		}
 
 
 
@@ -150,66 +159,83 @@ namespace NikitenkoTask1211 {
 		Pen^ rectPen = gcnew Pen(Color::Black, 2);
 		g->DrawRectangle(rectPen, left, top, Wx, Wy);	
 
-		Pen^ pen = gcnew Pen(Color::Blue, 1);
-		float deltaX = V_work.x / Wx; // шаг по x в мировых координатах
-
-		bool hasStart;
-
-		vec2 start, end; // точка начала отрезка в координатах экрана
-		float x, y; // переменные для координат точки в мировой СК
-		start.x = Wcx; // для начальной точки первого отрезка устанавливаем координату x
-		x = Vc_work.x; // координата x начальной точки первого отрезка в мировых координатах
-		hasStart = f_exists(x, deltaX);
-		 if (hasStart) {
-			 y = f(x); // координата y начальной точки в мировых координатах
-			 // вычисляем соответствующее значение в координатах экрана
-				 start.y = Wcy - (y - Vc_work.y) / V_work.y * Wy;
+		// ОТРИСОВКА ГРАФИКА
+		 Pen ^ pen = gcnew Pen(Color::Blue, 1);
+		 float deltaX = V_work.x / Wx_work; // шаг по x в мировых координатах
+		 float deltaZ = V_work.z / Wz_work; // шаг по z в мировых координатах
+		
 			
-		}
-		 while (start.x < maxX) {
-			 vec2 end;// точка конца отрезка в координатах экрана
-			 bool hasEnd;
-			 float deltaY; // высота точки в прямоугольнике (доля общей высоты)
-			 float red, green, blue; // компоненты цвета отрезка
-			 end.x = start.x + 1.f; // координата x отличается на единицу
-			 x += deltaX; // координата x конечной точки отрезка в мировых координатах
-			 hasEnd = f_exists(x, deltaX);
-			 if (hasEnd) {
-				 y = f(x); // координата y начальной точки в мировых координатах
+			 float deltaWcx = (Wcx_work - Wcx) / Wz_work; // шаг прямоугольников по x в координатах экрана
+		
+			 bool hasStart;
+		
+			 // цикл по прямоугольникам
+			 float z = Vc_work.z; // координата z соответствующая дальнему прямоугольнику
+		 // координаты левого нижнего угла рабочего прямоугольника (инициализация)
+			 float Wcx_w = Wcx_work, Wcy_w = Wcy_work;
+		 while (Wcy_w <= Wcy) { // пока не перебрали все прямоугольники
+			 vec2 start, end; // концы отрезка в координатах экрана
+			 float x, y; // переменные для координат точки в мировой СК
+			 start.x = Wcx_w; // для начальной точки первого отрезка устанавливаем координату x
+			 x = Vc_work.x; // координата x начальной точки первого отрезка в мировых координатах
+			 hasStart = f_exists(x, z, deltaX);
+			 if (hasStart) {
+				 y = f(x, z); // координата y начальной точки в мировых координатах
 				 // вычисляем соответствующее значение в координатах экрана
-					 deltaY = (y - Vc_work.y) / V_work.y;
-				 end.y = Wcy - deltaY * Wy;
+					 start.y = Wcy_w - (y - Vc_work.y) / V_work.y * Wy_work;
 				
 			}
-			 vec2 tmpEnd = end;
-			 bool visible = hasStart && hasEnd && clip(start, end, minX, minY, maxX, maxY);
-			 if (visible) { // если отрезок видим
-				 // после отсечения, start и end - концы видимой части отрезка
-					 if (deltaY > 1.f) deltaY = 1.f; // нормализуем значение высоты точки
-				 if (deltaY < 0.f) deltaY = 0.f; // на случай, если отрезок отсекался
-				 green = 510.f * deltaY; // предварительное вычисление произведения
-				 if (deltaY < 0.5) { // если точка ниже середины области видимости
-					 // компонента зеленого уже вычислена
-						 blue = 255.f - green; // синий дополняет зеленый
-					 red = 0.f; // красный равен нулю
+			 float maxX = Wcx_w + Wx_work; // максимальное значение x в рабочем прямоугольнике
+			 while (start.x < maxX) {
+				 vec2 end; // точка конца отрезка в координатах экрана
+				 bool hasEnd;
+				 float deltaY; // высота точки в прямоугольнике (доля общей высоты)
+				 float red, green, blue; // компоненты цвета отрезка
+				 end.x = start.x + 1.f; // координата x отличается на единицу
+				 x += deltaX; // координата x конечной точки отрезка в мировых координатах
+				 hasEnd = f_exists(x, z, deltaX);
+				 if (hasEnd) {
+					 y = f(x, z); // координата y начальной точки в мировых координатах
+					 // вычисляем соответствующее значение в координатах экрана
+						 deltaY = (y - Vc_work.y) / V_work.y;
+					 end.y = Wcy_w - deltaY * Wy_work;
 					
 				}
-				 else { // если точка не ниже середины
-					 blue = 0.f; // синий равен нулю
-					 red = green - 255.f; // вычисляем красный и зеленый
-					 green = 510.f - green; // с использованием вычисленного произведения
+				 vec2 tmpEnd = end;
+				 bool visible = hasStart && hasEnd && clip(start, end, minX, minY, maxX, maxY);
+				 if (visible) { // если отрезок видим
+					 // после отсечения, start и end - концы видимой части отрезка
+						 // вычичление цвета отрезка
+						 if (deltaY > 1.f) deltaY = 1.f; // нормализуем значение высоты точки
+					 if (deltaY < 0.f) deltaY = 0.f; // на случай, если отрезок отсекался
+					 green = 510.f * deltaY; // предварительное вычисление произведения
+					 if (deltaY < 0.5) { // если точка ниже середины области видимости
+						 // компонента зеленого уже вычислена
+							 blue = 255.f - green; // синий дополняет зеленый
+						 red = 0.f; // красный равен нулю
+						
+					}
+					 else { // если точка не ниже середины
+						 blue = 0.f; // синий равен нулю
+						 red = green - 255.f; // вычисляем красный и зеленый
+						 green = 510.f - green; // с использованием вычисленного произведения
+						
+					}
+					 pen->Color = Color::FromArgb(red, green, blue); // меняем цвет пера
+					 // отрисовка отрезка
+						 g->DrawLine(pen, start.x, start.y, end.x, end.y); // отрисовка видимых частей
 					
 				}
-				 pen->Color = Color::FromArgb(red, green, blue); // меняем цвет пера
-				 g->DrawLine(pen, start.x, start.y, end.x, end.y); // отрисовка видимых частей
+				 // конечная точка неотсеченного отрезка становится начальной точкой следующего
+					 start = tmpEnd;
+				 hasStart = hasEnd;
 				
 			}
-			 // конечная точка неотсеченного отрезка становится начальной точкой следующего
-				 start = tmpEnd;
-			 hasStart = hasEnd;
+			 Wcy_w += 1.f; // переходим к следующему прямоугольнику, он будет ниже на один пиксел
+			 Wcx_w -= deltaWcx; // и левее на некоторое значение
+			 z += deltaZ; // вычисляем соответствующее значение z для очередного прямоугольника
 			
 		}
-
 
 
 	}
@@ -219,11 +245,12 @@ namespace NikitenkoTask1211 {
 	}
 
 	private: System::Void Painting_Load(System::Object^ sender, System::EventArgs^ e) {
-		initT = mat3(1.f);
+		initT = mat4(1.f);
 		T = initT;
 
-		Vc = vec2(-2.f, -2.f);
-		V = vec2(4.f, 4.f);
+		Vc = vec3(-2.f, -2.f, -2.f);
+		V = vec3(4.f, 4.f, 4.f);
+
 
 		rectCalc();
 		worldRectCalc();
@@ -231,11 +258,15 @@ namespace NikitenkoTask1211 {
 	}
 	private: System::Void Painting_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 
+		float centerX = Vc_work.x + V_work.x / 2; // координаты центра параллелепипеда
+		float centerY = Vc_work.y + V_work.y / 2; // в мировой системе координат
+		float centerZ = Vc_work.z + V_work.z / 2;
+
+
 		float Wcx = ClientRectangle.Width / 2.f; // координаты центра
 		float Wcy = ClientRectangle.Height / 2.f; // текущего окна
 
-		float centerX = Vc_work.x + V_work.x / 2; // координаты центра прямоугольника
-		float centerY = Vc_work.y + V_work.y / 2; // в мировой системе координат
+
 
 		switch (e->KeyCode) {
 
@@ -244,13 +275,13 @@ namespace NikitenkoTask1211 {
 			break;
 
 		case Keys::A:
-			T = translate(-V_work.x / Wx, 0.f) * T; // сдвиг графика вправо на один пиксел
+			T = translate(-V_work.x / Wx, 0.f, 0.f) * T; // сдвиг графика вправо на один, пиксел
 			break;
 
 		case Keys::Z:
-			T = translate(-centerX, -centerY) * T; // перенос начала координат в центр
-			T = scale(1.1) * T; // масштабирование относительно начала координат
-			T = translate(centerX, centerY) * T; // возврат позиции начала координат
+			T = translate(-centerX, -centerY, -centerZ) * T; // перенос начала координат в центр
+			T = scale(1.1, 1.1, 1.1) * T; // масштабирование относительно начала координат
+			T = translate(centerX, centerY, centerZ) * T; // возврат позиции начала координат
 			break;
 
 		}
