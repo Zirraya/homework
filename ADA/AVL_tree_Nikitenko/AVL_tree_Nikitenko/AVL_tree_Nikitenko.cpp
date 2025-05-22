@@ -7,6 +7,7 @@
 #include <algorithm>
 using namespace std;
 
+// Структура дерева
 struct node {
     int key;
     node* left;
@@ -14,26 +15,35 @@ struct node {
     int height;
     node(int k) : key(k), left(nullptr), right(nullptr), height(1) {}
 };
+//
 
+//
 node* root = nullptr;
 HANDLE outp = GetStdHandle(STD_OUTPUT_HANDLE);
 CONSOLE_SCREEN_BUFFER_INFO csbInfo;
+//
 
-
+// Высота
 int height(node* n) {
     return n ? n->height : 0;
 }
+//
 
+// Вычисляет балансировачный фактор, нужно чтоб поддерживать дерево (и меня)
 int balanceFactor(node* n) {
     return n ? height(n->left) - height(n->right) : 0;
 }
 
+// Обновляет высоту дерева, чтобы поддерживать высоту и корректность рабботы других операций
 void updateHeight(node* n) {
     if (n) {
         n->height = 1 + max(height(n->left), height(n->right));
     }
 }
+//
 
+// Вращение дерева, для балансирования дерева. Правое вращение балансирует, когда происходит вставка или удаления узла
+// и дерево становиться не сблалонсированным
 node* rotateRight(node* y) {
     node* x = y->left;
     node* T2 = x->right;
@@ -46,7 +56,11 @@ node* rotateRight(node* y) {
 
     return x;
 }
+//
 
+
+// Вращение дерева, для балансирования дерева. Левое вращение балансирует, когда происходит вставка или удаления узла
+// и дерево становиться не сблалонсированным
 node* rotateLeft(node* x) {
     node* y = x->right;
     node* T2 = y->left;
@@ -59,7 +73,9 @@ node* rotateLeft(node* x) {
 
     return y;
 }
+//
 
+// Проверяет балансировочный фактор узла и выполняет необходимые вращения для исправления несбалансированности.
 node* balance(node* n) {
     if (!n) return n;
 
@@ -88,13 +104,17 @@ node* balance(node* n) {
 
     return n;
 }
+//
 
+//
 void max_height(node* x, short& max, short deepness = 1) {
     if (deepness > max) max = deepness;
     if (x->left) max_height(x->left, max, deepness + 1);
     if (x->right) max_height(x->right, max, deepness + 1);
 }
+//
 
+//
 bool isSizeOfConsoleCorrect(const short& width, const short& height) {
     GetConsoleScreenBufferInfo(outp, &csbInfo);
     COORD szOfConsole = csbInfo.dwSize;
@@ -108,16 +128,25 @@ bool isSizeOfConsoleCorrect(const short& width, const short& height) {
     }
     return true;
 }
+//
 
+//
 void print_helper(node* x, const COORD pos, const short offset) {
     SetConsoleCursorPosition(outp, pos);
     cout << setw(offset + 1) << x->key;
     if (x->left) print_helper(x->left, { pos.X, short(pos.Y + 1) }, offset >> 1);
     if (x->right) print_helper(x->right, { short(pos.X + offset), short(pos.Y + 1) }, offset >> 1);
 }
+//
 
+//
 void print() {
-    if (root) {
+    if (root == NULL) 
+    {
+        cout << "Пусто\n";
+    }
+    else
+    {
         short max = 1;
         max_height(root, max);
         short width = 1 << max + 1, max_w = 128;
@@ -130,7 +159,9 @@ void print() {
         SetConsoleCursorPosition(outp, endPos);
     }
 }
+//
 
+// Добавить узел
 node* insert(node* root, int key) {
     if (!root) return new node(key);
 
@@ -143,14 +174,18 @@ node* insert(node* root, int key) {
 
     return balance(root);
 }
+//
 
+//
 node* findMin(node* root) {
     while (root && root->left) {
         root = root->left;
     }
     return root;
 }
+//
 
+// Удаление узла
 node* deleteNode(node* root, int key) {
     if (!root) return root;
 
@@ -181,13 +216,17 @@ node* deleteNode(node* root, int key) {
 
     return balance(root);
 }
+//
 
+// Поиск узла
 node* search(node* root, int key) {
     if (!root || root->key == key) return root;
     if (key < root->key) return search(root->left, key);
     return search(root->right, key);
 }
+//
 
+// Обход в симметричном порядке
 void inorder(node* root) {
     if (root) {
         inorder(root->left);
@@ -195,15 +234,18 @@ void inorder(node* root) {
         inorder(root->right);
     }
 }
+//
 
+// Обход в прямом порядке
 void preorder(node* root) {
-    if (root) {
+
         cout << root->key << " ";
         preorder(root->left);
         preorder(root->right);
-    }
 }
+//
 
+// Обход в обратном порядке
 void postorder(node* root) {
     if (root) {
         postorder(root->left);
@@ -211,17 +253,20 @@ void postorder(node* root) {
         cout << root->key << " ";
     }
 }
+//
 
+// Меню
 void menu() {
-    cout << "1. Добавить узел\n";
+    cout << "1. Добавить узлы\n";
     cout << "2. Удалить узел\n";
-    cout << "3. Поиск узла\n";
-    cout << "4. Обход в прямом порядке\n";
-    cout << "5. Обход в симметричном порядке\n";
-    cout << "6. Обход в обратном порядке\n";
-    cout << "7. Вывести дерево\n";
+    cout << "3. Вывести дерево\n";
+    cout << "4. Поиск узла\n";
+    cout << "5. Обход в прямом порядке\n";
+    cout << "6. Обход в симметричном порядке\n";
+    cout << "7. Обход в обратном порядке\n";
     cout << "0. Выход\n";
 }
+//
 
 int main() {
     setlocale(LC_ALL, "Russian");
@@ -233,11 +278,12 @@ int main() {
 
         switch (choice) {
         case 1:
+            cout << "-1 - выход" << endl;
             while (true) {
-                cout << "-1 - выход из цикла" << endl;
                 cin >> key;
                 if (key == -1) break;
                 root = insert(root, key);
+                cout << key << " добавлен.\n";
             }
             break;
 
@@ -245,8 +291,13 @@ int main() {
             cout << "ключ для удаления: ";
             cin >> key;
             root = deleteNode(root, key);
+            cout << key << " удалён.\n";
             break;
         case 3:
+            print();
+            cout << endl;
+            break;
+        case 4:
             cout << "ключ для поиска: ";
             cin >> key;
             if (search(root, key)) {
@@ -256,23 +307,20 @@ int main() {
                 cout << "узел с ключом " << key << " не найден.\n";
             }
             break;
-        case 4:
+        case 5:
             cout << "обход в прямом порядке: ";
             preorder(root);
             cout << endl;
             break;
-        case 5:
+        case 6:
             cout << "обход в симметричном порядке: ";
             inorder(root);
             cout << endl;
             break;
-        case 6:
+        case 7:
             cout << "обход в обратном порядке: ";
             postorder(root);
             cout << endl;
-            break;
-        case 7:
-            print();
             break;
         case 0:
             return 0;
