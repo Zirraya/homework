@@ -46,7 +46,7 @@ namespace NikitenkoTask1211 {
 			}
 		}
 	private: System::Windows::Forms::OpenFileDialog^ openFileDialog;
-	private: System::Windows::Forms::Button^ btnOpen;
+
 	protected:
 
 	private:
@@ -63,7 +63,6 @@ namespace NikitenkoTask1211 {
 		void InitializeComponent(void)
 		{
 			this->openFileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->btnOpen = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// openFileDialog
@@ -72,24 +71,11 @@ namespace NikitenkoTask1211 {
 			this->openFileDialog->Filter = L" (*.txt)|*.txt|Все файлы (*.*)|*.*";
 			this->openFileDialog->Title = L"Открыть файл";
 			// 
-			// btnOpen
-			// 
-			this->btnOpen->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->btnOpen->AutoSize = true;
-			this->btnOpen->Location = System::Drawing::Point(729, 12);
-			this->btnOpen->Name = L"btnOpen";
-			this->btnOpen->Size = System::Drawing::Size(97, 49);
-			this->btnOpen->TabIndex = 0;
-			this->btnOpen->Text = L"Открыть";
-			this->btnOpen->UseVisualStyleBackColor = true;
-			this->btnOpen->Click += gcnew System::EventHandler(this, &Painting::btnOpen_Click);
-			// 
 			// Painting
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(857, 438);
-			this->Controls->Add(this->btnOpen);
 			this->DoubleBuffered = true;
 			this->KeyPreview = true;
 			this->Name = L"Painting";
@@ -99,13 +85,9 @@ namespace NikitenkoTask1211 {
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Painting::Painting_KeyDown);
 			this->Resize += gcnew System::EventHandler(this, &Painting::Painting_Resize);
 			this->ResumeLayout(false);
-			this->PerformLayout();
 
 		}
 #pragma endregion
-	private: bool keepAspectRatio; // значение - сохранять ли соотношение сторон рисунка?
-	private: bool changeImage; // замена изображения
-
 	 private: float left = 30, right = 100, top = 20, bottom = 50; // расстояния до границ окна
 			  float minX = left, maxX; // диапазон изменения координат x
 			  float minY = top, maxY; // диапазон изменения координат y
@@ -204,7 +186,22 @@ namespace NikitenkoTask1211 {
 			
 		}
 
+		 // КООРДИНАТНАЯ СЕТКА ПО Y
+		 float gridStep_z = Wy_work / numYsect;
+		 float grid_dY = V_work.y / numYsect;
+		 float tick_y = Vc_work.y;
+		 for (int i = 0; i <= numYsect; i++) {
+			 float tmpXCoord_v = Wcx_work;
+			 float tmpYCoord_v = Wcy_work - i * gridStep_z;
+			 float tmpYCoord_g = tmpYCoord_v + Wz_work;
+			 g->DrawLine(gridPen, tmpXCoord_v, tmpYCoord_v, minX, tmpYCoord_g);
+			 g->DrawLine(gridPen, tmpXCoord_v, tmpYCoord_v, maxX, tmpYCoord_v);
+			 if (i > 0 && i < numYsect)
+				 g->DrawString(tick_y.ToString("F4"), drawFont, drawBrush, maxX, tmpYCoord_v);
+			 tick_y += grid_dY;
+		 }
 
+		 //
 
 
 
@@ -272,13 +269,11 @@ namespace NikitenkoTask1211 {
 					}
 					 pen->Color = Color::FromArgb(red, green, blue); // меняем цвет пера
 					 // отрисовка отрезка
-						 g->DrawLine(pen, start.x, start.y, end.x, end.y); // отрисовка видимых частей
-					
+						 g->DrawLine(pen, start.x, start.y, end.x, end.y); // отрисовка видимых частей	
 				}
 				 // конечная точка неотсеченного отрезка становится начальной точкой следующего
 					 start = tmpEnd;
 				 hasStart = hasEnd;
-				
 			}
 			 Wcy_w += 1.f; // переходим к следующему прямоугольнику, он будет ниже на один пиксел
 			 Wcx_w -= deltaWcx; // и левее на некоторое значение
@@ -320,11 +315,34 @@ namespace NikitenkoTask1211 {
 		switch (e->KeyCode) {
 
 		case Keys::Escape:
+
+			numXsect = 5; numYsect = 5; numZsect = 5;
+			Wx_part = 0.6; Wy_part = 0.6;
 			T = initT;
 			break;
 
 		case Keys::A:
 			T = translate(-V_work.x / Wx, 0.f, 0.f) * T; // сдвиг графика вправо на один, пиксел
+			break;
+
+		case Keys::D:
+			T = translate(V_work.x / Wx, 0.f, 0.f) * T; // сдвиг графика влево на один пиксел
+			break;
+
+		case Keys::W:
+			T = translate(0.f, 0.f, V_work.x / Wx) * T; // сдвиг графика назад (от наблюдателя) на один пиксел
+			break;
+
+		case Keys::S:
+			T = translate(0.f, 0.f, -V_work.x / Wx) * T; // сдвиг графика вперед (от наблюдателя) на один пиксел
+			break;
+
+		case Keys::R:
+			T = translate(0.f, -V_work.y / Wy, 0.f) * T; // сдвиг графика вниз на один пиксел
+			break;
+
+		case Keys::F:
+			T = translate(0.f, V_work.y / Wy, 0.f) * T; // сдвиг графика вверх на один пиксел
 			break;
 
 		case Keys::Z:
@@ -333,151 +351,94 @@ namespace NikitenkoTask1211 {
 			T = translate(centerX, centerY, centerZ) * T; // возврат позиции начала координат
 			break;
 
+		case Keys::X: // уменьшение
+			T = translate(-centerX, -centerY, -centerZ) * T; // перенос начала координат в центр
+			T = scale(1. / 1.1, 1. / 1.1, 1. / 1.1) * T; // масштабирование относительно начала координат
+			T = translate(centerX, centerY, centerZ) * T; // возврат позиции начала координат
+			break;
+
+		case Keys::T:
+			T = translate(-centerX, -centerY, -centerZ) * T; // перенос начала координат в центр
+			T = scale(1.1, 1., 1.) * T; // масштабирование относительно начала координат
+			T = translate(centerX, centerY, centerZ) * T; // возврат позиции начала координат
+			break;
+
+		case Keys::G:
+			T = translate(-centerX, -centerY, -centerZ) * T; // перенос начала координат в центр
+			T = scale(1. / 1.1, 1., 1.) * T; // масштабирование относительно начала координат
+			T = translate(centerX, centerY, centerZ) * T; // возврат позиции начала координат
+			break;
+
+		case Keys::Y:
+			T = translate(-centerX, -centerY, -centerZ) * T; // перенос начала координат в центр
+			T = scale(1., 1.1, 1.) * T; // масштабирование относительно начала координат
+			T = translate(centerX, centerY, centerZ) * T; // возврат позиции начала координат
+			break;
+
+		case Keys::H:
+			T = translate(-centerX, -centerY, -centerZ) * T; // перенос начала координат в центр
+			T = scale(1., 1. / 1.1, 1.) * T; // масштабирование относительно начала координат
+			T = translate(centerX, centerY, centerZ) * T; // возврат позиции начала координат
+			break;
+
+		case Keys::U:
+			T = translate(-centerX, -centerY, -centerZ) * T; // перенос начала координат в центр
+			T = scale(1., 1., 1.1) * T; // масштабирование относительно начала координат
+			T = translate(centerX, centerY, centerZ) * T; // возврат позиции начала координат
+			break;
+
+		case Keys::J:
+			T = translate(-centerX, -centerY, -centerZ) * T; // перенос начала координат в центр
+			T = scale(1., 1., 1. / 1.1) * T; // масштабирование относительно начала координат
+			T = translate(centerX, centerY, centerZ) * T; // возврат позиции начала координат
+			break;
+
+		case Keys::D1:
+			numXsect++;
+			break;
+
+		case Keys::D2:
+			if (numXsect > 2)numXsect--;
+			break;
+
+		case Keys::D3:
+			numYsect++;
+			break;
+
+		case Keys::D4:
+			if (numYsect > 2)numYsect--;
+			break;
+
+		case Keys::D5:
+			numZsect++;
+			break;
+
+		case Keys::D6:
+			if (numZsect > 2)numZsect--;
+			break;
+
+		case Keys::Q:
+			if (Wx_part <= 0.9) Wx_part *= 1.1;
+			break;
+
+		case Keys::E:
+			if (Wx_part >= 0.2) Wx_part /= 1.1;
+			break;
+
+		case Keys::C:
+			if (Wy_part <= 0.9) Wy_part *= 1.1;
+			break;
+
+		case Keys::V:
+			if (Wy_part >= 0.2) Wy_part /= 1.1;
+			break;
+		default:
+			break;
 		}
+		rectCalc();
 		worldRectCalc();
 		Refresh();
 	}
-	private: System::Void btnOpen_Click(System::Object^ sender, System::EventArgs^ e) {
-
-		//if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-		//	 // в файловом диалоге нажата кновка OK
-		//		 // перезапись имени файла из openFileDialog->FileName в fileName
-		//		 wchar_t fileName[1024]; // переменная, в которой посимвольно сохраним имя файла
-		//	 for (int i = 0; i < openFileDialog->FileName->Length; i++)
-		//		 fileName[i] = openFileDialog->FileName[i];
-		//	 fileName[openFileDialog->FileName->Length] = '\0';
-		//	
-		//		 // объявление и открытие файла
-		//		 ifstream in;
-		//	 in.open(fileName);
-		//	 if (in.is_open()) {
-		//		
-		//			 // файл успешно открыт
-		//		 models.clear(); // очищаем имеющийся список рисунков
-		//		 // временные переменные для чтения из файла
-
-		//		 mat3 M = mat3(1.f); // матрица для получения модельной матрицы
-		//		 mat3 initM; // матрица для начального преобразования каждого рисунка
-		//		 vector<mat3> transforms; // стек матриц преобразований
-		//		 vector<path> figure; // список ломаных очередного рисунка
-
-		//		float thickness = 2; // толщина со значением по умолчанию 2
-		//		 float r, g, b; // составляющие цвета
-		//		 r = g = b = 0; // значение составляющих цвета по умолчанию (черный)
-		//		 string cmd; // строка для считывания имени команды
-		//		 // непосредственно работа с файлом
-		//			 string str; // строка, в которую считываем строки файла
-		//		 getline(in, str); // считываем из входного файла первую строку
-		//		 while (in) { // если очередная строка считана успешно
-		//			 // обрабатываем строку
-		//			 if ((str.find_first_not_of(" \t\r\n") != string::npos) && (str[0] != '#')) {
-		//				 // прочитанная строка не пуста и не комментарий
-		//				 stringstream s(str); // строковый поток из строки str
-		//				 s >> cmd;
-		//				 if (cmd == "frame") { // размеры изображения
-
-		//					 s >> Vx >> Vy; // считываем глобальные значение Vx и Vy
-
-		//					 float Wx = ClientRectangle.Width - left - right; // ширина прямоугольника
-		//					 float Wy = ClientRectangle.Height - top - bottom; // высота прямоугольника
-		//					 float aspectRect = Wx / Wy; // соотношение сторон прямоугольника
-		//					 // коэффициент увеличения при сохранении исходного соотношения сторон
-
-		//					// смещение центра рисунка с началом координат
-		//					 mat3 T1 = translate(-Vx / 2, -Vy / 2);
-		//					 // масштабирование остается прежним, меняется только привязка
-		//					 // коэффициент увеличения при сохранении исходного соотношения сторон
-		//					 float S = aspectFigR < aspectRect ? Wy / Vy : Wx / Vx;
-		//					 mat3 S1 = scale(S, -S);
-		//					 // сдвиг точки привязки из начала координат в нужную позицию
-		//					 mat3 T2 = translate(Wx / 2 + Wcx, Wcy - Wy / 2);
-		//					 // В initT совмещаем эти три преобразования (справа налево)
-		//					 initTR = T2 * (S1 * T1);
-
-		//					 TR = initTR;
-
-		//				 }
-		//				 else if (cmd == "color") { // цвет линии
-		//					 s >> r >> g >> b; // считываем три составляющие цвета
-
-		//				 }
-		//				 else if (cmd == "thickness") { // толщина линии
-		//					 s >> thickness; // считываем значение толщины
-
-		//				 }
-		//				 else if (cmd == "path") { // набор точек
-		//					 vector<vec2> vertices; // список точек ломаной
-		//					 int N; // количество точек
-		//					 s >> N;
-		//					 string str1; // дополнительная строка для чтения из файла
-		//					 while (N > 0) { // пока не все точки считали
-		//						 getline(in, str1); // считываем в str1 из входного файла очередную строку
-		//						 // так как файл корректный, то на конец файла проверять не нужно
-		//						 if ((str1.find_first_not_of(" \t\r\n") != string::npos) && (str1[0] != '#')) {
-		//							 // прочитанная строка не пуста и не комментарий
-		//								// значит в ней пара координат
-		//							 float x, y; // переменные для считывания
-		//							 stringstream s1(str1); // еще один строковый поток из строки str1
-		//							 s1 >> x >> y;
-		//							 vertices.push_back(vec2(x, y)); // добавляем точку в список
-		//							 N--; // уменьшаем счетчик после успешного считывания точки
-
-		//						 }
-
-		//					 }
-		//					 // все точки считаны, генерируем ломаную (path) и кладем ее в список figure
-		//					 figure.push_back(path(vertices, vec3(r, g, b), thickness));
-
-		//				 }
-		//				 else if (cmd == "model") { // начало описания нового рисунка
-
-		//					 float mVcx, mVcy, mVx, mVy; // параметры команды model
-		//					 s >> mVcx >> mVcy >> mVx >> mVy; // считываем значения переменных
-		//					 float S = mVx / mVy < 1 ? 2.f / mVy : 2.f / mVx;
-		//					 // сдвиг точки привязки из начала координат в нужную позицию
-		//						 // после которого проводим масштабирование
-		//					 initM = scale(S) * translate(-mVcx, -mVcy);
-		//					 figure.clear();
-
-		//				 }
-		//				 else if (cmd == "figure") { // формирование новой модели
-		//					 models.push_back(model(figure, M * initM));
-
-		//				 }
-		//				 else if (cmd == "translate") { // перенос
-		//					 float Tx, Ty; // параметры преобразования переноса
-		//					 s >> Tx >> Ty; // считываем параметры
-		//					 M = translate(Tx, Ty) * M; // добавляем перенос к общему преобразованию
-
-		//				 }
-		//				 else if (cmd == "scale") { // масштабирование
-		//					 float S; // параметр масштабирования
-		//					 s >> S; // считываем параметр
-		//					 M = scale(S) * M; // добавляем масштабирование к общему преобразованию
-
-		//				 }
-		//				 else if (cmd == "rotate") { // поворот
-		//					 float theta; // угол поворота в градусах
-		//					 s >> theta; // считываем параметр
-		//					 M = rotate(-theta / 180.f * Math::PI) * M; // добавляем поворот к общему преобразованию
-
-		//				 }
-		//				 else if (cmd == "pushTransform") { // сохранение матрицы в стек
-		//					 transforms.push_back(M); // сохраняем матрицу в стек
-
-		//				 }
-		//				 else if (cmd == "popTransform") { // откат к матрице из стека
-		//					 M = transforms.back(); // получаем верхний элемент стека
-		//					 transforms.pop_back(); // выкидываем матрицу из стека
-		//				 }
-		//			 }	 
-		//				 // считываем очередную строку
-		//			 // считываем очередную строку
-		//				 getline(in, str);	
-		//		}
-		//		 Refresh();
-		//	}
-		//}
-	}
+	
 };
 }
