@@ -1,28 +1,31 @@
 # Рыбка
 
-frame 40 20
+camera 20 10 10 20 10 0 0 1 0
+#noninicamera 20 25 5 20 10 0 0 1 0
+screen 90 2 10 40
+# Main model definition with added 3D parameters (z dimension and anchor point)
+model 6.6 3.9 0 13.2 7.8 1
 
 # Тело верхняя часть
 # x y начало отрезка x y конец отрезка, всего 228 точек
-model 6.6 3.9 13.2 7.8 
 color 255 165 0 # цвет красный
 thickness 2   # толщина 2
 path 16     # 15 точки (14 отрезка)
-1.5 3.5	# кончик носа
-2.0 4.5	# кончик носа
-2.0 4.5 # середина головы
-2.5 5.0	# середина головы
-2.5 5.0 # конец головы из конца отреза начинается плавник
-3.5 5.4 # конец головы из конца отреза начинается плавник
-3.5 5.4 # плоская часть головы из конца отрезка начинается жабры и середнина плавника
-5.0 5.4 # плоская часть головы из конца отрезка начинается жабры и середнина плавника
-5.0 5.4 # спина из середины часть плавника
-6.5 5.0 # спина из середины часть плавника
-6.5 5.0 # продолжение спины из середниы начинается хвост
-7.5 4.5 # продолжение спины из середниы начинается хвост
-7.5 4.5 # основание хвоста
-8.5 4.0 # основание хвоста
-8.5 4.0 # основание хвоста
+1.5 3.5	0 # кончик носа
+2.0 4.5	 0 # кончик носа
+2.0 4.5  0 # середина головы
+2.5 5.0	 0 # середина головы
+2.5 5.0  0 # конец головы из конца отреза начинается плавник
+3.5 5.4 0 # конец головы из конца отреза начинается плавник
+3.5 5.4 0 # плоская часть головы из конца отрезка начинается жабры и середнина плавника
+5.0 5.4 0 # плоская часть головы из конца отрезка начинается жабры и середнина плавника
+5.0 5.4 0 # спина из середины часть плавника
+6.5 5.0 0 # спина из середины часть плавника
+6.5 5.0 0 # продолжение спины из середниы начинается хвост
+7.5 4.5 0 # продолжение спины из середниы начинается хвост
+7.5 4.5 0 # основание хвоста
+8.5 4.0 0 # основание хвоста
+8.5 4.0 0 # основание хвоста
 9.1 3.0
 
 # Рот
@@ -323,61 +326,62 @@ path 16
 # ценр градусов
 pushTransform
 scale 1
-rotate 90
+rotate 1 1 0
+rotate 90 0 0 1
 pushTransform
-translate 8 0
-rotate 270
+translate 8 0 0
+rotate 270 0 0 1
 pushTransform
-translate 20 10
+translate 20 10 0
 figure
 
 # 30
 
 popTransform
-rotate 60
+rotate 60 0 0 1
 pushTransform
-translate 20.0 10
+translate 20.0 10 0
 figure
 
 
 
 popTransform
-rotate 60
+rotate 60 0 0 1
 pushTransform
-translate 20.0 10
+translate 20.0 10 0
 figure
 
 
 
 popTransform
-rotate 60
+rotate 60 0 0 1
 pushTransform
-translate 20.0 10
+translate 20.0 10 0
 figure
 
 popTransform
-rotate 60
+rotate 60 0 0 1
 pushTransform
-translate 20.0 10
+translate 20.0 10 0
 figure
 
 
 popTransform
-rotate 60
+rotate 60 0 0 1
 
-translate 20.0 10
+translate 20.0 10 0
 figure
 
 popTransform
 scale 2
-translate 20 10
+translate 20 10 0
 figure
 popTransform
 
 # Кролик
 
 # голова
-model 4.25 4.25 8.5 8.5
+model 6.6 3.9 0 13.2 7.8 1
 color 255 0 0 # цвет красный
 thickness 2   # толщина 2
 path 23       # 23 точки (22 отрезка)
@@ -477,53 +481,54 @@ path 4
 
 # ценр градусов
 scale 1
-rotate 90
+rotate 1 1 0
+rotate 90 0 0 1
 pushTransform
-translate 8 0
+translate 8 0 0
 rotate 0
 pushTransform
-translate 20 10.0
+translate 20 10.0 0
 figure
 
 popTransform
-rotate 60
+rotate 60 0 0 1
 pushTransform
-translate 20 10.0
+translate 20 10.0 0
 figure
 
 popTransform
-rotate 60
+rotate 60 0 0 1
 pushTransform
-translate 20 10.0
+translate 20 10.0 0
 figure
 
 popTransform
-rotate 60
+rotate 60 0 0 1
 pushTransform
-translate 20 10.0
+translate 20 10.0 0
 figure
 popTransform
-rotate 60
+rotate 60 0 0 1
 pushTransform
-translate 20 10.0
+translate 20 10.0 0
 figure
 popTransform
-rotate 60
-translate 20 10.0
+rotate 60 0 0 1
+translate 20 10.0 0
 figure
 
 # Большие кролики
 
 popTransform
 scale 2
-rotate 270
+rotate 270 0 0 1
 pushTransform
-translate 6 10
+translate 6 10 0
 figure
 
 popTransform
 rotate 180
-translate 34 10
+translate 34 10 0
 
 figure
 

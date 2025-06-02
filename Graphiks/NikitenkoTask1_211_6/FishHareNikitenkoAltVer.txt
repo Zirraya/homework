@@ -1,10 +1,14 @@
 # Рыбка
 
-frame 40 20
+# Рыбка
+
+camera 20 10 5 20 10 0 0 1 0
+screen 90 2 10 40
+# Main model definition with added 3D parameters (z dimension and anchor point)
+model 7 4 14 8
 
 # Тело верхняя часть
 # x y начало отрезка x y конец отрезка, всего 228 точек
-model 7 4 14 8
 color 255 165 0 # цвет красный
 # ’ело верхнЯЯ часть
 # x y начало отрезка x y конец отрезка, всего 228 точек

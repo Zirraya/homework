@@ -18,3 +18,7 @@ C:\projects\homework\Graphiks\NikitenkoTask1_211_4\NikitenkoTask1_211\x64\Debug\
 C:\projects\homework\Graphiks\NikitenkoTask1_211_4\NikitenkoTask1_211\x64\Debug\NikitenkoTask1_211.vcxproj.SuggestedBindingRedirects.cache
 C:\projects\homework\Graphiks\NikitenkoTask1_211_4\NikitenkoTask1_211\x64\Debug\NikitenkoTask1211.Painting.resources
 C:\projects\homework\Graphiks\NikitenkoTask1_211_4\NikitenkoTask1_211\x64\Debug\NikitenkoTask1_211.vcxproj.GenerateResource.cache
+C:\projects\homework\Graphiks\NikitenkoTask1_211_6\NikitenkoTask1_211\x64\Debug\NikitenkoTask1_211.vcxproj.AssemblyReference.cache
+C:\projects\homework\Graphiks\NikitenkoTask1_211_6\NikitenkoTask1_211\x64\Debug\NikitenkoTask1_211.vcxproj.SuggestedBindingRedirects.cache
+C:\projects\homework\Graphiks\NikitenkoTask1_211_6\NikitenkoTask1_211\x64\Debug\NikitenkoTask1211.Painting.resources
+C:\projects\homework\Graphiks\NikitenkoTask1_211_6\NikitenkoTask1_211\x64\Debug\NikitenkoTask1_211.vcxproj.GenerateResource.cache

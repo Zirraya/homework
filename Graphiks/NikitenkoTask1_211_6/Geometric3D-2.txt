@@ -1,0 +1,165 @@
+# Рыбка
+
+camera 20 10 10 20 10 0 0 1 0
+#noninicamera 20 25 5 20 10 0 0 1 0
+screen 90 2 10 40
+# Main model definition with added 3D parameters (z dimension and anchor point)
+model 6.6 3.9 0 13.2 7.8 1
+
+color 0 0 0
+thickness 2
+
+model 0.5 0.433 0.4082 1 0.866 0.8165
+path 5
+0 0 0
+0.5 0.2887 0.8165
+1 0 0
+0.5 0.866 0
+0.5 0.2887 0.8165
+path 3
+0.5 0.866 0
+0 0 0
+1 0 0
+
+
+
+# преобразование и размещение по описанию
+
+# ценр градусов
+pushTransform
+scale 1
+rotate 1 1 0
+rotate 90 0 0 1
+pushTransform
+translate 8 0 0
+rotate 270 0 0 1
+pushTransform
+translate 20 10 0
+figure
+
+# 30
+
+popTransform
+rotate 60 0 0 1
+pushTransform
+translate 20.0 10 0
+figure
+
+
+
+popTransform
+rotate 60 0 0 1
+pushTransform
+translate 20.0 10 0
+figure
+
+
+
+popTransform
+rotate 60 0 0 1
+pushTransform
+translate 20.0 10 0
+figure
+
+popTransform
+rotate 60 0 0 1
+pushTransform
+translate 20.0 10 0
+figure
+
+
+popTransform
+rotate 60 0 0 1
+
+translate 20.0 10 0
+figure
+
+popTransform
+scale 2
+translate 20 10 0
+figure
+popTransform
+
+color 0 0 0
+thickness 2
+
+model 0.5 0.5 0.5 1 1 1 
+path 10
+0 1 0
+1 1 0
+1 1 1
+0 1 1
+0 1 0
+0 0 0
+1 0 0
+1 0 1
+0 0 1
+0 1 1
+path 2
+0 0 0
+0 0 1
+path 2
+1 1 0
+1 0 0
+path 2
+1 1 1
+1 0 1
+
+
+
+# ценр градусов
+scale 1
+rotate 1 1 0
+rotate 90 0 0 1
+pushTransform
+translate 8 0 0
+rotate 0
+pushTransform
+translate 20 10.0 0
+figure
+
+popTransform
+rotate 60 0 0 1
+pushTransform
+translate 20 10.0 0
+figure
+
+popTransform
+rotate 60 0 0 1
+pushTransform
+translate 20 10.0 0
+figure
+
+popTransform
+rotate 60 0 0 1
+pushTransform
+translate 20 10.0 0
+figure
+
+popTransform
+rotate 60 0 0 1
+pushTransform
+translate 20 10.0 0
+figure
+
+popTransform
+rotate 60 0 0 1
+translate 20 10.0 0
+figure
+
+# Большие кролики
+
+popTransform
+scale 2
+rotate 270 0 0 1
+pushTransform
+translate 6 10 0
+figure
+
+popTransform
+rotate 180
+translate 34 10 0
+
+figure
+
+

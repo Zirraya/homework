@@ -248,40 +248,34 @@ namespace NikitenkoTask1211 {
 					
 				}
 				 vec2 tmpEnd = end;
-				 bool visible = hasStart && hasEnd && clip(start, end, minX, minY, maxX, maxY);
+				 bool visible = hasStart && hasEnd && clip(start, end, Wcx_w, Wcy_w - Wy_work, Wcx_w + Wx_work, Wcy_w);
 				 if (visible) { // если отрезок видим
 					 // после отсечения, start и end - концы видимой части отрезка
-						 // вычичление цвета отрезка
-						 if (deltaY > 1.f) deltaY = 1.f; // нормализуем значение высоты точки
+					 if (deltaY > 1.f) deltaY = 1.f; // нормализуем значение высоты точки
 					 if (deltaY < 0.f) deltaY = 0.f; // на случай, если отрезок отсекался
 					 green = 510.f * deltaY; // предварительное вычисление произведения
 					 if (deltaY < 0.5) { // если точка ниже середины области видимости
 						 // компонента зеленого уже вычислена
-							 blue = 255.f - green; // синий дополняет зеленый
+						 blue = 255.f - green; // синий дополняет зеленый
 						 red = 0.f; // красный равен нулю
-						
-					}
+					 }
 					 else { // если точка не ниже середины
 						 blue = 0.f; // синий равен нулю
 						 red = green - 255.f; // вычисляем красный и зеленый
 						 green = 510.f - green; // с использованием вычисленного произведения
-						
-					}
+					 }
 					 pen->Color = Color::FromArgb(red, green, blue); // меняем цвет пера
-					 // отрисовка отрезка
-						 g->DrawLine(pen, start.x, start.y, end.x, end.y); // отрисовка видимых частей	
-				}
+					 g->DrawLine(pen, start.x, start.y, end.x, end.y); // отрисовка видимых частей
+				 }
 				 // конечная точка неотсеченного отрезка становится начальной точкой следующего
-					 start = tmpEnd;
+				 start = tmpEnd;
 				 hasStart = hasEnd;
-			}
+			 }
 			 Wcy_w += 1.f; // переходим к следующему прямоугольнику, он будет ниже на один пиксел
 			 Wcx_w -= deltaWcx; // и левее на некоторое значение
 			 z += deltaZ; // вычисляем соответствующее значение z для очередного прямоугольника
-			
-		}
-
-
+		 }
+	
 	}
 	private: System::Void Painting_Resize(System::Object^ sender, System::EventArgs^ e) {
 		rectCalc();
