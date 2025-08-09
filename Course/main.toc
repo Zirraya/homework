@@ -1,0 +1,43 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{\cyrillictext \CYRV \CYRV \CYRE \CYRD \CYRE \CYRN \CYRI \CYRE }{3}{section*.1}%
+\contentsline {section}{\numberline {1}Анализ предметной области разработки компьютерных игр}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Постановка задачи разработки игры (Актуальность, цель, назначение и описание целевой аудитории )}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Исследование понятия и классификация компьютерных игр}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Обоснование и обзор выбранного жанра игры}{5}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Описание геймплея разрабатываемой игры}{5}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Обоснование и выбор инструментов создания игры (анализ игровых движков, графических редакторов и других инструментов разработки игры)}{6}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Описание разработки игры}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Общий алгоритм функционирования}{11}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Создание игровых классов и объектов}{15}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Создание 2D модели персонажа}{20}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Создание уровней}{21}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Создание интерфейсов}{24}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Тестирование игры}{26}{subsection.2.6}%
+\contentsline {section}{\cyrillictext \CYRZ \CYRA \CYRK \CYRL \CYRYU \CYRCH \CYRE \CYRN \CYRI \CYRE }{29}{section*.27}%
+\contentsline {section}{\cyrillictext \CYRS \CYRP \CYRI \CYRS \CYRO \CYRK \ \CYRI \CYRS \CYRP \CYRO \CYRL \CYRSFTSN \CYRZ \CYRO \CYRV \CYRA \CYRN \CYRN \CYRERY \CYRH \ \CYRI \CYRS \CYRT \CYRO \CYRCH \CYRN \CYRI \CYRK \CYRO \CYRV }{30}{section*.28}%
+\babel@toc {english}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {russian}{}\relax 
+\redeflsection 
+\ttl@change@i {\@ne }{section}{3ex}{\hspace {-3ex}}{\appendixname ~\thecontentslabel \hspace {2ex}}{\hspace {2.3em}}{\titlerule *[0.98ex]{.}\contentspage }\relax 
+\ttl@change@v {section}{}{}{}\relax 
+\contentsline {section}{\numberline {\CYRA }Полный код для работы инвентаря}{31}{appendix.A}%
+\contentsline {section}{\numberline {\CYRB }Flash-носитель с отчетом о выполненной работе}{36}{appendix.B}%
+\contentsfinish 

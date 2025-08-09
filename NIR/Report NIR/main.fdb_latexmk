@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1736343574.73447 "main.aux" "main.bbl" "main" 1736343575.37419 2
+["bibtex main"] 1749662493.48823 "main.aux" "main.bbl" "main" 1749662494.02033 2
   "./gost780uv.bst" 1736270423 27143 572aea001b1187cd3422dbdb98a666ae ""
   "./thesis.bib" 1736343429 3142 3d9e542ec92acd4545e774a02b8d1911 ""
-  "main.aux" 1736343574 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "main.aux" 1749662493 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1736343561.94852 "c:/projects/ReportNikitenko/Report NIR/main.tex" "main.pdf" "main" 1736343573.8151 2
+["pdflatex"] 1749662482.24519 "c:/projects/homework/NIR/Report NIR/main.tex" "main.pdf" "main" 1749662492.65466 2
   "SCWorks.cls" 1736279018 31692 d260fb48487ad1dcff85c426194a70f7 ""
   "_minted/014141D7E4FDC0CBDC4B95C9D24FB105.highlight.minted" 1736277796 1199 15a8c310aee29499ad497723f268cebc ""
   "_minted/01A8D6EEFE802C75CAB63C07355E35EF.highlight.minted" 1736270762 3273 a673f43ab8da95528df5cecfdd0dd484 ""
@@ -39,13 +39,13 @@
   "_minted/E1205370DD1068DA2FDD7C7ED0C68EF7.highlight.minted" 1736270761 890 d07d1107cdd043a16acac1628e273e6e ""
   "_minted/E801D5C271B330AECF0B77F5527A46F9.highlight.minted" 1736277801 5113 c5f6b36fac17ca84262da5baf9fdcac6 ""
   "_minted/FE546D8C3ADFA6F7F62DECA44DDA3778.highlight.minted" 1736270762 7313 c86e37928aff969749fd47cd17b68f9e ""
-  "_minted/_FAD58DE7366495DB4650CFEFAC2FCD61.index.minted" 1736341848 1948 ebabab96e2ba4709761a7b1b6cd4490a ""
+  "_minted/_FAD58DE7366495DB4650CFEFAC2FCD61.index.minted" 1749662480 1948 bba095a1fb03c065a13995799824bf1c ""
   "_minted/bw.style.minted" 1736270761 2698 16b14cfdcab75857ce6db8495bda488a ""
   "c:/Users/lenovo/.texlive2024/texmf-var/fonts/tfm/lh/lh-t2a/larm0600.tfm" 1736271089 3248 f742b53dd94bcfe553bd3adb4ec70cf7 ""
   "c:/Users/lenovo/.texlive2024/texmf-var/fonts/tfm/lh/lh-t2a/larm1000.tfm" 1736270757 3220 0e417eaf233b160335902e97259a6c77 ""
   "c:/Users/lenovo/.texlive2024/texmf-var/fonts/tfm/lh/lh-t2a/larm1200.tfm" 1736270751 3240 c2435f2b5cd66d4930bc29b8df87967e ""
   "c:/Users/lenovo/.texlive2024/texmf-var/fonts/tfm/lh/lh-t2a/larm1440.tfm" 1736268968 3256 3daaa33cf35cf3f354983aa3214ecd7f ""
-  "c:/projects/ReportNikitenko/Report NIR/main.tex" 1736343340 81966 27921a95f1cf2905e87a2954922fbbb4 ""
+  "c:/projects/homework/NIR/Report NIR/main.tex" 1736343340 81966 27921a95f1cf2905e87a2954922fbbb4 ""
   "c:/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc" 1736243287 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc" 1736240697 3141 82d5616418ed8d5de703b3951bedecb4 ""
   "c:/texlive/2024/texmf-dist/fonts/enc/dvips/tempora/t2a-tempora.enc" 1736263586 3023 c4581b906237349b927d8aa9ff8a2b60 ""
@@ -209,8 +209,8 @@
   "c:/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1736268392 5507294 622fb8774426721e33ee446696659781 ""
   "c:/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1736268599 3348008 5501088e67e0869ccd0d8d2359c15a04 ""
   "c:/texlive/2024/texmf.cnf" 1736268368 713 e69b156964470283e0530f5060668171 ""
-  "main.aux" 1736343574 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "main.bbl" 1736343575 0 d41d8cd98f00b204e9800998ecf8427e "bibtex main"
+  "main.aux" 1749662493 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "main.bbl" 1749662494 0 d41d8cd98f00b204e9800998ecf8427e "bibtex main"
   "main.out" 0 -1 0 "pdflatex"
   "main.tex" 1736343340 81966 27921a95f1cf2905e87a2954922fbbb4 ""
   "main.toc" 0 -1 0 "pdflatex"

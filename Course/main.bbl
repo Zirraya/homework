@@ -1,0 +1,64 @@
+\begin{thebibliography}{10}
+\def\selectlanguageifdefined#1{
+\expandafter\ifx\csname date#1\endcsname\relax
+\else\selectlanguage{#1}\fi}
+\providecommand*{\href}[2]{{\small #2}}
+\providecommand*{\url}[1]{{\small #1}}
+\providecommand*{\BibUrl}[1]{\url{#1}}
+\providecommand{\BibAnnote}[1]{}
+\providecommand*{\BibEmph}[1]{#1}
+\ProvideTextCommandDefault{\cyrdash}{\hbox to.8em{--\hss--}}
+\providecommand*{\BibDash}{\ifdim\lastskip>0pt\unskip\nobreak\hskip.2em\fi
+\cyrdash\hskip.2em\ignorespaces}
+
+\bibitem{gamedes}
+\selectlanguageifdefined{english}
+\BibEmph{Andrew~Rollings, Ernest~Adams}. Andrew Rollings and Ernest Adams on Game Design. \BibDash
+\newblock Indianapolis~: New Riders, 2003.
+
+\bibitem{slavick}
+\selectlanguageifdefined{russian}
+\BibEmph{Баркова~A}. Славянские мифы от Велеса и Мокоши до Птицы Сирин и Ивана Купалы. \BibDash
+\newblock Москва~: МИФ, 2021.
+
+\bibitem{search1}
+\selectlanguageifdefined{russian}
+Программирование в Unity. \BibDash
+\newblock URL: \BibUrl{https://unity.com/ru/solutions/programming} ({дата обращения}: 09.06.2025). [Электронный ресурс]. Загл. с экр. Яз. рус.
+
+\bibitem{search2}
+\selectlanguageifdefined{russian}
+How Unreal Engine 4 Will Change The Next Games You Play. \BibDash
+\newblock URL: \BibUrl{https://web.archive.org/web/20121024091239/http://kotaku.com/5916859/how-unreal-engine-4-will-change-the-next-games-you-play} ({дата обращения}: 11.06.2025). [Электронный ресурс]. Загл. с экр. Яз. анг.
+
+\bibitem{search3}
+\selectlanguageifdefined{russian}
+Sandbox. \BibDash
+\newblock URL: \BibUrl{https://web.archive.org/web/20120301145415/http://mycryengine.com/index.php?conid=53} ({дата обращения}: 11.06.2025). [Электронный ресурс]. Загл. с экр. Яз. анг.
+
+\bibitem{search4}
+\selectlanguageifdefined{russian}
+File system. \BibDash
+\newblock URL: \BibUrl{https://docs.godotengine.org/en/stable/tutorials/scripting/filesystem.html} ({дата обращения}: 11.06.2025). [Электронный ресурс]. Загл. с экр. Яз. анг.
+
+\bibitem{gamemakerstudio}
+\selectlanguageifdefined{english}
+\BibEmph{David~Vinciguerra, Andrew~Howell}. The GameMaker Standard. \BibDash
+\newblock Boca Raton~: CRC Press, 2015.
+
+\bibitem{search5}
+\selectlanguageifdefined{russian}
+Create a Tile Palette. \BibDash
+\newblock URL: \BibUrl{https://docs.unity3d.com/6000.1/Documentation/Manual/tilemaps/tile-palettes/create-tile-palette.html} ({дата обращения}: 25.06.2025). [Электронный ресурс]. Загл. с экр. Яз. анг.
+
+\bibitem{search6}
+\selectlanguageifdefined{russian}
+Холст (Canvas). \BibDash
+\newblock URL: \BibUrl{https://docs.unity3d.com/ru/2019.4/Manual/class-Canvas.html} ({дата обращения}: 25.06.2025). [Электронный ресурс]. Загл. с экр. Яз. рус.
+
+\bibitem{test}
+\selectlanguageifdefined{russian}
+\BibEmph{Куликов~C}. Тестирование программного обеспечения. Базовый курс. 3-е издание. \BibDash
+\newblock Минск~: Четыре четверти, 2020.
+
+\end{thebibliography}
