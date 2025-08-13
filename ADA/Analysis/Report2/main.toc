@@ -1,0 +1,11 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{\numberline {1}Быстрая сортировка}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Текст программы}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Анализ сложности}{4}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Пирамидальная сортировка}{6}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Текст программы}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Анализ сложности}{7}{subsection.2.2}%
+\redeflsection 
+\ttl@change@i {\@ne }{section}{3ex}{\hspace {-3ex}}{\appendixname ~\thecontentslabel \hspace {2ex}}{\hspace {2.3em}}{\titlerule *[0.98ex]{.}\contentspage }\relax 
+\ttl@change@v {section}{}{}{}\relax 
+\contentsfinish 
