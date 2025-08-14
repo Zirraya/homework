@@ -1,0 +1,11 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{\numberline {1}Текст программы}{3}{section.1}%
+\contentsline {section}{\numberline {2}Вставка в АВЛ дереве}{13}{section.2}%
+\contentsline {section}{\numberline {3}Удаление в АВЛ дереве}{14}{section.3}%
+\contentsline {section}{\numberline {4}Поиск в АВЛ дереве}{15}{section.4}%
+\contentsline {section}{\numberline {5}Обход в АВЛ дереве}{16}{section.5}%
+\contentsline {section}{\numberline {6}Расход памяти}{17}{section.6}%
+\redeflsection 
+\ttl@change@i {\@ne }{section}{3ex}{\hspace {-3ex}}{\appendixname ~\thecontentslabel \hspace {2ex}}{\hspace {2.3em}}{\titlerule *[0.98ex]{.}\contentspage }\relax 
+\ttl@change@v {section}{}{}{}\relax 
+\contentsfinish 
