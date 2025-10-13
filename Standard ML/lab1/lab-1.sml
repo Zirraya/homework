@@ -16,19 +16,34 @@ use "lab-1-use.sml";
   Задание 1 isLeapYear
  ******************************************************************************)
 
-
+fun isLeapYear (numberOfYear, true) = numberOfYear mod 4 = 0
+  | isLeapYear (numberOfYear, false) = 
+      numberOfYear mod 400 = 0 orelse 
+      (numberOfYear mod 100 <> 0 andalso numberOfYear mod 4 = 0)
 (******************************************************************************)
+val test02 = isLeapYear (2024, false)
+val test02 = isLeapYear (1900, true)
 
 (****************************************************************************** 
   Задание 2 isLongMonth
  ******************************************************************************)
-
+fun isLongMonth numberOfMonth  = 
+numberOfMonth = 1 orelse 
+numberOfMonth= 3 orelse 
+numberOfMonth= 5 orelse 
+numberOfMonth= 7 orelse 
+numberOfMonth= 8 orelse 
+numberOfMonth= 10 orelse 
+numberOfMonth= 12 orelse 
 
 (******************************************************************************)
 
 (****************************************************************************** 
   Задание 3 daysInMonth
  ******************************************************************************)
+fun daysInMonth(dateOf : int ) : (calendarIsYu : bool)
+
+
 
 
 (******************************************************************************)
