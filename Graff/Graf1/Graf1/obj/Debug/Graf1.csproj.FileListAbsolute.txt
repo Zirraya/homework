@@ -1,0 +1,8 @@
+C:\projects\homework\Graff\Graf1\Graf1\bin\Debug\Graf1.exe.config
+C:\projects\homework\Graff\Graf1\Graf1\bin\Debug\Graf1.exe
+C:\projects\homework\Graff\Graf1\Graf1\bin\Debug\Graf1.pdb
+C:\projects\homework\Graff\Graf1\Graf1\obj\Debug\Graf1.csproj.AssemblyReference.cache
+C:\projects\homework\Graff\Graf1\Graf1\obj\Debug\Graf1.csproj.SuggestedBindingRedirects.cache
+C:\projects\homework\Graff\Graf1\Graf1\obj\Debug\Graf1.csproj.CoreCompileInputs.cache
+C:\projects\homework\Graff\Graf1\Graf1\obj\Debug\Graf1.exe
+C:\projects\homework\Graff\Graf1\Graf1\obj\Debug\Graf1.pdb
