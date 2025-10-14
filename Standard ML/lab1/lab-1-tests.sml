@@ -33,26 +33,26 @@ fun sameList (l1, l2) =
 (****************************************************************************** 
   Задание 1 isLeapYear
  ******************************************************************************) 
-(*val test1_IsLeapYear1 = isLeapYear (2000, false) = true 
+val test1_IsLeapYear1 = isLeapYear (2000, false) = true 
 val test1_IsLeapYear2 = isLeapYear (2015, false) = false
-val test1_IsLeapYear3 = isLeapYear (2016, true) = true*)
+val test1_IsLeapYear3 = isLeapYear (2016, true) = true
 (******************************************************************************)
 
 (****************************************************************************** 
   Задание 2 isLongMonth
  ******************************************************************************)
-(*val test2_IsLongMonth1 = isLongMonth 12 = true 
+val test2_IsLongMonth1 = isLongMonth 12 = true 
 val test2_IsLongMonth2 = isLongMonth 2 = false
-val test2_IsLongMonth3 = isLongMonth 8 = true*)
+val test2_IsLongMonth3 = isLongMonth 8 = true
 (******************************************************************************)
 
 (****************************************************************************** 
   Задание 3 daysInMonth
  ******************************************************************************)
-(*val test3_DaysInMonth1 = daysInMonth ((1,9,2020), false) = 30 
+val test3_DaysInMonth1 = daysInMonth ((1,9,2020), false) = 30 
 val test3_DaysInMonth2 = daysInMonth ((1,1,1900), true) = 31 
 val test3_DaysInMonth3 = daysInMonth ((1,2,2020), false) = 29 
-*)(******************************************************************************)
+(******************************************************************************)
 
 (****************************************************************************** 
   Задание 4 isDayOK

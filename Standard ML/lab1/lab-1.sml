@@ -16,35 +16,36 @@ use "lab-1-use.sml";
   Задание 1 isLeapYear
  ******************************************************************************)
 
-fun isLeapYear (numberOfYear, true) = numberOfYear mod 4 = 0
-  | isLeapYear (numberOfYear, false) = 
-      numberOfYear mod 400 = 0 orelse 
-      (numberOfYear mod 100 <> 0 andalso numberOfYear mod 4 = 0)
+fun isLeapYear (year, isJulian) =
+    if isJulian then
+        year mod 4 = 0
+    else
+        year mod 4 = 0 andalso (year mod 100 <> 0 orelse year mod 400 = 0)
 (******************************************************************************)
-val test02 = isLeapYear (2024, false)
-val test02 = isLeapYear (1900, true)
 
 (****************************************************************************** 
   Задание 2 isLongMonth
  ******************************************************************************)
 fun isLongMonth numberOfMonth  = 
-numberOfMonth = 1 orelse 
-numberOfMonth= 3 orelse 
-numberOfMonth= 5 orelse 
-numberOfMonth= 7 orelse 
-numberOfMonth= 8 orelse 
-numberOfMonth= 10 orelse 
-numberOfMonth= 12 orelse 
+  numberOfMonth = 1 orelse numberOfMonth = 3 orelse numberOfMonth = 5 orelse 
+    numberOfMonth = 7 orelse numberOfMonth = 8 orelse numberOfMonth = 10 orelse 
+    numberOfMonth = 12
 
 (******************************************************************************)
 
 (****************************************************************************** 
   Задание 3 daysInMonth
  ******************************************************************************)
-fun daysInMonth(dateOf : int ) : (calendarIsYu : bool)
-
-
-
+fun daysInMonth (date, isJulian) =
+    let
+        val (year, month, _) = date
+        val isLeap = isLeapYear(year, isJulian)
+    in
+        if isLongMonth(month) then 31
+        else if month = 2 then
+            if isLeap then 29 else 28
+        else 30
+    end
 
 (******************************************************************************)
 
@@ -52,20 +53,26 @@ fun daysInMonth(dateOf : int ) : (calendarIsYu : bool)
   Задание 4 isDayOK
  ******************************************************************************)
 
+fun isDayOK ((year, month, day), isJulian) =
+    let val numDays = daysInMonth((year, month, day), isJulian)
+    in
+        day >= 1 andalso day <= numDays
+    end
 
 (******************************************************************************)
 
 (****************************************************************************** 
   Задание 5 isMonthOK
  ******************************************************************************)
-
-
+fun isMonthOK (year, month, day) =
+    month >= 1 andalso month <= 12
 (******************************************************************************)
 
 (****************************************************************************** 
   Задание 6 isCorrectDate
  ******************************************************************************)
-
+fun isCorrectDate (date, isJulian) =
+    isMonthOK date andalso isDayOK (date, isJulian)
 
 (******************************************************************************)
 
