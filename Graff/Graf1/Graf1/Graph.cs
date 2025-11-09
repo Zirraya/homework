@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Json.Net;
 
 
 // Тут все для графа
@@ -140,7 +139,7 @@ namespace Graph1
         }
         //
 
-        // Работа с вершинами
+        // Работа с вершинами //
 
         // Добавление вершины
         public void AddVertex(int vertex)
@@ -243,18 +242,30 @@ namespace Graph1
         {
             try
             {
-                using (StreamWriter writer = new StreamWriter(filename))
-                {
-                    // Первая строка - параметры графа
-                    writer.WriteLine($"{(IsDirected ? "directed" : "undirected")} {(IsWeighted ? "weighted" : "unweighted")}");
+                string output = $"{(IsDirected ? "directed" : "undirected")} {(IsWeighted ? "weighted" : "unweighted")}\n";
+                output += GetAdjacencyListString();
 
-                    // Остальные строки - список смежности
-                    writer.Write(GetAdjacencyListString());
-                }
+                File.WriteAllText(filename, output);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                throw new ArgumentException($"Нет прав доступа для записи в файл: {filename}", ex);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                throw new ArgumentException($"Директория не найдена: {Path.GetDirectoryName(filename)}", ex);
+            }
+            catch (IOException ex)
+            {
+                throw new ArgumentException($"Ошибка ввода-вывода при записи файла: {ex.Message}", ex);
+            }
+            catch (ArgumentException ex)
+            {
+                throw;
             }
             catch (Exception ex)
             {
-                throw new ArgumentException($"Ошибка записи в файл: {ex.Message}");
+                throw new ArgumentException($"Неожиданная ошибка при записи в файл: {ex.Message}", ex);
             }
         }
         //

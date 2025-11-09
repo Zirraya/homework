@@ -102,11 +102,25 @@ int main()
         arr[i] = rand() % 100; // Генерация случайного числа от 0 до 99
     }
 
+    // Вывод исходного массива
+    cout << "Исходный массив: ";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
     // Измерение времени сортировки
     auto start = chrono::high_resolution_clock::now();
 
     // Сортировка
     mergeSort(arr, 0, n - 1);
+
+    // Вывод отсортированного массива
+    cout << "Отсортированный массив: ";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
 
     auto end = chrono::high_resolution_clock::now();
 

@@ -6,3 +6,5 @@ C:\projects\homework\Graff\Graf1\Graf1\obj\Debug\Graf1.csproj.SuggestedBindingRe
 C:\projects\homework\Graff\Graf1\Graf1\obj\Debug\Graf1.csproj.CoreCompileInputs.cache
 C:\projects\homework\Graff\Graf1\Graf1\obj\Debug\Graf1.exe
 C:\projects\homework\Graff\Graf1\Graf1\obj\Debug\Graf1.pdb
+C:\projects\homework\Graff\Graf1\Graf1\bin\Debug\Json.Net.dll
+C:\projects\homework\Graff\Graf1\Graf1\obj\Debug\Graf1.csproj.CopyComplete

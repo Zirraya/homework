@@ -56,6 +56,7 @@ namespace Graph1
             Console.WriteLine("2 - Ориентированный невзвешенный");
             Console.WriteLine("3 - Неориентированный взвешенный");
             Console.WriteLine("4 - Ориентированный взвешенный");
+            Console.WriteLine("5 - Если вам известно имя файла в котором есть загруженный граф, то выберите этот пункт");
 
             string choice = Console.ReadLine();
             switch (choice)
@@ -64,6 +65,7 @@ namespace Graph1
                 case "2": graph = new Graph(true, false); break;
                 case "3": graph = new Graph(false, true); break;
                 case "4": graph = new Graph(true, true); break;
+                //case "5": LoadFromFile(); break;
                 default:
                     Console.WriteLine("Создан граф по умолчанию (неориентированный невзвешенный)");
                     graph = new Graph(false, false);
@@ -77,10 +79,11 @@ namespace Graph1
         //
         static void ShowMenu()
         {
-            Console.Clear();
+           
+            Console.WriteLine(graph==null);
             Console.WriteLine("=== МЕНЮ УПРАВЛЕНИЯ ГРАФОМ ===");
             Console.WriteLine($"Тип графа: {(graph.IsDirected ? "Ориентированный" : "Неориентированный")}, " +
-                            $"{(graph.IsWeighted ? "Взвешенный" : "Невзвешенный")}");
+                            $"{(graph.IsWeighted ? "Взвешенный" : "Невзвешенный")}" + "Загрузка из файла");
             Console.WriteLine($"Вершин: {graph.VertexCount}, Рёбер: {graph.EdgeCount}");
             Console.WriteLine();
             Console.WriteLine("1. Добавить вершину");

@@ -253,92 +253,39 @@ void RBTree<T>::remove(T key) {
 //
 
 // Удаление узла, и все все проблемы которые могут быть с этим связаны
-template<class T>
-void RBTree<T>::remove(RBTNode<T>*& root, RBTNode<T>* node) {
-    RBTNode<T>* child, * parent;
-    RBTColor color;
-    if (node->left != NULL && node->right != NULL) {
-        RBTNode<T>* replace = node;
-        replace = node->right;
-        while (replace->left != NULL) {
-            replace = replace->left;
-        }
-        if (node->parent != NULL) {
-            if (node->parent->left == node)
-                node->parent->left = replace;
-            else
-                node->parent->right = replace;
-        }
-        else
-            root = replace;
-        child = replace->right;
-        parent = replace->parent;
-        color = replace->color;
-        if (parent == node)
-            parent = replace;
-        else {
-            if (child != NULL)
-                child->parent = parent;
-            parent->left = child;
-            replace->right = node->right;
-            node->right->parent = replace;
-        }
-        replace->parent = node->parent;
-        replace->color = node->color;
-        replace->left = node->left;
-        node->left->parent = replace;
-        if (color == Black)
-            removeFixUp(root, child, parent);
-        delete node;
-        return;
-    }
-    if (node->left != NULL)
-        child = node->left;
-    else
-        child = node->right;
-    parent = node->parent;
-    color = node->color;
-    if (child) {
-        child->parent = parent;
-    }
-    if (parent) {
-        if (node == parent->left)
-            parent->left = child;
-        else
-            parent->right = child;
-    }
-    else
-        root = child;
-    if (color == Black) {
-        removeFixUp(root, child, parent);
-    }
-    delete node;
-}
-//
-
+// Удаление узла, и все все проблемы которые могут быть с этим связаны
 // Восстановление дерева после удаления узла
 template<class T>
 void RBTree<T>::removeFixUp(RBTNode<T>*& root, RBTNode<T>* node, RBTNode<T>* parent) {
     RBTNode<T>* othernode;
-    while ((!node) || node->color == Black && node != root) {
+    while ((node == NULL || node->color == Black) && node != root) {
         if (parent->left == node) {
             othernode = parent->right;
-            if (othernode->color == Red) {
+            if (othernode && othernode->color == Red) {
                 othernode->color = Black;
                 parent->color = Red;
                 leftRotate(root, parent);
                 othernode = parent->right;
             }
+            if (othernode &&
+                (!othernode->left || othernode->left->color == Black) &&
+                (!othernode->right || othernode->right->color == Black)) {
+                othernode->color = Red;
+                node = parent;
+                parent = node->parent;
+            }
             else {
-                if (!(othernode->right) || othernode->right->color == Black) {
-                    othernode->left->color = Black;
+                if (othernode && (!othernode->right || othernode->right->color == Black)) {
+                    if (othernode->left) othernode->left->color = Black;
                     othernode->color = Red;
                     rightRotate(root, othernode);
                     othernode = parent->right;
                 }
-                othernode->color = parent->color;
+                if (othernode) {
+                    othernode->color = parent->color;
+                    if (othernode->right) othernode->right->color = Black;
+                }
                 parent->color = Black;
-                othernode->right->color = Black;
                 leftRotate(root, parent);
                 node = root;
                 break;
@@ -346,27 +293,31 @@ void RBTree<T>::removeFixUp(RBTNode<T>*& root, RBTNode<T>* node, RBTNode<T>* par
         }
         else {
             othernode = parent->left;
-            if (othernode->color == Red) {
+            if (othernode && othernode->color == Red) {
                 othernode->color = Black;
                 parent->color = Red;
                 rightRotate(root, parent);
                 othernode = parent->left;
             }
-            if ((!othernode->left || othernode->left->color == Black) && (!othernode->right || othernode->right->color == Black)) {
+            if (othernode &&
+                (!othernode->left || othernode->left->color == Black) &&
+                (!othernode->right || othernode->right->color == Black)) {
                 othernode->color = Red;
                 node = parent;
                 parent = node->parent;
             }
             else {
-                if (!(othernode->left) || othernode->left->color == Black) {
-                    othernode->right->color = Black;
+                if (othernode && (!othernode->left || othernode->left->color == Black)) {
+                    if (othernode->right) othernode->right->color = Black;
                     othernode->color = Red;
                     leftRotate(root, othernode);
                     othernode = parent->left;
                 }
-                othernode->color = parent->color;
+                if (othernode) {
+                    othernode->color = parent->color;
+                    if (othernode->left) othernode->left->color = Black;
+                }
                 parent->color = Black;
-                othernode->left->color = Black;
                 rightRotate(root, parent);
                 node = root;
                 break;
@@ -376,6 +327,83 @@ void RBTree<T>::removeFixUp(RBTNode<T>*& root, RBTNode<T>* node, RBTNode<T>* par
     if (node)
         node->color = Black;
 }
+
+// Удаление узла
+template<class T>
+void RBTree<T>::remove(RBTNode<T>*& root, RBTNode<T>* node) {
+    RBTNode<T>* child, * parent;
+    RBTColor color;
+
+    if (node->left != NULL && node->right != NULL) {
+        RBTNode<T>* replace = node;
+        replace = node->right;
+        while (replace->left != NULL) {
+            replace = replace->left;
+        }
+
+        if (node->parent != NULL) {
+            if (node->parent->left == node)
+                node->parent->left = replace;
+            else
+                node->parent->right = replace;
+        }
+        else {
+            root = replace;
+        }
+
+        child = replace->right;
+        parent = replace->parent;
+        color = replace->color;
+
+        if (parent == node) {
+            parent = replace;
+        }
+        else {
+            if (child != NULL)
+                child->parent = parent;
+            parent->left = child;
+
+            replace->right = node->right;
+            node->right->parent = replace;
+        }
+
+        replace->parent = node->parent;
+        replace->color = node->color;
+        replace->left = node->left;
+        node->left->parent = replace;
+
+        if (color == Black)
+            removeFixUp(root, child, parent);
+
+        delete node;
+        return;
+    }
+
+    child = (node->left != NULL) ? node->left : node->right;
+    parent = node->parent;
+    color = node->color;
+
+    if (child != NULL) {
+        child->parent = parent;
+    }
+
+    if (parent != NULL) {
+        if (node == parent->left)
+            parent->left = child;
+        else
+            parent->right = child;
+    }
+    else {
+        root = child;
+    }
+
+    if (color == Black) {
+        removeFixUp(root, child, parent);
+    }
+
+    delete node;
+}
+
 //
 
 // Публчный метод для поиска
@@ -420,34 +448,15 @@ void RBTree<T>::print() {
 //
 
 // Обход
-template<class T>
-void RBTree<T>::preOrder() {
-    if (root == NULL)
-        cout << "Пусто.\n";
-    else
-        preOrder(root);
-};
-//
-
 // Обход в прямом порядке
 template<class T>
 void RBTree<T>::preOrder(RBTNode<T>* tree) const {
     if (tree != NULL) {
-        cout << tree->key << (tree->color == RED ? 12 : 8);
+        cout << tree->key << " ";
         preOrder(tree->left);
         preOrder(tree->right);
     }
 }
-//
-
-//
-template<class T>
-void RBTree<T>::inOrder() {
-    if (root == NULL)
-        cout << "Пусто.\n";
-    else
-        inOrder(root);
-};
 //
 
 // Обход в симметричном порядке
@@ -455,20 +464,10 @@ template<class T>
 void RBTree<T>::inOrder(RBTNode<T>* tree) const {
     if (tree != NULL) {
         inOrder(tree->left);
-        cout << tree->key << (tree->color == tree->color == RED ? 12 : 8);
+        cout << tree->key << " ";
         inOrder(tree->right);
     }
 }
-//
-
-//
-template<class T>
-void RBTree<T>::postOrder() {
-    if (root == NULL)
-        cout << "Пусто.\n";
-    else
-        postOrder(root);
-};
 //
 
 // Обход в обратном порядке
@@ -477,10 +476,50 @@ void RBTree<T>::postOrder(RBTNode<T>* tree) const {
     if (tree != NULL) {
         postOrder(tree->left);
         postOrder(tree->right);
-        cout << tree->key << (tree->color == tree->color == RED ? 12 : 8);
+        cout << tree->key << " ";
     }
 }
 //
+
+// Публичные методы обхода //
+
+// Обход в прямом порядке
+template<class T>
+void RBTree<T>::preOrder() {
+    if (root == NULL)
+        cout << "Пусто.\n";
+    else {
+        preOrder(root);
+        cout << endl;
+    }
+};
+//
+
+// Обход в симметричном порядке
+template<class T>
+void RBTree<T>::inOrder() {
+    if (root == NULL)
+        cout << "Пусто.\n";
+    else {
+        inOrder(root);
+        cout << endl;
+    }
+};
+//
+
+// Обход в обратном порядке
+template<class T>
+void RBTree<T>::postOrder() {
+    if (root == NULL)
+        cout << "Пусто.\n";
+    else {
+        postOrder(root);
+        cout << endl;
+    }
+};
+//
+
+//          //
 
 
 // Функция для вывода меню
