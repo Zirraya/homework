@@ -40,6 +40,7 @@ void KnutMorrisPratt(const string& text, const string& pattern) {
     int n = text.length();
     int m = pattern.length();
     int j = 0; // индекс для pattern
+    bool first = true; // флаг для первого элемента
 
     for (int i = 0; i < n; i++) {
         while (j > 0 && text[i] != pattern[j]) {
@@ -49,7 +50,11 @@ void KnutMorrisPratt(const string& text, const string& pattern) {
             j++;
         }
         if (j == m) { // найдено совпадение
-            cout << (i - m + 1) << endl;
+            if (!first) {
+                cout << " "; // добавляем пробел перед всеми элементами кроме первого
+            }
+            cout << (i - m + 1);
+            first = false;
             j = pi[j - 1]; // продолжаем поиск
         }
     }
@@ -70,8 +75,6 @@ int main() {
 
     cout << "Результат: ";
     KnutMorrisPratt(text, pattern);
-
-    cout << KnutMorrisPratt;
 
     return 0;
 }

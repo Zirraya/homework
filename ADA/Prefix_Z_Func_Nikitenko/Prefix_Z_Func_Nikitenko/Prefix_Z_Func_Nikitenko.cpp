@@ -39,6 +39,7 @@ vector<int> Prefix_Function(const string& s) {
 vector<int> Z_function(const std::string& s) {
     int n = s.length();
     std::vector<int> Z(n, 0);
+    Z[0] = n;
     int L = 0, R = 0;
 
     for (int i = 1; i < n; ++i) {

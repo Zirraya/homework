@@ -239,6 +239,9 @@ void inorder(node* root) {
 // Обход в прямом порядке
 void preorder(node* root) {
 
+    if (root == nullptr) {
+        return;
+    }
         cout << root->key << " ";
         preorder(root->left);
         preorder(root->right);

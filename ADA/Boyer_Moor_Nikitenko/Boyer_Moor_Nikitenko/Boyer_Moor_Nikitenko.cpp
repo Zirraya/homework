@@ -27,6 +27,8 @@ void BoyerMoore(const string& text, const string& pattern) {
     vector<int> badCharTable = CreateBadCharTable(pattern);
 
     int s = 0;
+    bool first = true; // Флаг для определения первого вывода
+
     while (s <= n - m) {
         int j = m - 1;
 
@@ -35,12 +37,21 @@ void BoyerMoore(const string& text, const string& pattern) {
         }
 
         if (j < 0) {
-            cout << s << endl;
+            if (!first) {
+                cout << " "; // Пробел между числами
+            }
+            cout << s;
+            first = false;
             s += (s + m < n) ? m - badCharTable[static_cast<int>(text[s + m])] : 1;
         }
         else {
             s += max(1, j - badCharTable[static_cast<int>(text[s + j])]);
         }
+    }
+
+    // Если совпадений не найдено, вывод сообщение
+    if (first) {
+        cout << "Совпадений не найдено";
     }
 }
 //
