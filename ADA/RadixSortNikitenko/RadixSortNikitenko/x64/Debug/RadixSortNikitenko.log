@@ -1,3 +1,1 @@
-﻿  RadixSortNikitenko.cpp
-C:\projects\homework\ADA\RadixSortNikitenko\RadixSortNikitenko\RadixSortNikitenko.cpp(19,23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-  RadixSortNikitenko.vcxproj -> C:\projects\homework\ADA\RadixSortNikitenko\x64\Debug\RadixSortNikitenko.exe
+﻿  RadixSortNikitenko.vcxproj -> C:\projects\homework\ADA\RadixSortNikitenko\x64\Debug\RadixSortNikitenko.exe
