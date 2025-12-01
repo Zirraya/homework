@@ -1,0 +1,3 @@
+undirected unweighted
+20: 78
+78: 20

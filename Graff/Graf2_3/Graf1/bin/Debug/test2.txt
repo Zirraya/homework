@@ -1,0 +1,4 @@
+undirected unweighted
+5: 67
+67: 5, 78
+78: 67

@@ -1,0 +1,4 @@
+undirected unweighted
+20: 30, 57
+30: 20, 57
+57: 20, 30

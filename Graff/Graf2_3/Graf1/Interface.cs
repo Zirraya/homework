@@ -1,9 +1,11 @@
-﻿using Graph1;
+﻿using Graf1;
+using Graph1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 // Тут интерфейс
 namespace Graph1
@@ -35,6 +37,7 @@ namespace Graph1
                     case "7": LoadFromFile(); break;
                     case "8": ShowEdgeList(); break;
                     case "9": ShowGraphInfo(); break;
+                    case "10": CalculateDegrees(); break;
                     case "0": running = false; break;
                     default: Console.WriteLine("Неверный выбор!"); break;
                 }
@@ -111,6 +114,7 @@ namespace Graph1
             Console.WriteLine("7. Загрузить из файла");
             Console.WriteLine("8. Показать список рёбер");
             Console.WriteLine("9. Информация о графе");
+            Console.WriteLine("10. Вывести степени вершин");
             Console.WriteLine("0. Выход");
             Console.Write("Выберите действие: ");
         }
@@ -289,6 +293,21 @@ namespace Graph1
             }
         }
         //
+
+        //
+        static void CalculateDegrees()
+        {
+            if (graph == null)
+            {
+                Console.WriteLine("Граф не создан!");
+                return;
+            }
+
+            DegreeCalculator.CalculateDegrees(graph);
+        }
+        //
+
+
 
         //
         static void ShowGraphInfo()
