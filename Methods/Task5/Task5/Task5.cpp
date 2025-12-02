@@ -23,7 +23,7 @@ void printMatrix(const vector<vector<double>>& A, const vector<double>& b) {
     }
 }
 
-// Метод простой итерации (Якоби)
+// Метод простой итерации 
 vector<double> simpleIteration(const vector<vector<double>>& A, const vector<double>& b,
     double epsilon = 1e-6, int maxIterations = 1000) {
     int n = b.size();
