@@ -7,10 +7,8 @@
 \contentsline {subsection}{\numberline {2.2}Решить СЛАУ из предыдущего задания методом прогонки.}{25}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Решить СЛАУ из предыдущего задания методом простой итерации}{31}{subsection.2.3}%
 \contentsline {section}{\numberline {3}Раздел 3}{36}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Решить задачу Коши методом Эйлера и усовершенствованным методом Эйлера:}{36}{subsection.3.1}%
-\contentsline {section}{\numberline {4}}{36}{section.4}%
-\contentsline {section}{\numberline {5}}{36}{section.5}%
-\contentsline {section}{\numberline {6}}{36}{section.6}%
+\contentsline {subsection}{\numberline {3.1}Решить задачу Коши методом Эйлера и усовершенствованным методом Эйлера: \begin {linenomath}\[ y' = 2 V x + V x^2 - y, \hskip 1em\relax y(x_0) = V x_0^2 \]\end {linenomath}}{36}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Решить КЗ ОДУ разностным методом и методом неопределенных коэффициентов. \begin {linenomath}\[ y'' + x^{2} \, y' + x \, y = 10Vx - 3VTx^{3} - 2VT, \]\end {linenomath} \begin {linenomath}\[ y(0) = 0, \hskip 1em\relax y(T) = 0. \]\end {linenomath}}{41}{subsection.3.2}%
 \redeflsection 
 \ttl@change@i {\@ne }{section}{3ex}{\hspace {-3ex}}{\appendixname ~\thecontentslabel \hspace {2ex}}{\hspace {2.3em}}{\titlerule *[0.98ex]{.}\contentspage }\relax 
 \ttl@change@v {section}{}{}{}\relax 
