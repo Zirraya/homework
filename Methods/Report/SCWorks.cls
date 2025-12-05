@@ -266,16 +266,14 @@
 
 
 \DeclareOption{referat}{%
-    \worktype{\cyr\CYRP\cyrerev\ \cyrd\cyri\cyrs\cyrc\cyri\cyrp\cyrl\cyri%
+    \worktype{\cyr\CYRP\cyro\ \cyrd\cyri\cyrs\cyrc\cyri\cyrp\cyrl\cyri%
     \cyrn\cyre\ \textquoteleft\textquoteleft\CYRM\cyre\cyrt\cyro\cyrd%
-    \cyrery\ \cyrv\cyrery\cyrch\cyri\cyrs\cyrl\cyre\cyrn\cyri\cyrery%
+    \cyrery\ \cyrv\cyrery\cyrch\cyri\cyrs\cyrl\cyre\cyrn\cyri\cyrya%
     \textquoteright\textquoteright}
-    \workname{\@worktype}  % ← Убрал MakeUppercase
+    \workname{\@worktype}  
     \renewcommand{\maketitle}{\RefMakeTitle}
     \typework{\cyr\cyrn\cyra\cyrp\cyri\cyrs\cyra\cyrn}
 }
-
-
 \DeclareOption{och}{%
     \otdelenie{\cyr\cyro\cyrch\cyrn\cyro\cyrishrt\ \cyrf\cyro\cyrr\cyrm%
     \cyrery\ \cyro\cyrb\cyru\cyrch\cyre\cyrn\cyri\cyrya}
