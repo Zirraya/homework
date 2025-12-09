@@ -6,6 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// ЗАДАНИЯ 
+// Задание 1 - создать класс для граффа и прочие
+//===СПИСОК СМЕЖНОСТИ===
+// Задание 2 Вариант 3
+// Задание 3 Вариант 6
+// Задание 4 Вариант 11
+// ===ОБХОДЫ===
+// Задание 5 Вариант 7
+// Задание 6 Вариант 19
+
+// Задание 7 Вариант к
+
+
+
+
+
 // Тут интерфейс
 namespace Graph1
 {
@@ -39,6 +55,10 @@ namespace Graph1
 
                     case "10": CalculateDegrees(); break; // Задание 2 Вариант 2
                     case "11": FindPendantVertices(); break; // Задание 3 Вариант 6
+                    case "12": RemoveIsolatedVertices(); break; // Задание 4 Вариант 11
+                    case "13": FindRootInDAG(); break;  // Задание 5 Вариант 7
+                    case "14": CheckTreeAfterVertexRemove(); break; // Задание 6 Вариант 19
+
 
                     case "0": running = false; break;
                     default: Console.WriteLine("Неверный выбор!"); break;
@@ -119,6 +139,9 @@ namespace Graph1
 
             Console.WriteLine("10. Вывести степени вершин");
             Console.WriteLine("11. Найти весячие вершины (степени 1)");
+            Console.WriteLine("12. Удалить изолированные вершины и создать новый граф");
+            Console.WriteLine("13. Найти корень в ацикличном орграфе");
+            Console.WriteLine("14. Проверить возможность получения дерева удалением вершины");
 
 
 
@@ -327,6 +350,57 @@ namespace Graph1
             }
 
             PendantVertices.FindPendantVertices(graph);
+        }
+        //
+
+        // Задание 4 Вариант 11
+        static void RemoveIsolatedVertices() 
+        {
+            if (graph == null)
+            {
+                Console.WriteLine("Граф не создан!");
+                return;
+            }
+
+            IsolatedVerticesRemover.Demonstrate(graph);
+
+            Console.WriteLine("\nЗаменить текущий граф на новый без изолированных вершин? (y/n)");
+            string answer = Console.ReadLine().ToLower();
+
+            if (answer == "y" || answer == "д")
+            {
+                Graph newGraph = IsolatedVerticesRemover.CreateGraphWithoutIsolatedVertices(graph);
+                graph = newGraph;
+                Console.WriteLine("Граф заменен на новый (без изолированных вершин)!");
+            }
+        }
+
+        //
+
+
+        // Задание 5 Вариант 7
+        static void FindRootInDAG()
+        {
+            if (graph == null)
+            {
+                Console.WriteLine("Граф не создан!");
+                return;
+            }
+
+            RootFinder.FindRootInDAG(graph);
+        }
+        //
+
+        // Задание 6 Вариант 19
+        static void CheckTreeAfterVertexRemove()
+        {
+            if (graph == null)
+            {
+                Console.WriteLine("Граф не создан!");
+                return;
+            }
+
+            TreeAfterVertexRemove.CheckVertexRemoveForTree(graph);
         }
         //
 

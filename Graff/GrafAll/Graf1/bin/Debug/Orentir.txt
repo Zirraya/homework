@@ -1,6 +1,4 @@
 directed weighted
 14: 78 1
-23: 
-50: 
 78: 
 901: 14 2
