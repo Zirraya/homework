@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 // ===ОБХОДЫ===
 // Задание 5 Вариант 7
 // Задание 6 Вариант 19
-
+// ===ПОСТРОЕНИЕ МИНИМАЛЬНОГО ОСТОВНОГО ДЕРЕВА===
 // Задание 7 Вариант к
 
 
@@ -58,6 +58,7 @@ namespace Graph1
                     case "12": RemoveIsolatedVertices(); break; // Задание 4 Вариант 11
                     case "13": FindRootInDAG(); break;  // Задание 5 Вариант 7
                     case "14": CheckTreeAfterVertexRemove(); break; // Задание 6 Вариант 19
+                    case "15": FindMinimumSpanningTree(); break; // Задание 7 - алгоритм Краскала
 
 
                     case "0": running = false; break;
@@ -119,10 +120,10 @@ namespace Graph1
         //
         static void ShowMenu()
         {
-           
-            Console.WriteLine(graph==null);
+
+
             Console.WriteLine("=== МЕНЮ УПРАВЛЕНИЯ ГРАФОМ ===");
-           
+
             Console.WriteLine($"Тип графа: {(graph.IsDirected ? "Ориентированный" : "Неориентированный")}, " +
                             $"{(graph.IsWeighted ? "Взвешенный" : "Невзвешенный")}");
             Console.WriteLine($"Вершин: {graph.VertexCount}, Рёбер: {graph.EdgeCount}");
@@ -142,7 +143,7 @@ namespace Graph1
             Console.WriteLine("12. Удалить изолированные вершины и создать новый граф");
             Console.WriteLine("13. Найти корень в ацикличном орграфе");
             Console.WriteLine("14. Проверить возможность получения дерева удалением вершины");
-
+            Console.WriteLine("15. Найти минимальный остовный каркас (алгоритм Краскала)");
 
 
 
@@ -274,7 +275,7 @@ namespace Graph1
             Console.WriteLine(graph.GetAdjacencyListString());
         }
         //
-        
+
         //
         static void SaveToFile()
         {
@@ -354,7 +355,7 @@ namespace Graph1
         //
 
         // Задание 4 Вариант 11
-        static void RemoveIsolatedVertices() 
+        static void RemoveIsolatedVertices()
         {
             if (graph == null)
             {
@@ -405,6 +406,47 @@ namespace Graph1
         //
 
 
+        // Задание 7 - алгоритм Краскала
+        static void FindMinimumSpanningTree()
+        {
+            if (graph == null)
+            {
+                Console.WriteLine("Граф не создан!");
+                return;
+            }
+
+            Console.WriteLine("\nЗаменить текущий граф на минимальный остов? (y/n)");
+            string answer = Console.ReadLine().ToLower();
+
+            if (answer == "y" || answer == "д")
+            {
+                try
+                {
+                    Graph newGraph = KruskalAlgorithm.FindMinimumSpanningTree(graph);
+                    graph = newGraph;
+                    Console.WriteLine("Граф заменен на минимальное остовное дерево!");
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine($"Не удалось заменить граф: {ex.Message}");
+                }
+            }
+            else
+            {
+                // Просто показать результат без замены графа
+                try
+                {
+                    Graph mst = KruskalAlgorithm.FindMinimumSpanningTree(graph);
+                    Console.WriteLine("Минимальное остовное дерево построено (граф не заменен)!");
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine($"Ошибка: {ex.Message}");
+                }
+            }
+        }
+        //
+
         //
         static void ShowGraphInfo()
         {
@@ -417,11 +459,51 @@ namespace Graph1
             var vertices = graph.GetVertices();
             Console.WriteLine($"Вершины: {string.Join(", ", vertices)}");
 
-            // Проверка на изолированные вершины
-            var isolated = vertices.Where(v => graph.GetAdjacentVertices(v).Count == 0).ToList();
+            List<int> isolated = new List<int>();
+
+            if (!graph.IsDirected)
+            {
+                // Для неориентированного графа: вершина без смежных вершин
+                isolated = vertices.Where(v => graph.GetAdjacentVertices(v).Count == 0).ToList();
+            }
+            else
+            {
+                // Для ориентированного графа: нет ни входящих, ни исходящих рёбер
+                foreach (int vertex in vertices)
+                {
+                    int outDegree = graph.GetAdjacentVertices(vertex).Count;
+                    int inDegree = CalculateInDegree(vertex); // Нужен вспомогательный метод
+
+                    if (outDegree == 0 && inDegree == 0)
+                    {
+                        isolated.Add(vertex);
+                    }
+                }
+            }
+
             if (isolated.Count > 0)
                 Console.WriteLine($"Изолированные вершины: {string.Join(", ", isolated)}");
+
+            //
         }
-        //
+
+        // Вспомогательный метод для расчета входящей степени вершины
+        private static int CalculateInDegree(int vertex)
+        {
+            if (!graph.ContainsVertex(vertex))
+                return 0;
+
+            int inDegree = 0;
+            foreach (int otherVertex in graph.GetVertices())
+            {
+                if (graph.ContainsEdge(otherVertex, vertex))
+                {
+                    inDegree++;
+                }
+            }
+            return inDegree;
+        }
+
+
     }
 }

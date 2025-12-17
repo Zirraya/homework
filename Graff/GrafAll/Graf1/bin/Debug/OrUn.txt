@@ -1,0 +1,6 @@
+directed unweighted
+10: 20
+20: 79
+23: 
+35: 
+79: 10

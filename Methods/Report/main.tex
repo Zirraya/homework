@@ -135,7 +135,7 @@
    
   
 
-Раздел 1
+\section{Раздел 1}
 
 1. По данным интерполяции построить интерполяционный многочлен в общем
 виде, в форме Лагранжа и в форме Ньютона.
@@ -166,10 +166,8 @@ void inputData(vector<double>& x_data, vector<double>& f_data) {
     int n;
     cout << "Введите количество точек: ";
     cin >> n;
-
     x_data.resize(n);
     f_data.resize(n);
-
     cout << "\nВведите значения X:" << endl;
     for (int i = 0; i < n; i++) {
         cout << "X[" << i << "] = ";
@@ -285,7 +283,6 @@ vector<double> newtonCoefficients(const vector<double>& x,
 const vector<double>& y) {
     int n = x.size();
     vector<double> coeffs = y;
-
     for (int j = 1; j < n; j++) {
         for (int i = n - 1; i >= j; i--) {
             coeffs[i] = (coeffs[i] - coeffs[i - 1]) / (x[i] - x[i - j]);
@@ -324,7 +321,6 @@ const vector<vector<double>>& matrix) {
     }
 }
 int main() {
-
      setlocale(LC_ALL, "Russian");   
     vector<double> x_data, f_data;
     // Меню выбора способа ввода данных
@@ -722,7 +718,7 @@ $a_3 = 2.000000,\quad a_2 = 3.000000,\quad a_1 = 7.000000,\quad a_0 = 25.000000$
 
 \newpage  % Новая страница
 
-Раздел 2
+\section{Раздел 2}
 
 1. Решить следующую СЛАУ методом Гаусса:
 
@@ -818,7 +814,6 @@ vector<double> gaussElimination(vector<vector<double>> A, vector<double> b) {
 // Функция для ввода матрицы с клавиатуры
 vector<vector<double>> inputMatrix(int n) {
     vector<vector<double>> A(n, vector<double>(n));
-
     cout << "\nВведите элементы матрицы A (" << n << "x" << n << "):\n";
     for (int i = 0; i < n; i++) {
         cout << "Строка " << (i + 1) << " (через пробел " << n << " элементов): ";
@@ -1142,7 +1137,6 @@ const vector<double>& b,
 // Функция для ввода матрицы с клавиатуры
 vector<vector<double>> inputMatrix(int n) {
     vector<vector<double>> A(n, vector<double>(n));
-
     cout << "\nВведите элементы матрицы A (" << n << "x" << n << "):\n";
     for (int i = 0; i < n; i++) {
         cout << "Строка " << (i + 1) << " (через пробел " << n << " элементов): ";
@@ -1205,7 +1199,7 @@ int main() {
 
 \newpage  % Новая страница
 
-Раздел 3
+\section{Раздел 3}
 
 1. Решить задачу Коши методом Эйлера и усовершенствованным методом Эйлера:
 
@@ -1237,7 +1231,6 @@ double f(double x, double y, double V) {
 double exact_solution(double x, double V) {
     return V * x * x;
 }
-
 // Метод Эйлера
 vector<pair<double, double>> euler_method(double x0, double y0, 
 double h, int n, double V) {
@@ -1252,7 +1245,6 @@ double h, int n, double V) {
     }
     return result;
 }
-
 // Усовершенствованный метод Эйлера
 vector<pair<double, double>> improved_euler_method(double x0, double y0, 
 double h, int n, double V) {
@@ -1267,7 +1259,6 @@ double h, int n, double V) {
         x = x + h;
         result.push_back({ x, y });
     }
-
     return result;
 }
 // Функция для форматированного вывода таблицы
@@ -1304,7 +1295,6 @@ void print_table(const string& title, const vector<pair<double, double>>& numeri
     cout << "|" << endl;
     cout << string(120, '-') << endl;
 }
-
 int main() {
     setlocale(LC_ALL, "RUS");
     double x0, y0, h, V;
@@ -1342,11 +1332,9 @@ int main() {
     y' = 2Vx + Vx^2 - y, y(x0) = V*x0^2" << endl;
     cout << "Параметры: x0 = " << x0 << ", y0 = " << y0 << ", h = " << h
         << ", n = " << n << ", V = " << V << endl;
-
     print_table("Метод Эйлера", euler_result, exact_euler, errors_euler);
     print_table("Усовершенствованный метод Эйлера", improved_result, 
     exact_improved, errors_improved);
-
     return 0;
 }
 \end{verbatim}
@@ -1395,7 +1383,11 @@ $y_N$ -- численное решение, $y_T$ -- точное решение
 
 \newpage  % Новая страница
 
-3. Решить краевую задачу ОДУ разностным методом 
+
+3. Метод неопределенных коэффициентов 
+решения кравевой задачи для ОДУ второго порядка.
+Решить краевую задачу ОДУ разностным методом 
+
 \[
 y'' + x^{2} \, y' + x \, y = 10Vx - 3VTx^{3} - 2VT,
 \]
@@ -1403,15 +1395,13 @@ y'' + x^{2} \, y' + x \, y = 10Vx - 3VTx^{3} - 2VT,
 y(0) = 0, \quad y(T) = 0.
 \]
 
-
 Исходные данные
 
-Значение T(V) = 5
+Значение T(V) = 15
 
 Количество отрезков разбиения n = 5
 
-Текст программы
-
+Текст программы 
 
 \begin{verbatim}
     
@@ -1431,8 +1421,7 @@ double y_exact(double x, double T) {
 double p(double x) { return x * x; }
 double q(double x) { return x; }
 double f_boundary(double x, double V) {
-    return 4 * V * pow(x, 4) - 3 * V * V * 
-    pow(x, 3) + 6 * V * x - 2 * V * V;
+    return 4 * V * pow(x, 4) - 3 * V * V * pow(x, 3) + 6 * V * x - 2 * V * V;
 }
 // Функции для метода неопределенных коэффициентов
 double fi(double x, int i, double T) {
@@ -1454,7 +1443,6 @@ vector<double> gauss_solve(vector<vector<double>>& A, vector<double>& b) {
         // Поиск главного элемента
         int max_row = k;
         double max_val = abs(A[k][k]);
-
         for (int i = k + 1; i < n; i++) {
             if (abs(A[i][k]) > max_val) {
                 max_val = abs(A[i][k]);
@@ -1468,8 +1456,7 @@ vector<double> gauss_solve(vector<vector<double>>& A, vector<double>& b) {
         }
         // Проверка на сингулярность
         if (abs(A[k][k]) < 1e-10) {
-            throw runtime_error("Матрица является сингулярной 
-            или плохо обусловленной");
+            throw runtime_error("Матрица является сингулярной или плохо обусловленной");
         }
         // Нормировка
         double pivot = A[k][k];
@@ -1496,6 +1483,7 @@ vector<double> gauss_solve(vector<vector<double>>& A, vector<double>& b) {
     }
     return x;
 }
+
 // Решение краевой задачи обоими методами
 void solve_boundary_problem(double T, int n) {
     double h = T / n;
@@ -1529,11 +1517,93 @@ void solve_boundary_problem(double T, int n) {
         y_exact_rm[i] = y_exact(x_rm[i], T);
         error_rm[i] = abs(y_rm[i] - y_exact_rm[i]);
     }
+    // 2. Метод неопределенных коэффициентов
+    vector<double> x_nk = x_rm;
+    // Проверка граничных условий
+    if (abs(y_exact(0, T)) > 1e-6 || abs(y_exact(T, T)) > 1e-6) {
+        cout << "Внимание: граничные условия выполняются неточно!" << endl;
+    }
+    // Создание матрицы для метода неопределенных коэффициентов
+    int m = n - 1;  // Количество коэффициентов
+    vector<vector<double>> A_nk(m, vector<double>(m, 0.0));
+    vector<double> d_nk(m, 0.0);
+    // Заполнение матрицы
+    for (int i = 0; i < m; i++) {
+        double x = x_nk[i + 1];  // Внутренние точки
+        d_nk[i] = f_boundary(x, T);
+
+        for (int j = 0; j < m; j++) {
+            A_nk[i][j] = fi_shtrih_shtrih(x, j + 1, T) +
+                p(x) * fi_shtrih(x, j + 1, T) +
+                q(x) * fi(x, j + 1, T);
+        }
+    }
+    // Решение СЛАУ для коэффициентов
+    vector<double> a_coeff = gauss_solve(A_nk, d_nk);
+    // Вычисление приближенного решения
+    vector<double> y_nk(n + 1, 0.0);
+    for (int i = 0; i <= n; i++) {
+        double x = x_nk[i];
+        y_nk[i] = 0.0;
+        for (int j = 0; j < m; j++) {
+            y_nk[i] += a_coeff[j] * fi(x, j + 1, T);
+        }
+    }
+    // Точные значения и погрешность
+    vector<double> y_exact_nk(n + 1);
+    vector<double> error_nk(n + 1);
+    for (int i = 0; i <= n; i++) {
+        y_exact_nk[i] = y_exact(x_nk[i], T);
+        error_nk[i] = abs(y_nk[i] - y_exact_nk[i]);
+    }
+    // Вывод результатов
+    cout << "\nРазностный метод:" << endl;
+    cout << string(150, '-') << endl;
+    cout << "x:    ";
+    for (int i = 0; i <= n; i++) {
+        cout << fixed << setprecision(3) << setw(12) << x_rm[i];
+    }
+    cout << "\ny_H:  ";
+    for (int i = 0; i <= n; i++) {
+        cout << fixed << setprecision(3) << setw(12) << y_rm[i];
+    }
+    cout << "\ny_T:  ";
+    for (int i = 0; i <= n; i++) {
+        cout << fixed << setprecision(3) << setw(12) << y_exact_rm[i];
+    }
+    cout << "\nпогрешность: ";
+    for (int i = 0; i <= n; i++) {
+        cout << fixed << setprecision(3) << setw(12) << error_rm[i];
+    }
+    cout << "\n" << string(150, '-') << endl;
+
+    cout << "\nМетод неопределенных коэффициентов:" << endl;
+    cout << string(150, '-') << endl;
+    cout << "x:    ";
+    for (int i = 0; i <= n; i++) {
+        cout << fixed << setprecision(3) << setw(12) << x_nk[i];
+    }
+    cout << "\ny_H:  ";
+    for (int i = 0; i <= n; i++) {
+        cout << fixed << setprecision(3) << setw(12) << y_nk[i];
+    }
+    cout << "\ny_T:  ";
+    for (int i = 0; i <= n; i++) {
+        cout << fixed << setprecision(3) << setw(12) << y_exact_nk[i];
+    }
+    cout << "\nпогрешность: ";
+    for (int i = 0; i <= n; i++) {
+        cout << fixed << setprecision(3) << setw(12) << error_nk[i];
+    }
+    cout << "\n" << string(150, '-') << endl;
 }
+
 int main() {
     setlocale(LC_ALL, "RUS");
+
     double T;
     int n;
+
     // Ввод данных с клавиатуры
     cout << "Решение краевой задачи:" << endl;
     cout << "y'' + x^2 * y' + x * y = 10Vx - 3VTx^3 - 2VT" << endl;
@@ -1551,31 +1621,254 @@ int main() {
     }
     return 0;
 }
-
 \end{verbatim}
+
 
 Вывод программы
 
 Разностный метод
-\begin{center}
+
+\begin{table}[h!]
+\centering
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-$x$ & 0.000 & 1.000 & 2.000 & 3.000 & 4.000 & 5.000 \\
+$x$ & 0.000 & 3.000 & 6.000 & 9.000 & 12.000 & 15.000 \\
 \hline
-$y_H$ & 0.000 & 47.547 & -18.302 & -74.151 & -64.528 & 0.000 \\
+$y_H$ & 0.000 & -1582.307 & -5679.126 & -7274.503 & -8099.134 & 0.000 \\
 \hline
-$y_T$ & -0.000 & -20.000 & -60.000 & -90.000 & -80.000 & 0.000 \\
+$y_T$ & -0.000 & -1620.000 & -4860.000 & -7290.000 & -6480.000 & 0.000 \\
 \hline
-Погрешность & 0.000 & 67.547 & 41.698 & 15.849 & 15.472 & 0.000 \\
+$\text{погрешность}$ & 0.000 & 37.693 & 819.126 & 15.497 & 1619.134 & 0.000 \\
 \hline
 \end{tabular}
-\end{center}
+\end{table}
+
+Метод неопределенных коэффициентов
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+$x$ & 0.000 & 3.000 & 6.000 & 9.000 & 12.000 & 15.000 \\
+\hline
+$y_H$ & 0.000 & -1620.000 & -4860.000 & -7290.000 & -6480.000 & 0.000 \\
+\hline
+$y_T$ & -0.000 & -1620.000 & -4860.000 & -7290.000 & -6480.000 & 0.000 \\
+\hline
+$\text{погрешность}$ & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 \\
+\hline
+\end{tabular}
+\end{table}
 
 
-\newpage  % Новая страница
+\newpage
 
-4. Метод неопределенных коэффициентов 
-решения кравевой задачи для ОДУ второго порядка
+\textbf{Раздел 4}
+
+1. Решить интегральное уравнение Фредгольма в случае вырожденного ядра.
+
+Исходные данные
+
+Текст программы 
+
+\begin{verbatim}
+
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <vector>
+#include <functional>
+#include <clocale>
+
+using namespace std;
+
+double f(double x, double V) {
+    return V * (4.0 / 3.0 * x + 1.0 / 4.0 * x * x + 1.0 / 5.0 * x * x * x);
+}
+// Численное интегрирование на [a, b] методом Симпсона
+double integrate_simpson(function<double(double)> integrand,
+    double a, double b, int n = 1000) {
+    if (n % 2 == 1) n++;
+    double h = (b - a) / n;
+    double s = integrand(a) + integrand(b);
+    for (int i = 1; i < n; ++i) {
+        double x = a + h * i;
+        s += integrand(x) * (i % 2 == 0 ? 2.0 : 4.0);
+    }
+    return s * h / 3.0;
+}
+vector<vector<double>> calc_aik(int n) {
+    vector<vector<double>> aik(n, vector<double>(n, 0.0));
+    for (int i = 0; i < n; ++i) {
+        for (int k = 0; k < n; ++k) {
+            auto integrand = [i, k](double x) {
+                double ai, bk;
+                if (i == 0) ai = x;
+                else if (i == 1) ai = x * x;
+                else ai = x * x * x;
+
+                if (k == 0) bk = x;
+                else if (k == 1) bk = x * x;
+                else bk = x * x * x;
+
+                return ai * bk;
+            };
+            aik[i][k] = integrate_simpson(integrand, 0.0, 1.0);
+        }
+    }
+    return aik;
+}
+vector<double> calc_yk(int n, double V) {
+    vector<double> yk(n, 0.0);
+    for (int k = 0; k < n; ++k) {
+        auto integrand = [k, V](double x) {
+            double bk;
+            if (k == 0) bk = x;
+            else if (k == 1) bk = x * x;
+            else bk = x * x * x;
+            return f(x, V) * bk;
+        };
+        yk[k] = integrate_simpson(integrand, 0.0, 1.0);
+    }
+    return yk;
+}
+vector<double> gauss_solve(const vector<vector<double>>& A,
+    const vector<double>& b) {
+    int n = static_cast<int>(b.size());
+    vector<vector<double>> Ab(n,vector<double>(n + 1));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            Ab[i][j] = A[i][j];
+        }
+        Ab[i][n] = b[i];
+    }
+    for (int i = 0; i < n; ++i) {
+        double pivot = Ab[i][i];
+        for (int j = i + 1; j < n; ++j) {
+            double factor = Ab[j][i] / pivot;
+            for (int k = i; k <= n; ++k) {
+                Ab[j][k] -= factor * Ab[i][k];
+            }
+        }
+    }
+    vector<double> x(n, 0.0);
+    for (int i = n - 1; i >= 0; --i) {
+        double sum = 0.0;
+        for (int j = i + 1; j < n; ++j) {
+            sum += Ab[i][j] * x[j];
+        }
+        x[i] = (Ab[i][n] - sum) / Ab[i][i];
+    }
+    return x;
+}
+void solve_equation(double V, int n) {
+    auto aik = calc_aik(n);
+    auto yk = calc_yk(n, V);
+    vector<vector<double>> A(n,vector<double>(n, 0.0));
+    for (int i = 0; i < n; ++i) {
+        for (int k = 0; k < n; ++k) {
+            A[i][k] = aik[i][k];
+        }
+        A[i][i] += 1.0;
+    }
+    auto q = gauss_solve(A, yk);
+    double h = 0.1;
+    vector<double> x_vals;
+    for (double x = 0.0; x <= 1.0 + 1e-12; x += h) {
+        x_vals.push_back(x);
+    }
+    vector<double> y_numerical(x_vals.size(), 0.0);
+    vector<double> y_exact(x_vals.size(), 0.0);
+    vector<double> error(x_vals.size(), 0.0);
+    for (size_t i = 0; i < x_vals.size(); ++i) {
+        double x = x_vals[i];
+        double y_val = f(x, V);
+        for (int j = 0; j < n; ++j) {
+            double aj;
+            if (j == 0) aj = x;
+            else if (j == 1) aj = x * x;
+            else aj = x * x * x;
+            y_val -= q[j] * aj;
+        }
+        y_numerical[i] = y_val;
+        y_exact[i] = V * x;
+        error[i] = fabs(y_numerical[i] - y_exact[i]);
+    }
+    cout << "\nРешение интегрального уравнения Фредгольма в случае вырожденного ядра:\n";
+    cout << std::string(150, '-') << "\n";
+    cout << "x:          ";
+    for (double xv : x_vals) {
+        cout << setw(13) << fixed << setprecision(6) << xv;
+    }
+    cout << "\n";
+    cout << "y численное:";
+    for (double yn : y_numerical) {
+        cout << setw(13) << fixed << setprecision(6) << yn;
+    }
+    cout << "\n";
+    cout << "y точное:   ";
+    for (double ye : y_exact) {
+        cout << setw(13) << fixed << setprecision(6) << ye;
+    }
+    cout << "\n";
+    cout << "Погрешность:";
+    for (double er : error) {
+        cout << std::setw(13) << std::fixed << std::setprecision(6) << er;
+    }
+    cout << "\n";
+    cout << std::string(150, '-') << "\n";
+}
+int main() {
+    setlocale(LC_ALL, "Russian"); 
+    double V;
+    int n;
+    cout << "Введите значение V: ";
+    std::cin >> V;
+    cout << "Введите размерность n (например, 3): ";
+    cin >> n;
+    solve_equation(V, n);
+    return 0;
+}
+\end{verbatim}
+
+Вывод программы
+
+\begin{table}[h!]
+\centering
+\footnotesize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+ & 0.000000 & 0.100000 & 0.200000 & 0.300000 & 0.400000 & 0.500000 & 0.600000 & 0.700000 & 0.800000 & 0.900000 & 1.000000 \\
+\hline
+$x$ &
+0.000000 & 0.100000 & 0.200000 & 0.300000 & 0.400000 &
+0.500000 & 0.600000 & 0.700000 & 0.800000 & 0.900000 & 1.000000 \\
+\hline
+$y_{\text{численное}}$ &
+0.000000 & 1.560316 & 3.103215 & 4.600901 & 6.025578 &
+7.349451 & 8.544724 & 9.583601 & 10.438287 & 11.080986 & 11.483902 \\
+\hline
+$y_{\text{точное}}$ &
+0.000000 & 1.500000 & 3.000000 & 4.500000 & 6.000000 &
+7.500000 & 9.000000 & 10.500000 & 12.000000 & 13.500000 & 15.000000 \\
+\hline
+Погрешность &
+0.000000 & 0.060316 & 0.103215 & 0.100901 & 0.025578 &
+0.150549 & 0.455276 & 0.916399 & 1.561713 & 2.419014 & 3.516098 \\
+\hline
+\end{tabular}%
+}
+\end{table}
+
+
+2. Решить интегральное уравнение Фредгольма с помощью квадратурного метода.
+
+
+Исходные данные
+
+Тектс программы 
+
+Вывод программы
 
 
 

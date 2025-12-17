@@ -19,7 +19,7 @@ namespace Graph1
                 return;
             }
 
-            Console.WriteLine("=== ПРОВЕРКА ВОЗМОЖНОСТИ ПОЛУЧЕНИЯ ДЕРЕВА УДАЛЕНИЕМ ВЕРШИНЫ ===");
+            Console.WriteLine("=== ПРОВЕРКА ===");
 
             var vertices = graph.GetVertices();
 
@@ -109,8 +109,6 @@ namespace Graph1
         // Проверка для ориентированного графа
         private static void CheckForDirectedGraph(Graph graph)
         {
-            Console.WriteLine("Для ориентированного графа проверяем получение ориентированного дерева");
-
             var vertices = graph.GetVertices();
             var validRemovals = new List<int>();
 
