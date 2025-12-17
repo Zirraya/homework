@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 // Задание 7 Вариант к
 // ===ВЗВЕШАННЫЙ ГРАФ===
 // Задание 8 Вариант 9 Дейкстра
-// Задание 9 Вариант 5
+// Задание 9 Вариант 5 Беллман Форд
 // Задание 10 Вариант 16
 
 
@@ -63,7 +63,9 @@ namespace Graph1
                     case "13": FindRootInDAG(); break;  // Задание 5 Вариант 7
                     case "14": CheckTreeAfterVertexRemove(); break; // Задание 6 Вариант 19
                     case "15": FindMinimumSpanningTree(); break; // Задание 7 - алгоритм Краскала
-                    case "16": FindAllPairsShortestPaths(); break; // Задание 8 - алгоритм Дейкстры
+                    case "16": FindAllPairsShortestPaths(); break; // Задание 8 - Вариант 9 алгоритм Дейкстры
+                    case "17": RunBellmanFord(); break; // Задание 9 - Вариант 5 алгоритм Белман Форд
+                    case "18": RunFloydWarshall(); break; // Задание 10 - Вариант 16 алгоритм Флойда
 
 
 
@@ -151,7 +153,8 @@ namespace Graph1
             Console.WriteLine("14. Проверить возможность получения дерева удалением вершины");
             Console.WriteLine("15. Найти минимальный остовный каркас (алгоритм Краскала)");
             Console.WriteLine("16. Найти кратчайшие пути для всех пар вершин (алгоритм Дейкстры)");
-
+            Console.WriteLine("17. Найти кратчайшие пути (Беллмана-Форда)");
+            Console.WriteLine("18. Найти кратчайшие пути для всех пар вершин (алгоритм Флойда-Уоршелла)");
 
 
 
@@ -455,7 +458,7 @@ namespace Graph1
         //
 
 
-        // Задание 8 - алгоритм Дейкстры
+        // Задание 8 - Вариант 9 алгоритм Дейкстры
         static void FindAllPairsShortestPaths()
         {
             if (graph == null)
@@ -529,6 +532,72 @@ namespace Graph1
         }
         //
 
+        // Задание 9 - Вариант 5 алгоритма Беллмана-Форда:
+        static void RunBellmanFord()
+        {
+            if (graph == null)
+            {
+                Console.WriteLine("Граф не создан!");
+                return;
+            }
+
+            if (!graph.IsWeighted)
+            {
+                Console.WriteLine("Алгоритм Беллмана-Форда работает только со взвешенными графами!");
+                return;
+            }
+
+            Console.Write("Введите начальную вершину u: ");
+            if (int.TryParse(Console.ReadLine(), out int startVertex))
+            {
+                if (graph.ContainsVertex(startVertex))
+                {
+                    BellmanFordAlgorithm.DisplayResults(graph, startVertex);
+                }
+                else
+                {
+                    Console.WriteLine($"Вершина {startVertex} не существует в графе!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Неверный формат числа!");
+            }
+        }
+        //
+
+        // Задание 10 - Вариант 16 алгоритм Флойда
+        static void RunFloydWarshall()
+        {
+            if (graph == null)
+            {
+                Console.WriteLine("Граф не создан!");
+                return;
+            }
+
+            if (!graph.IsWeighted)
+            {
+                Console.WriteLine("Алгоритм Флойда-Уоршелла работает только со взвешенными графами!");
+                return;
+            }
+
+            Console.Write("Введите вершину u (источник): ");
+            if (int.TryParse(Console.ReadLine(), out int startVertex))
+            {
+                if (graph.ContainsVertex(startVertex))
+                {
+                    FloydAlgorithm.DisplayResults(graph, startVertex);
+                }
+                else
+                {
+                    Console.WriteLine($"Вершина {startVertex} не существует в графе!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Неверный формат числа!");
+            }
+        }
 
         //
         static void ShowGraphInfo()

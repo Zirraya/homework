@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BellmanFordAlgorithmNumber9.cs" />
     <Compile Include="DegreeCalculator.cs" />
     <Compile Include="DijkstraAlgorithmNumber8.cs" />
+    <Compile Include="FloidNumber10.cs" />
     <Compile Include="Interface.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="IsolatedVerticesRemover.cs" />
