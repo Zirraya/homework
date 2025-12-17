@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DegreeCalculator.cs" />
+    <Compile Include="DijkstraAlgorithmNumber8.cs" />
     <Compile Include="Interface.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="IsolatedVerticesRemover.cs" />

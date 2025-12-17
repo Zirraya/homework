@@ -17,6 +17,10 @@ using System.Threading.Tasks;
 // Задание 6 Вариант 19
 // ===ПОСТРОЕНИЕ МИНИМАЛЬНОГО ОСТОВНОГО ДЕРЕВА===
 // Задание 7 Вариант к
+// ===ВЗВЕШАННЫЙ ГРАФ===
+// Задание 8 Вариант 9 Дейкстра
+// Задание 9 Вариант 5
+// Задание 10 Вариант 16
 
 
 
@@ -59,6 +63,8 @@ namespace Graph1
                     case "13": FindRootInDAG(); break;  // Задание 5 Вариант 7
                     case "14": CheckTreeAfterVertexRemove(); break; // Задание 6 Вариант 19
                     case "15": FindMinimumSpanningTree(); break; // Задание 7 - алгоритм Краскала
+                    case "16": FindAllPairsShortestPaths(); break; // Задание 8 - алгоритм Дейкстры
+
 
 
                     case "0": running = false; break;
@@ -144,6 +150,7 @@ namespace Graph1
             Console.WriteLine("13. Найти корень в ацикличном орграфе");
             Console.WriteLine("14. Проверить возможность получения дерева удалением вершины");
             Console.WriteLine("15. Найти минимальный остовный каркас (алгоритм Краскала)");
+            Console.WriteLine("16. Найти кратчайшие пути для всех пар вершин (алгоритм Дейкстры)");
 
 
 
@@ -446,6 +453,82 @@ namespace Graph1
             }
         }
         //
+
+
+        // Задание 8 - алгоритм Дейкстры
+        static void FindAllPairsShortestPaths()
+        {
+            if (graph == null)
+            {
+                Console.WriteLine("Граф не создан!");
+                return;
+            }
+
+            try
+            {
+                var results = DijkstraAlgorithm.FindAllPairsShortestPaths(graph);
+                Console.WriteLine("\nАлгоритм Дейкстры успешно выполнен!");
+
+                // Дополнительно: показываем возможность просмотра конкретного пути
+                Console.WriteLine("\nХотите просмотреть конкретный путь между вершинами? (y/n)");
+                string answer = Console.ReadLine().ToLower();
+
+                if (answer == "y" || answer == "д")
+                {
+                    Console.Write("Введите начальную вершину: ");
+                    if (int.TryParse(Console.ReadLine(), out int from))
+                    {
+                        Console.Write("Введите конечную вершину: ");
+                        if (int.TryParse(Console.ReadLine(), out int to))
+                        {
+                            if (graph.ContainsVertex(from) && graph.ContainsVertex(to))
+                            {
+                                if (from == to)
+                                {
+                                    Console.WriteLine("Начальная и конечная вершины совпадают!");
+                                }
+                                else
+                                {
+                                    var path = DijkstraAlgorithm.ReconstructPath(results[from], to);
+                                    if (path.Count > 0)
+                                    {
+                                        Console.WriteLine($"Кратчайший путь из {from} в {to}:");
+                                        Console.WriteLine($"  Длина: {results[from].Distances[to]:F2}");
+                                        Console.WriteLine($"  Путь: {string.Join(" -> ", path)}");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Путь из {from} в {to} не существует");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Одна или обе вершины не существуют в графе");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Неверный формат конечной вершины!");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Неверный формат начальной вершины!");
+                    }
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Неожиданная ошибка: {ex.Message}");
+            }
+        }
+        //
+
 
         //
         static void ShowGraphInfo()
