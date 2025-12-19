@@ -1,0 +1,90 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+
+\PYG{+w}{        }\PYG{k}{public}\PYG{+w}{ }\PYG{k}{static}\PYG{+w}{ }\PYG{n}{DijkstraResult}\PYG{+w}{ }\PYG{n+nf}{FindShortestPathsFromVertex}\PYG{p}{(}\PYG{n}{Graph}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{source}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{k}{null}\PYG{p}{)}
+\PYG{+w}{                }\PYG{k}{throw}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n+nf}{ArgumentNullException}\PYG{p}{(}\PYG{n}{nameof}\PYG{p}{(}\PYG{n}{graph}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{ContainsVertex}\PYG{p}{(}\PYG{n}{source}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                }\PYG{k}{throw}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n+nf}{ArgumentException}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Вершина \PYGZob{}source\PYGZcb{} не существует в графе\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{c+c1}{// Проверка на отрицательные веса (хотя по условию их нет)}
+\PYG{+w}{            }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{vertex}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetVertices}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{edge}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetAdjacentVertices}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{edge}\PYG{p}{.}\PYG{n}{Weight}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{)}
+\PYG{+w}{                        }\PYG{k}{throw}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n+nf}{ArgumentException}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Граф содержит ребра с отрицательным весом. Алгоритм Дейкстры не применим.\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{vertices}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetVertices}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{result}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{DijkstraResult}\PYG{p}{(}\PYG{n}{source}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{c+c1}{// Инициализация}
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{unvisitedVertices}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{HashSet}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{vertices}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{priorityQueue}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{SortedSet}\PYG{o}{\PYGZlt{}}\PYG{n}{Tuple}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{c+c1}{// Установка начальные расстояния}
+\PYG{+w}{            }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{vertex}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{vertices}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{vertex}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n}{source}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{n}{result}\PYG{p}{.}\PYG{n}{Distances}\PYG{p}{[}\PYG{n}{vertex}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{n}{priorityQueue}\PYG{p}{.}\PYG{n}{Add}\PYG{p}{(}\PYG{n}{Tuple}\PYG{p}{.}\PYG{n}{Create}\PYG{p}{(}\PYG{l+m}{0.0}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                }\PYG{k}{else}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{n}{result}\PYG{p}{.}\PYG{n}{Distances}\PYG{p}{[}\PYG{n}{vertex}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k+kt}{double}\PYG{p}{.}\PYG{n}{PositiveInfinity}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{n}{priorityQueue}\PYG{p}{.}\PYG{n}{Add}\PYG{p}{(}\PYG{n}{Tuple}\PYG{p}{.}\PYG{n}{Create}\PYG{p}{(}\PYG{k+kt}{double}\PYG{p}{.}\PYG{n}{PositiveInfinity}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                }\PYG{n}{result}\PYG{p}{.}\PYG{n}{PreviousVertices}\PYG{p}{[}\PYG{n}{vertex}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m}{1}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{c+c1}{// Основной цикл алгоритма}
+\PYG{+w}{            }\PYG{k}{while}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{unvisitedVertices}\PYG{p}{.}\PYG{n}{Count}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m}{0}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n}{priorityQueue}\PYG{p}{.}\PYG{n}{Count}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{c+c1}{// Извлечение вершины с минимальным расстоянием}
+\PYG{+w}{                }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{currentTuple}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{priorityQueue}\PYG{p}{.}\PYG{n}{Min}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{priorityQueue}\PYG{p}{.}\PYG{n}{Remove}\PYG{p}{(}\PYG{n}{currentTuple}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{                }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{currentDistance}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{currentTuple}\PYG{p}{.}\PYG{n}{Item1}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{currentVertex}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{currentTuple}\PYG{p}{.}\PYG{n}{Item2}\PYG{p}{;}
+
+\PYG{+w}{                }\PYG{c+c1}{// Если вершина уже посещена, пропускаем}
+\PYG{+w}{                }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{unvisitedVertices}\PYG{p}{.}\PYG{n}{Contains}\PYG{p}{(}\PYG{n}{currentVertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{k}{continue}\PYG{p}{;}
+
+\PYG{+w}{                }\PYG{n}{unvisitedVertices}\PYG{p}{.}\PYG{n}{Remove}\PYG{p}{(}\PYG{n}{currentVertex}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{                }\PYG{c+c1}{// Если расстояние до текущей вершины бесконечно, значит остальные вершины недостижимы}
+\PYG{+w}{                }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{currentDistance}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{k+kt}{double}\PYG{p}{.}\PYG{n}{PositiveInfinity}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{k}{break}\PYG{p}{;}
+
+\PYG{+w}{                }\PYG{c+c1}{// Рассматриваем всех соседей текущей вершины}
+\PYG{+w}{                }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{edge}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetAdjacentVertices}\PYG{p}{(}\PYG{n}{currentVertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{neighbor}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{edge}\PYG{p}{.}\PYG{n}{Target}\PYG{p}{;}
+
+\PYG{+w}{                    }\PYG{c+c1}{// Если сосед еще не посещен}
+\PYG{+w}{                    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{unvisitedVertices}\PYG{p}{.}\PYG{n}{Contains}\PYG{p}{(}\PYG{n}{neighbor}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                        }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{newDistance}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{currentDistance}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{edge}\PYG{p}{.}\PYG{n}{Weight}\PYG{p}{;}
+
+\PYG{+w}{                        }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{newDistance}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{result}\PYG{p}{.}\PYG{n}{Distances}\PYG{p}{[}\PYG{n}{neighbor}\PYG{p}{]}\PYG{p}{)}
+\PYG{+w}{                        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                            }\PYG{c+c1}{// Обновляем расстояние}
+\PYG{+w}{                            }\PYG{n}{priorityQueue}\PYG{p}{.}\PYG{n}{Remove}\PYG{p}{(}\PYG{n}{Tuple}\PYG{p}{.}\PYG{n}{Create}\PYG{p}{(}\PYG{n}{result}\PYG{p}{.}\PYG{n}{Distances}\PYG{p}{[}\PYG{n}{neighbor}\PYG{p}{]}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{neighbor}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                            }\PYG{n}{result}\PYG{p}{.}\PYG{n}{Distances}\PYG{p}{[}\PYG{n}{neighbor}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{newDistance}\PYG{p}{;}
+\PYG{+w}{                            }\PYG{n}{priorityQueue}\PYG{p}{.}\PYG{n}{Add}\PYG{p}{(}\PYG{n}{Tuple}\PYG{p}{.}\PYG{n}{Create}\PYG{p}{(}\PYG{n}{newDistance}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{neighbor}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                            }\PYG{n}{result}\PYG{p}{.}\PYG{n}{PreviousVertices}\PYG{p}{[}\PYG{n}{neighbor}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{currentVertex}\PYG{p}{;}
+\PYG{+w}{                        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{result}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{   }
+\end{MintedVerbatim}

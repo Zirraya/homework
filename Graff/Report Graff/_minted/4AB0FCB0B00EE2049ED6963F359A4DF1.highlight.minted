@@ -1,0 +1,355 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{using}\PYG{+w}{ }\PYG{n+nn}{Graf1}\PYG{p}{;}
+\PYG{k}{using}\PYG{+w}{ }\PYG{n+nn}{Graph1}\PYG{p}{;}
+\PYG{k}{using}\PYG{+w}{ }\PYG{n+nn}{System}\PYG{p}{;}
+\PYG{k}{using}\PYG{+w}{ }\PYG{n+nn}{System.Collections.Generic}\PYG{p}{;}
+\PYG{k}{using}\PYG{+w}{ }\PYG{n+nn}{System.Linq}\PYG{p}{;}
+\PYG{k}{using}\PYG{+w}{ }\PYG{n+nn}{System.Text}\PYG{p}{;}
+\PYG{k}{using}\PYG{+w}{ }\PYG{n+nn}{System.Threading.Tasks}\PYG{p}{;}
+
+\PYG{c+c1}{// Тут интерфейс}
+\PYG{k}{namespace}\PYG{+w}{ }\PYG{n+nn}{Graph1}
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{class}\PYG{+w}{ }\PYG{n+nc}{Program}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{k}{private}\PYG{+w}{ }\PYG{k}{static}\PYG{+w}{ }\PYG{n}{Graph}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{;}
+
+\PYG{+w}{        }\PYG{c+c1}{// Меню}
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{Main}\PYG{p}{(}\PYG{k+kt}{string}\PYG{p}{[}\PYG{p}{]}\PYG{+w}{ }\PYG{n}{args}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}=== РАБОТА С ГРАФАМИ ===\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{InitializeGraph}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k+kt}{bool}\PYG{+w}{ }\PYG{n}{running}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{true}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{while}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{running}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{ShowMenu}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k+kt}{string}\PYG{+w}{ }\PYG{n}{choice}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{                }\PYG{k}{switch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{choice}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{AddVertex}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}2\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{AddEdge}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}3\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{RemoveVertex}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}4\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{RemoveEdge}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}5\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{ShowAdjacencyList}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}6\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{SaveToFile}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}7\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{LoadFromFile}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}8\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{ShowEdgeList}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}9\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{ShowGraphInfo}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}0\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{running}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{false}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{default}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Неверный выбор!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{                }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{running}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZbs{}nНажмите любую клавишу для продолжения...\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadKey}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{//}
+
+\PYG{+w}{        }\PYG{c+c1}{//}
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{InitializeGraph}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}0 \PYGZhy{} Если у вас есть файл txt с графом, вы можете загрузить его из файла\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Выберите тип графа:\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}1 \PYGZhy{} Неориентированный невзвешенный\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}2 \PYGZhy{} Ориентированный невзвешенный\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}3 \PYGZhy{} Неориентированный взвешенный\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}4 \PYGZhy{} Ориентированный взвешенный\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k+kt}{string}\PYG{+w}{ }\PYG{n}{choice}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{switch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{choice}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}0\PYGZdq{}}\PYG{p}{:}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{Write}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Введите имя файла: \PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k+kt}{string}\PYG{+w}{ }\PYG{n}{filename}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{try}
+\PYG{+w}{                    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                        }\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{Graph}\PYG{p}{(}\PYG{n}{filename}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                        }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Граф загружен из файла \PYGZob{}filename\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                        }\PYG{k}{return}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Выходим, так как граф уже создан}
+\PYG{+w}{                    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                    }\PYG{k}{catch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Exception}\PYG{+w}{ }\PYG{n}{ex}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                        }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Ошибка загрузки из файла: \PYGZob{}ex.Message\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                        }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Будет создан граф по умолчанию (неориентированный невзвешенный)\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                        }\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{Graph}\PYG{p}{(}\PYG{k}{false}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{false}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                    }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}1\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{Graph}\PYG{p}{(}\PYG{k}{false}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{false}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}2\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{Graph}\PYG{p}{(}\PYG{k}{true}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{false}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}3\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{Graph}\PYG{p}{(}\PYG{k}{false}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{true}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{case}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}4\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{Graph}\PYG{p}{(}\PYG{k}{true}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{true}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{                }\PYG{c+c1}{//case \PYGZdq{}5\PYGZdq{}: LoadFromFile(); break;}
+\PYG{+w}{                }\PYG{k}{default}\PYG{p}{:}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Создан граф по умолчанию (неориентированный невзвешенный)\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{Graph}\PYG{p}{(}\PYG{k}{false}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{false}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Граф создан успешно!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{//}
+
+\PYG{+w}{        }\PYG{c+c1}{//}
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{ShowMenu}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}=== МЕНЮ УПРАВЛЕНИЯ ГРАФОМ ===\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Тип графа: \PYGZob{}(graph.IsDirected ? \PYGZdq{}}\PYG{n}{Ориентированный}\PYG{l+s}{\PYGZdq{} : \PYGZdq{}}\PYG{n}{Неориентированный}\PYG{l+s}{\PYGZdq{})\PYGZcb{}, \PYGZdq{}}\PYG{+w}{ }\PYG{o}{+}
+\PYG{+w}{                            }\PYG{l+s}{\PYGZdl{}\PYGZdq{}\PYGZob{}(graph.IsWeighted ? \PYGZdq{}}\PYG{n}{Взвешенный}\PYG{l+s}{\PYGZdq{} : \PYGZdq{}}\PYG{n}{Невзвешенный}\PYG{l+s}{\PYGZdq{})\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Вершин: \PYGZob{}graph.VertexCount\PYGZcb{}, Рёбер: \PYGZob{}graph.EdgeCount\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}1. Добавить вершину\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}2. Добавить ребро/дугу\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}3. Удалить вершину\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}4. Удалить ребро/дугу\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}5. Показать список смежности\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}6. Сохранить в файл\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}7. Загрузить из файла\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}8. Показать список рёбер\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}9. Информация о графе\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}0. Выход\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{Write}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Выберите действие: \PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{//}
+
+\PYG{+w}{        }\PYG{c+c1}{//}
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{AddVertex}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{Write}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Введите номер вершины: \PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{int}\PYG{p}{.}\PYG{n}{TryParse}\PYG{p}{(}\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{out}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{try}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{AddVertex}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Вершина \PYGZob{}vertex\PYGZcb{} добавлена успешно!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                }\PYG{k}{catch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Exception}\PYG{+w}{ }\PYG{n}{ex}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Ошибка: \PYGZob{}ex.Message\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{else}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Неверный формат числа!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{//}
+
+\PYG{+w}{        }\PYG{c+c1}{//}
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{AddEdge}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{Write}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Введите начальную вершину: \PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{k+kt}{int}\PYG{p}{.}\PYG{n}{TryParse}\PYG{p}{(}\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{out}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{k}{from}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Неверный формат числа!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{return}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{Write}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Введите конечную вершину: \PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{k+kt}{int}\PYG{p}{.}\PYG{n}{TryParse}\PYG{p}{(}\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{out}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{to}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Неверный формат числа!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{return}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{weight}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m}{1.0}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{IsWeighted}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{Write}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Введите вес ребра: \PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{k+kt}{double}\PYG{p}{.}\PYG{n}{TryParse}\PYG{p}{(}\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{out}\PYG{+w}{ }\PYG{n}{weight}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Неверный формат веса! Используется вес по умолчанию 1.0\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{n}{weight}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m}{1.0}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{k}{try}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{AddEdge}\PYG{p}{(}\PYG{k}{from}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{to}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{weight}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Ребро из \PYGZob{}from\PYGZcb{} в \PYGZob{}to\PYGZcb{} добавлено успешно!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{catch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Exception}\PYG{+w}{ }\PYG{n}{ex}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Ошибка: \PYGZob{}ex.Message\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{//}
+
+\PYG{+w}{        }\PYG{c+c1}{//}
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{RemoveVertex}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{Write}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Введите номер вершины для удаления: \PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{int}\PYG{p}{.}\PYG{n}{TryParse}\PYG{p}{(}\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{out}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{try}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{RemoveVertex}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Вершина \PYGZob{}vertex\PYGZcb{} удалена успешно!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                }\PYG{k}{catch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Exception}\PYG{+w}{ }\PYG{n}{ex}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Ошибка: \PYGZob{}ex.Message\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{else}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Неверный формат числа!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{//}
+
+\PYG{+w}{        }\PYG{c+c1}{//}
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{RemoveEdge}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{Write}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Введите начальную вершину: \PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{k+kt}{int}\PYG{p}{.}\PYG{n}{TryParse}\PYG{p}{(}\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{out}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{k}{from}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Неверный формат числа!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{return}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{Write}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Введите конечную вершину: \PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{k+kt}{int}\PYG{p}{.}\PYG{n}{TryParse}\PYG{p}{(}\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{out}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{to}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Неверный формат числа!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{return}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{k}{try}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{RemoveEdge}\PYG{p}{(}\PYG{k}{from}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{to}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Ребро из \PYGZob{}from\PYGZcb{} в \PYGZob{}to\PYGZcb{} удалено успешно!\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{catch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Exception}\PYG{+w}{ }\PYG{n}{ex}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Ошибка: \PYGZob{}ex.Message\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{//}
+
+\PYG{+w}{        }\PYG{c+c1}{//}
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{ShowAdjacencyList}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Список смежности:\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetAdjacencyListString}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{//}
+
+\PYG{+w}{        }\PYG{c+c1}{//}
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{SaveToFile}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{Write}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Введите имя файла: \PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k+kt}{string}\PYG{+w}{ }\PYG{n}{filename}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{try}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{SaveToFile}\PYG{p}{(}\PYG{n}{filename}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Граф сохранён в файл \PYGZob{}filename\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{catch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Exception}\PYG{+w}{ }\PYG{n}{ex}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Ошибка: \PYGZob{}ex.Message\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{//}
+
+\PYG{+w}{        }\PYG{c+c1}{//}
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{LoadFromFile}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{Write}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Введите имя файла: \PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k+kt}{string}\PYG{+w}{ }\PYG{n}{filename}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{ReadLine}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{try}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{Graph}\PYG{p}{(}\PYG{n}{filename}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Граф загружен из файла \PYGZob{}filename\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{catch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Exception}\PYG{+w}{ }\PYG{n}{ex}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Ошибка: \PYGZob{}ex.Message\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{//}
+
+\PYG{+w}{        }\PYG{c+c1}{//}
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{ShowEdgeList}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{edges}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetEdgeList}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Список рёбер:\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{edge}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{edges}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{IsWeighted}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}\PYGZob{}edge.Item1\PYGZcb{} \PYGZhy{}\PYGZgt{} \PYGZob{}edge.Item2\PYGZcb{} (вес: \PYGZob{}edge.Item3\PYGZcb{})\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{else}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}\PYGZob{}edge.Item1\PYGZcb{} \PYGZhy{}\PYGZgt{} \PYGZob{}edge.Item2\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{c+c1}{//}
+
+\PYG{+w}{      }
+\PYG{+w}{        }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{ShowGraphInfo}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}=== ИНФОРМАЦИЯ О ГРАФЕ ===\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Тип: \PYGZob{}(graph.IsDirected ? \PYGZdq{}}\PYG{n}{Ориентированный}\PYG{l+s}{\PYGZdq{} : \PYGZdq{}}\PYG{n}{Неориентированный}\PYG{l+s}{\PYGZdq{})\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Взвешенный: \PYGZob{}(graph.IsWeighted ? \PYGZdq{}}\PYG{n}{Да}\PYG{l+s}{\PYGZdq{} : \PYGZdq{}}\PYG{n}{Нет}\PYG{l+s}{\PYGZdq{})\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Количество вершин: \PYGZob{}graph.VertexCount\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Количество рёбер: \PYGZob{}graph.EdgeCount\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{vertices}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetVertices}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Вершины: \PYGZob{}string.Join(\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}, vertices)\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{n}{List}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{isolated}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{List}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{IsDirected}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{c+c1}{// Для неориентированного графа: вершина без смежных вершин}
+\PYG{+w}{                }\PYG{n}{isolated}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{vertices}\PYG{p}{.}\PYG{n}{Where}\PYG{p}{(}\PYG{n}{v}\PYG{+w}{ }\PYG{o}{=\PYGZgt{}}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetAdjacentVertices}\PYG{p}{(}\PYG{n}{v}\PYG{p}{)}\PYG{p}{.}\PYG{n}{Count}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{)}\PYG{p}{.}\PYG{n}{ToList}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{else}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{c+c1}{// Для ориентированного графа: нет ни входящих, ни исходящих рёбер}
+\PYG{+w}{                }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{vertex}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{vertices}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{outDegree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetAdjacentVertices}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{.}\PYG{n}{Count}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{CalculateInDegree}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Нужен вспомогательный метод}
+
+\PYG{+w}{                    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{outDegree}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m}{0}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                        }\PYG{n}{isolated}\PYG{p}{.}\PYG{n}{Add}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{isolated}\PYG{p}{.}\PYG{n}{Count}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{)}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Изолированные вершины: \PYGZob{}string.Join(\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}, isolated)\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{c+c1}{//}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{        }\PYG{c+c1}{// Вспомогательный метод для расчета входящей степени вершины}
+\PYG{+w}{        }\PYG{k}{private}\PYG{+w}{ }\PYG{k}{static}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{CalculateInDegree}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{vertex}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{ContainsVertex}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                }\PYG{k}{return}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{otherVertex}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetVertices}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{ContainsEdge}\PYG{p}{(}\PYG{n}{otherVertex}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{n}{inDegree}\PYG{o}{++}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+
+
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

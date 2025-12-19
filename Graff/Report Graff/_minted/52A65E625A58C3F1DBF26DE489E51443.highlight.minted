@@ -1,0 +1,34 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+
+\PYG{+w}{        }\PYG{c+c1}{// Основной метод: найти и вывести все висячие вершины}
+\PYG{+w}{        }\PYG{k}{public}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{FindAndPrintPendantVertices}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}=== ПОИСК ВИСЯЧИХ ВЕРШИН (СТЕПЕНИ 1) ===\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{k}{null}\PYG{+w}{ }\PYG{o}{||}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{VertexCount}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Граф пуст или не создан.\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{return}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{c+c1}{// Получаем список всех висячих вершин}
+\PYG{+w}{            }\PYG{n}{List}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{pendantVertices}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{GetPendantVertices}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{c+c1}{// Выводим результат}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{pendantVertices}\PYG{p}{.}\PYG{n}{Count}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}В графе нет висячих вершин (степени 1).\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{else}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Найдено \PYGZob{}pendantVertices.Count\PYGZcb{} висячих вершин:\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{vertex}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{pendantVertices}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{n}{PrintVertexInfo}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{c+c1}{// Дополнительная статистика}
+\PYG{+w}{            }\PYG{n}{PrintStatistics}\PYG{p}{(}\PYG{n}{pendantVertices}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

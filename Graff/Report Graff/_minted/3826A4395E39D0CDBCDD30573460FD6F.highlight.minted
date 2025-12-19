@@ -1,0 +1,76 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+
+\PYG{+w}{        }\PYG{k}{public}\PYG{+w}{ }\PYG{k}{static}\PYG{+w}{ }\PYG{n}{BellmanFordResult}\PYG{+w}{ }\PYG{n+nf}{FindShortestPaths}\PYG{p}{(}\PYG{n}{Graph}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{startVertex}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{k}{null}\PYG{p}{)}
+\PYG{+w}{                }\PYG{k}{throw}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n+nf}{ArgumentNullException}\PYG{p}{(}\PYG{n}{nameof}\PYG{p}{(}\PYG{n}{graph}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{ContainsVertex}\PYG{p}{(}\PYG{n}{startVertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                }\PYG{k}{throw}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n+nf}{ArgumentException}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Вершина \PYGZob{}startVertex\PYGZcb{} не существует в графе\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{IsWeighted}\PYG{p}{)}
+\PYG{+w}{                }\PYG{k}{throw}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n+nf}{ArgumentException}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Алгоритм Беллмана\PYGZhy{}Форда требует взвешенный граф\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{vertices}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetVertices}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{n}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{vertices}\PYG{p}{.}\PYG{n}{Count}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{c+c1}{// Инициализация расстояний}
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{distances}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{Dictionary}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{double}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{predecessors}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{Dictionary}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int?}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{vertex}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{vertices}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{distances}\PYG{p}{[}\PYG{n}{vertex}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k+kt}{double}\PYG{p}{.}\PYG{n}{PositiveInfinity}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{predecessors}\PYG{p}{[}\PYG{n}{vertex}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{null}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{n}{distances}\PYG{p}{[}\PYG{n}{startVertex}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{c+c1}{// Получаем список всех рёбер}
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{edges}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{GetAllEdges}\PYG{p}{(}\PYG{n}{graph}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{c+c1}{// Основная часть алгоритма: релаксация рёбер (n\PYGZhy{}1) раз}
+\PYG{+w}{            }\PYG{k}{for}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{n}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m}{1}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{++}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k+kt}{bool}\PYG{+w}{ }\PYG{n}{anyDistanceChanged}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{false}\PYG{p}{;}
+
+\PYG{+w}{                }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{edge}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{edges}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{u}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{edge}\PYG{p}{.}\PYG{n}{From}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{v}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{edge}\PYG{p}{.}\PYG{n}{To}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k+kt}{double}\PYG{+w}{ }\PYG{n}{weight}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{edge}\PYG{p}{.}\PYG{n}{Weight}\PYG{p}{;}
+
+\PYG{+w}{                    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{distances}\PYG{p}{[}\PYG{n}{u}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{weight}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{distances}\PYG{p}{[}\PYG{n}{v}\PYG{p}{]}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                        }\PYG{n}{distances}\PYG{p}{[}\PYG{n}{v}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{distances}\PYG{p}{[}\PYG{n}{u}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{weight}\PYG{p}{;}
+\PYG{+w}{                        }\PYG{n}{predecessors}\PYG{p}{[}\PYG{n}{v}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{u}\PYG{p}{;}
+\PYG{+w}{                        }\PYG{n}{anyDistanceChanged}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{true}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{                    }\PYG{c+c1}{// Для неориентированных графов проверяем также обратное направление}
+\PYG{+w}{                    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{IsDirected}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                        }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{distances}\PYG{p}{[}\PYG{n}{v}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{weight}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{distances}\PYG{p}{[}\PYG{n}{u}\PYG{p}{]}\PYG{p}{)}
+\PYG{+w}{                        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                            }\PYG{n}{distances}\PYG{p}{[}\PYG{n}{u}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{distances}\PYG{p}{[}\PYG{n}{v}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{weight}\PYG{p}{;}
+\PYG{+w}{                            }\PYG{n}{predecessors}\PYG{p}{[}\PYG{n}{u}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{v}\PYG{p}{;}
+\PYG{+w}{                            }\PYG{n}{anyDistanceChanged}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{true}\PYG{p}{;}
+\PYG{+w}{                        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{                }\PYG{c+c1}{// Если на данной итерации не изменилось ни одно расстояние, можно остановиться}
+\PYG{+w}{                }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{anyDistanceChanged}\PYG{p}{)}
+\PYG{+w}{                    }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{c+c1}{// Проверка на наличие циклов отрицательного веса}
+\PYG{+w}{            }\PYG{k+kt}{bool}\PYG{+w}{ }\PYG{n}{hasNegativeCycle}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{CheckNegativeCycle}\PYG{p}{(}\PYG{n}{graph}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{edges}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{distances}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{hasNegativeCycle}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{return}\PYG{+w}{ }\PYG{k}{null}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Цикл отрицательного веса обнаружен}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{k}{return}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n+nf}{BellmanFordResult}\PYG{p}{(}\PYG{n}{startVertex}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{distances}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{predecessors}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

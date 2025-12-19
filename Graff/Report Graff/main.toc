@@ -1,0 +1,26 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{\numberline {1}Класс Граф}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Задание}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Реализация}{4}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Консольный интерфейс}{18}{section.2}%
+\contentsline {section}{\numberline {3}Список смежности}{28}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Задания}{28}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Реализация}{28}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Примеры}{34}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Обходы графа}{34}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Задания}{34}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Реализация}{35}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Примеры}{38}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Построение минимального остовного дерева}{39}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Задания}{39}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Реализация}{39}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Примеры}{43}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Взвешенный граф}{43}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Задания}{43}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Реализация}{43}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Примеры}{53}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Потоки}{55}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Задание}{55}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Реализация}{55}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Примеры}{60}{subsection.7.3}%
+\contentsfinish 

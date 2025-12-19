@@ -1,0 +1,109 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+
+\PYG{+w}{        }\PYG{k}{public}\PYG{+w}{ }\PYG{n+nf}{DegreeCalculator}\PYG{p}{(}\PYG{n}{Graph}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{this}\PYG{p}{.}\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{+w}{ }\PYG{o}{??}\PYG{+w}{ }\PYG{k}{throw}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{ArgumentNullException}\PYG{p}{(}\PYG{n}{nameof}\PYG{p}{(}\PYG{n}{graph}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{        }\PYG{c+c1}{// Метод для вычисления и вывода степени каждой вершины}
+\PYG{+w}{        }\PYG{k}{public}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{CalculateAndPrintDegrees}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{VertexCount}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Граф пуст.\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{return}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{vertices}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetVertices}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{IsDirected}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{c+c1}{// Для неориентированного графа степень вершины равна количеству смежных рёбер}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}=== СТЕПЕНИ ВЕРШИН (неориентированный граф) ===\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{vertex}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{vertices}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{degree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetAdjacentVertices}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{.}\PYG{n}{Count}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Вершина \PYGZob{}vertex\PYGZcb{}: степень \PYGZob{}degree\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{else}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{c+c1}{// Для ориентированного графа считаем полустепени исхода и захода}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}=== СТЕПЕНИ ВЕРШИН (ориентированный граф) ===\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}(Полустепень исхода / Полустепень захода / Суммарная степень)\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{                }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{vertex}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{vertices}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{outDegree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetAdjacentVertices}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{.}\PYG{n}{Count}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// смежные вершины \PYGZhy{} это исходящие рёбра}
+\PYG{+w}{                    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{CalculateInDegree}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// нужно посчитать входящие рёбра}
+\PYG{+w}{                    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{totalDegree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{outDegree}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{p}{;}
+
+\PYG{+w}{                    }\PYG{n}{Console}\PYG{p}{.}\PYG{n}{WriteLine}\PYG{p}{(}\PYG{l+s}{\PYGZdl{}\PYGZdq{}Вершина \PYGZob{}vertex\PYGZcb{}: исходящая = \PYGZob{}outDegree\PYGZcb{}, входящая = \PYGZob{}inDegree\PYGZcb{}, общая = \PYGZob{}totalDegree\PYGZcb{}\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{        }\PYG{c+c1}{// Вспомогательный метод для вычисления полустепени захода в ориентированном графе}
+\PYG{+w}{        }\PYG{k}{private}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{CalculateInDegree}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{vertex}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{ContainsVertex}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                }\PYG{k}{return}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{allVertices}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetVertices}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{v}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{allVertices}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{v}\PYG{+w}{ }\PYG{o}{!=}\PYG{+w}{ }\PYG{n}{vertex}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{c+c1}{// Проверяем, есть ли ребро из v в vertex}
+\PYG{+w}{                    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{ContainsEdge}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                        }\PYG{n}{inDegree}\PYG{o}{++}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{                }\PYG{k}{else}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{c+c1}{// Петля учитывается и как входящее, и как исходящее ребро}
+\PYG{+w}{                    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{ContainsEdge}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                        }\PYG{n}{inDegree}\PYG{o}{++}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{        }\PYG{c+c1}{// Метод для получения словаря степеней (может пригодиться для других операций)}
+\PYG{+w}{        }\PYG{k}{public}\PYG{+w}{ }\PYG{n}{Dictionary}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{GetDegreeDictionary}\PYG{p}{(}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{degreeDict}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{Dictionary}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{vertices}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetVertices}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{graph}\PYG{p}{.}\PYG{n}{IsDirected}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{vertex}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{vertices}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{n}{degreeDict}\PYG{p}{[}\PYG{n}{vertex}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetAdjacentVertices}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{.}\PYG{n}{Count}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{else}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{k}{foreach}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{vertex}\PYG{+w}{ }\PYG{k}{in}\PYG{+w}{ }\PYG{n}{vertices}\PYG{p}{)}
+\PYG{+w}{                }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{outDegree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{.}\PYG{n}{GetAdjacentVertices}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{.}\PYG{n}{Count}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{CalculateInDegree}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                    }\PYG{n}{degreeDict}\PYG{p}{[}\PYG{n}{vertex}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{outDegree}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{p}{;}
+\PYG{+w}{                }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{            }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{degreeDict}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{        }\PYG{c+c1}{// Статический метод для быстрого использования без создания экземпляра класса}
+\PYG{+w}{        }\PYG{k}{public}\PYG{+w}{ }\PYG{k}{static}\PYG{+w}{ }\PYG{k}{void}\PYG{+w}{ }\PYG{n+nf}{CalculateDegrees}\PYG{p}{(}\PYG{n}{Graph}\PYG{+w}{ }\PYG{n}{graph}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k+kt}{var}\PYG{+w}{ }\PYG{n}{calculator}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k}{new}\PYG{+w}{ }\PYG{n}{DegreeCalculator}\PYG{p}{(}\PYG{n}{graph}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{calculator}\PYG{p}{.}\PYG{n}{CalculateAndPrintDegrees}\PYG{p}{(}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

@@ -20,7 +20,9 @@ using System.Threading.Tasks;
 // ===ВЗВЕШАННЫЙ ГРАФ===
 // Задание 8 Вариант 9 Дейкстра
 // Задание 9 Вариант 5 Беллман Форд
-// Задание 10 Вариант 16
+// Задание 10 Вариант 16 Флойд
+//===ПОТОКИ===
+// Задание 11 алгоритм Форда Фалкерсона
 
 
 
@@ -66,6 +68,7 @@ namespace Graph1
                     case "16": FindAllPairsShortestPaths(); break; // Задание 8 - Вариант 9 алгоритм Дейкстры
                     case "17": RunBellmanFord(); break; // Задание 9 - Вариант 5 алгоритм Белман Форд
                     case "18": RunFloydWarshall(); break; // Задание 10 - Вариант 16 алгоритм Флойда
+                    case "19": RunFordFulkerson(); break; // Задание 11 - Алгоритм Форда-Фалкерсона
 
 
 
@@ -155,6 +158,7 @@ namespace Graph1
             Console.WriteLine("16. Найти кратчайшие пути для всех пар вершин (алгоритм Дейкстры)");
             Console.WriteLine("17. Найти кратчайшие пути (Беллмана-Форда)");
             Console.WriteLine("18. Найти кратчайшие пути для всех пар вершин (алгоритм Флойда-Уоршелла)");
+            Console.WriteLine("19. Найти максимальный поток (алгоритм Форда-Фалкерсона)");
 
 
 
@@ -600,6 +604,39 @@ namespace Graph1
         }
 
         //
+
+        // Задание 11 алгоритма Форда-Фалкерсона
+        static void RunFordFulkerson()
+        {
+            if (graph == null)
+            {
+                Console.WriteLine("Граф не создан!");
+                return;
+            }
+
+            Console.WriteLine("=== АЛГОРИТМ ФОРДА-ФАЛКЕРСОНА ===");
+            Console.WriteLine("Выберите действие:");
+            Console.WriteLine("1. Найти максимальный поток в текущем графе. Автомтический(без выбора)");
+            Console.WriteLine("2. Найти максимальный поток в текущем графе. С выбором");
+
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    FordFulkersonAlgorithm.Demonstrate(graph);
+                    break;
+                case "2":
+                    FordFulkersonAlgorithm.FindMaxFlowInteractive(graph);
+                    break;
+                default:
+                    Console.WriteLine("Неверный выбор!");
+                    break;
+            }
+        }
+
+
+
         static void ShowGraphInfo()
         {
             Console.WriteLine("=== ИНФОРМАЦИЯ О ГРАФЕ ===");

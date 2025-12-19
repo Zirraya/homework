@@ -139,7 +139,7 @@ namespace Graph1
             }
             else
             {
-                Console.WriteLine($"Можно получить ориентированное дерево удалением одной вершины.");
+                Console.WriteLine($"Можно получить ориентированное дерево удалением вершины/вершин.");
                 Console.WriteLine($"Подходящие вершины для удаления: {string.Join(", ", validRemovals.OrderBy(v => v))}");
             }
         }
