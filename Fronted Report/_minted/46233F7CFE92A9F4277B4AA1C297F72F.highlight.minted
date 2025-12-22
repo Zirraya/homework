@@ -1,0 +1,22 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+
+\PYG{+w}{        }\PYG{c+c1}{// Проверка, является ли вершина изолированной}
+\PYG{+w}{        }\PYG{k}{public}\PYG{+w}{ }\PYG{k+kt}{bool}\PYG{+w}{ }\PYG{n+nf}{IsIsolatedVertex}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{vertex}\PYG{p}{)}
+\PYG{+w}{        }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{originalGraph}\PYG{p}{.}\PYG{n}{ContainsVertex}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{)}
+\PYG{+w}{                }\PYG{k}{return}\PYG{+w}{ }\PYG{k}{false}\PYG{p}{;}
+
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{originalGraph}\PYG{p}{.}\PYG{n}{IsDirected}\PYG{p}{)}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{c+c1}{// Для неориентированного графа: нет инцидентных ребер}
+\PYG{+w}{                }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{originalGraph}\PYG{p}{.}\PYG{n}{GetAdjacentVertices}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{.}\PYG{n}{Count}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{            }\PYG{k}{else}
+\PYG{+w}{            }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{c+c1}{// Для ориентированного графа: нет входящих и исходящих ребер}
+\PYG{+w}{                }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{outDegree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{originalGraph}\PYG{p}{.}\PYG{n}{GetAdjacentVertices}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{.}\PYG{n}{Count}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{CalculateInDegree}\PYG{p}{(}\PYG{n}{vertex}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{outDegree}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m}{0}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n}{inDegree}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m}{0}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

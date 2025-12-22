@@ -1,0 +1,9 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{\cyrillictext \CYRV \CYRV \CYRE \CYRD \CYRE \CYRN \CYRI \CYRE }{4}{section*.1}%
+\contentsline {section}{\numberline {1}Отображение текущих задач}{5}{section.1}%
+\contentsline {section}{\numberline {2}Создание и сохранение задач}{8}{section.2}%
+\contentsline {section}{\numberline {3}Удаление задачи}{9}{section.3}%
+\contentsline {section}{\numberline {4}Копирование задачи}{10}{section.4}%
+\contentsline {section}{\numberline {5}Редактирование задачи}{11}{section.5}%
+\contentsline {section}{\cyrillictext \CYRZ \CYRA \CYRK \CYRL \CYRYU \CYRCH \CYRE \CYRN \CYRI \CYRE }{12}{section*.2}%
+\contentsfinish 

@@ -1,0 +1,403 @@
+\documentclass[bachelor, och, pract, times]{SCWorks}
+% параметр - тип обучения - одно из значений:
+%    spec     - специальность
+%    bachelor - бакалавриат (по умолчанию)
+%    master   - магистратура
+% параметр - форма обучения - одно из значений:
+%    och   - очное (по умолчанию)
+%    zaoch - заочное
+% параметр - тип работы - одно из значений:
+%    referat    - реферат
+%    coursework - курсовая работа (по умолчанию)
+%    diploma    - дипломная работа
+%    pract      - отчет по практике
+%    pract      - отчет о научно-исследовательской работе
+%    autoref    - автореферат выпускной работы
+%    assignment - задание на выпускную квалификационную работу
+%    review     - отзыв руководителя
+%    critique   - рецензия на выпускную работу
+% параметр - включение шрифта
+%    times    - включение шрифта Times New Roman (если установлен)
+%               по умолчанию выключен 
+%убирание преносов слов
+\tolerance = 1
+\emergencystretch = \maxdimen
+\hbadness = 10000
+
+\usepackage{listings}
+\input{preamble.sty}
+
+
+
+\begin{document}
+    
+   % Кафедра (в родительном падеже)
+    %\chair{математической кибернетики и компьютерных наук}
+    \chair{информатики и программирования}
+    % Тема работы
+    \title{Проектная практика}
+    
+    % Курс
+    \course{3}
+    
+    % Группа
+    \group{311}
+    
+    % Факультет (в родительном падеже) (по умолчанию "факультета КНиИТ")
+    \department{факультета компьютерных наук и информационных технологий}
+    
+    % Специальность/направление код - наименование
+    
+    \napravlenie{02.03.02 "--- Фундаментальная информатика и информационные технологии}
+    
+    % Для студентки. Для работы студента следующая команда не нужна.
+    \studenttitle{студентки}
+    
+    % Фамилия, имя, отчество в родительном падеже
+    \author{Никитенко Яны Валерьевны}
+
+    % Заведующий кафедрой
+\chtitle{доцент, к. ф.-м. н.} % степень, звание
+\chname{С.\,В.\,Миронов}
+
+%Научный руководитель (для реферата преподаватель проверяющий работу)
+\satitle{доцент, к. ф.-м. н.}
+\saname{А.\,С.\,Иванова}
+
+% Руководитель практики от организации (только для практики,
+% для остальных типов работ не используется)
+\patitle{доцент, к. ф.-м. н.} 
+\paname{А.\,С.\,Иванова}
+
+% Семестр (только для практики, для остальных
+% типов работ не используется)
+\term{1}
+
+% Наименование практики (только для практики, для остальных
+% типов работ не используется)
+\practtype{учебная}
+
+% Семестр (только для практики, для остальных
+% типов работ не используетс
+    
+    % Заведующий кафедрой 
+    %\chtitle{доцент, к.\,ф.-м.\,н.}
+    %\chname{С.\,В.\,Миронов}
+    % Научный руководитель (для реферата преподаватель проверяющий работу)
+    %\satitle{доцент, к.\,ф.-м.\,н.} %должность, степень, звание
+    %\saname{А.\,П.\,Грецова}
+    % Руководитель ДПП ПП для цифровой кафедры (перекрывает заведующего кафедры)
+    % \chpretitle{
+    %     заведующий кафедрой математических основ информатики и олимпиадного\\
+    %     программирования на базе МАОУ <<Ф"=Т лицей №1>>
+    % }
+    % \chtitle{г. Саратов, к.\,ф.-м.\,н., доцент}
+    % \chname{Кондратова\, Ю.\,Н.}
+    \date{2025}
+    
+    
+    % Руководитель практики от организации (руководитель для цифровой кафедры)
+    %\patitle{доцент, к.\,ф.-м.\,н.}
+    %\paname{С.\,В.\,Миронов}
+    
+    % Руководитель НИР
+    %\nirtitle{доцент, к.\,п.\,н.} % степень, звание
+    %\nirname{В.\,А.\,Векслер}
+    
+    % Семестр (только для практики, для остальных типов работ не используется)
+    %\term{2}
+    
+    % Наименование практики (только для практики, для остальных типов работ не
+    % используется)
+    %\practtype{учебная}
+    
+    % Продолжительность практики (количество недель) (только для практики, для
+    % остальных типов работ не используется)
+    \duration{2}
+    
+    % Даты начала и окончания практики (только для практики, для остальных типов
+    % работ не используется)
+    \practStart{01.09.2025}
+    \practFinish{30.12.2025 }
+    
+    % Год выполнения отчета
+   
+    
+    \maketitle
+
+    
+    % Включение нумерации рисунков, формул и таблиц по разделам
+    % (по умолчанию - нумерация сквозная)
+    % (допускается оба вида нумерации)
+    %\secNumbering
+
+    
+    
+    \tableofcontents
+    
+    % Раздел "Обозначения и сокращения". Может отсутствовать в работе
+    %\abbreviations
+    %\begin{description}
+    %    \item $|A|$  "--- количество элементов в конечном множестве $A$;
+    %    \item $\det B$  "--- определитель матрицы $B$;
+    %    \item ИНС "--- Искусственная нейронная сеть;
+    %    \item FANN "--- Feedforward Artifitial Neural Network
+    %\end{description}
+    
+    % Раздел "Определения". Может отсутствовать в работе
+    %\definitions
+    
+    % Раздел "Определения, обозначения и сокращения". Может отсутствовать в работе.
+    % Если присутствует, то заменяет собой разделы "Обозначения и сокращения" и "Определения"
+    %\defabbr
+    
+    
+    % Раздел "Введение"
+ \intro   
+
+
+Данный проект представляет собой одностраничное веб-приложение для управления списком дел "Сервис To-do", 
+разработанное в рамках практического задания по фронтенд-разработке. 
+Пользователь сможет просматривать, добавлять, удалять, копировать и редактировать задачи. 
+А все данные будут сохраняться в локальное хранилище, 
+чтобы они не терялись при перезагрузке страницы.
+
+\section{Отображение текущих задач}   
+При загрузке страницы пользователь должен видеть список текущих задач. Для этого 
+реализовано две функции:
+\begin{enumerate}
+    \item Функция loadInitialTasks  
+    
+    Она отвечает за получение списка задач. служит для загрузки начального списка задач 
+    из локального хранилища браузера (localStorage) или использования дефолтного массива items, 
+    если сохранённых задач нет.
+
+\begin{verbatim}
+function loadInitialTasks() {
+    const savedTasks = localStorage.getItem('items');
+    return savedTasks ? JSON.parse(savedTasks) : [...items];
+}
+\end{verbatim}
+Если savedTasks существует (не null/undefined), парсит JSON-строку в массив и возвращает его.
+
+Если сохранённых задач нет, возвращает копию исходного массива items (через spread-оператор [...items])
+
+\item Функция createTaskElement 
+
+Она создает и возвращает готовый DOM-элемент задачи для списка дел, 
+полностью настроенный со всеми необходимыми обработчиками событий.
+
+\begin{verbatim}
+    const template = document.getElementById("to-do__item-template");
+    const taskElement=template.content.querySelector(".to-do__item").cloneNode(true);
+\end{verbatim}
+
+
+\vspace{5mm}
+
+ Клонирование шаблона
+\begin{itemize}
+    \item Находит HTML-шаблон с id "to-do\_\_item-template".
+    \item Клонирует элемент с классом .to-do\_\_item из содержимого шаблона.
+    \item cloneNode(true) - глубокое клонирование (со всеми дочерними элементами).
+\end{itemize}
+
+
+\vspace{5mm}
+
+Поиск внутренних элементов
+
+
+\begin{verbatim}
+ const taskTextElement = taskElement.querySelector(".to-do__item-text");
+  const deleteButton = taskElement.querySelector(".to-do__item-button_type_delete");
+  const duplicateButton = taskElement.querySelector(".to-do__item-button_type_duplicate");
+  const editButton = taskElement.querySelector(".to-do__item-button_type_edit");
+\end{verbatim}
+
+Находит все необходимые элементы внутри клонированного шаблона:
+\begin{itemize}
+    \item Элемент для текста задачи
+    \item Кнопку удаления
+    \item Кнопку дублирования
+    \item Кнопку редактирования
+\end{itemize}
+
+\vspace{5mm}
+
+ Установка текста задачи
+
+taskTextElement.textContent = taskText;
+
+Устанавливает переданный текст задачи в соответствующий элемент
+
+\vspace{5mm}
+
+Назначение обработчиков событий на кнопки
+\begin{verbatim}
+deleteButton.addEventListener('click', () => {
+  removeTask(taskElement);
+});
+\end{verbatim}
+При клике на кнопку удаления вызывает функцию removeTask()
+
+Дублирование задачи:
+\begin{verbatim}
+duplicateButton.addEventListener('click', () => {
+  duplicateTask(taskTextElement);
+});
+\end{verbatim}
+
+Редактирование задачи:
+\begin{verbatim}
+editButton.addEventListener('click', () => {
+  enableTaskEditing(taskTextElement);
+});
+\end{verbatim}
+
+\vspace{5mm}
+
+Обработчики для редактирования текста
+
+Завершение редактирования (потеря фокуса):
+\begin{verbatim}
+taskTextElement.addEventListener('blur', () => {
+  finishTaskEditing(taskTextElement);
+});
+\end{verbatim}
+
+Завершение редактирования (клавиша Enter):
+\begin{verbatim}
+taskTextElement.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    taskTextElement.blur();
+  }
+});
+\end{verbatim}
+
+\vspace{5mm}
+
+ Возврат готового элемента
+
+ return taskElement;
+
+\end{enumerate}
+
+   
+\section{Создание и сохранение задач}
+
+Установлен слушатель на событие submit формы и написан обработчик. 
+Элемент формы уже доступен через переменную formElement.
+
+Внутри обработчика:
+\begin{itemize}
+    \item Отключена перезагрузка страницы при отправке формы.
+    \item Получение текста задачи из поля ввода. Элемент поля ввода доступен через переменную inputElement.
+    \item Создание готовой разметки элемента задачи с помощью функции addNewTask() 
+    и добавление её в начало контейнера .to-do\_\_list с помощью метода prepend. 
+    Контейнер доступен через переменную listElement.
+    \item Очищение поля ввода.
+\end{itemize}
+
+Функция getAllTasks - собирает список задач из текущей разметки и возвращает его в виде массива строк.
+\begin{verbatim}
+ function getAllTasks() {
+  const taskElements = listElement.querySelectorAll('.to-do__item-text');
+  const currentTasks = [];
+  
+  taskElements.forEach(element => {
+    currentTasks.push(element.textContent);
+  });
+  
+  return currentTasks;
+}   
+\end{verbatim}
+
+
+Функция updateStoredTasks - сохраняет в локальное хранилище переданный в параметре массив строк задач
+\begin{verbatim}
+function updateStoredTasks() {
+  const currentTasks = getAllTasks();
+  localStorage.setItem('items', JSON.stringify(currentTasks));
+}    
+\end{verbatim}
+
+\section{Удаление задачи}
+Добавлен обработчик события click. 
+Кнопка удаления задачи уже доступна через переменную deleteButton.
+
+Внутри обработчика:
+\begin{itemize}
+    \item Удаление текущего элемента задачи, с помощью метода remove
+    \item Создание переменной items. Результат выполнения функции getAllTasks
+    \item Сохранение в локальное хранилище с помощью вызова функции updateStoredTasks
+\end{itemize}
+
+
+\section{Копирование задачи}
+
+К кнопке с классом .to-do\_\_item-button\_type\_duplicate добавлен обработчик событий click.
+
+Внутри обработчика:
+\begin{itemize}
+    \item Получение текста текущей задачи из элемента taskTextElement
+    \item Создание нового элемента задачи с помощью функции createTaskElement, передавая текущий текст
+    \item Добавление новой задачи в начало списка с помощью метода prepend
+    \item Обновление данных в локальном хранилище с помощью функции updateStoredTasks
+\end{itemize}
+
+Пример кода функции duplicateTask:
+\begin{verbatim}
+function duplicateTask(taskTextElement) {
+  const currentText = taskTextElement.textContent;
+  const newTaskElement = createTaskElement(currentText);
+  listElement.prepend(newTaskElement);
+  updateStoredTasks();
+}
+\end{verbatim}
+
+\section{Редактирование задачи}
+
+Для редактирования задачи реализованы две функции:
+\begin{itemize}
+    \item Функция enableTaskEditing - включает режим редактирования для элемента задачи
+    \item Функция finishTaskEditing - завершает редактирование и сохраняет изменения
+\end{itemize}
+
+Пример кода функций:
+\begin{verbatim}
+function enableTaskEditing(taskTextElement) {
+  taskTextElement.setAttribute('contenteditable', 'true');
+  taskTextElement.focus();
+}
+
+function finishTaskEditing(taskTextElement) {
+  taskTextElement.setAttribute('contenteditable', 'false');
+  updateStoredTasks();
+}
+\end{verbatim}
+
+
+
+\conclusion 
+
+В ходе выполнения проектной работы было разработано одностраничное веб-приложение "Сервис To-do" 
+с полным набором функций для управления задачами. Приложение позволяет:
+
+\begin{itemize}
+    \item Просматривать список текущих задач
+    \item Добавлять новые задачи через форму ввода
+    \item Удалять существующие задачи
+    \item Дублировать задачи для быстрого создания похожих записей
+    \item Редактировать текст задач непосредственно в интерфейсе
+    \item Автоматически сохранять все изменения в локальное хранилище браузера
+\end{itemize}
+
+Были успешно реализованы все основные функции управления задачами, 
+а также обеспечено сохранение данных между сессиями. 
+Приложение имеет интуитивно понятный интерфейс и отвечает современным требованиям к веб-приложениям.
+
+
+    
+\end{document}
