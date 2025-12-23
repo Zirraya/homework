@@ -157,19 +157,19 @@
 
 
 Данный проект представляет собой одностраничное веб-приложение для управления списком дел "Сервис To-do", 
-разработанное в рамках практического задания по фронтенд-разработке. 
+разработанное в рамках практического задания по фронтенд-разработке\cite{search1}. 
 Пользователь сможет просматривать, добавлять, удалять, копировать и редактировать задачи. 
 А все данные будут сохраняться в локальное хранилище, 
 чтобы они не терялись при перезагрузке страницы.
 
 \section{Отображение текущих задач}   
-При загрузке страницы пользователь должен видеть список текущих задач. Для этого 
-реализовано две функции:
+При загрузке страницы пользователь должен видеть список текущих задач(см. рисунок ~\ref{fig:simple-01}). Для этого 
+реализовано две функции\cite{book}:
 \begin{enumerate}
     \item Функция loadInitialTasks  
     
     Она отвечает за получение списка задач. служит для загрузки начального списка задач 
-    из локального хранилища браузера (localStorage) или использования дефолтного массива items, 
+    из локального хранилища браузера (localStorage) или использования дефолтного массива\cite{search9} items, 
     если сохранённых задач нет.
 
 \begin{verbatim}
@@ -182,9 +182,18 @@ function loadInitialTasks() {
 
 Если сохранённых задач нет, возвращает копию исходного массива items (через spread-оператор [...items])
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{Скрины/Снимок экрана 2025-12-22 235144.png}
+    \caption{Список дел}
+    \label{fig:simple-01}
+\end{figure}
+
+
+
 \item Функция createTaskElement 
 
-Она создает и возвращает готовый DOM-элемент задачи для списка дел, 
+Она создает и возвращает готовый DOM-элемент\cite{search2} задачи для списка дел, 
 полностью настроенный со всеми необходимыми обработчиками событий.
 
 \begin{verbatim}
@@ -287,7 +296,7 @@ taskTextElement.addEventListener('keydown', (event) => {
    
 \section{Создание и сохранение задач}
 
-Установлен слушатель на событие submit формы и написан обработчик. 
+Установлен слушатель на событие\cite{search5} submit\cite{search7} формы и написан обработчик. 
 Элемент формы уже доступен через переменную formElement.
 
 Внутри обработчика:
@@ -315,7 +324,7 @@ taskTextElement.addEventListener('keydown', (event) => {
 \end{verbatim}
 
 
-Функция updateStoredTasks - сохраняет в локальное хранилище переданный в параметре массив строк задач
+Функция updateStoredTasks - сохраняет в локальное хранилище\cite{search4} переданный в параметре массив строк задач
 \begin{verbatim}
 function updateStoredTasks() {
   const currentTasks = getAllTasks();
@@ -323,21 +332,60 @@ function updateStoredTasks() {
 }    
 \end{verbatim}
 
+Пример создания задачи. После нажатие кнопки "Добавить" задача попадет в список\cite{search8}. 
+Смотреть рисунок~\ref{fig:simple-02} 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{Скрины/Снимок экрана 2025-12-23 000421.png}
+    \caption{Создание задачи}
+    \label{fig:simple-02}
+\end{figure}
+
+Сохранение задачи. Смотреть рисунок~\ref{fig:simple-05}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{Скрины/Снимок экрана 2025-12-23 001622.png}
+    \caption{Сохраненная задача}
+    \label{fig:simple-05}
+\end{figure}
+
 \section{Удаление задачи}
 Добавлен обработчик события click. 
-Кнопка удаления задачи уже доступна через переменную deleteButton.
+Кнопка удаления(см. рисунок ~\ref{fig:simple-03}) задачи уже доступна через переменную deleteButton.
 
 Внутри обработчика:
 \begin{itemize}
-    \item Удаление текущего элемента задачи, с помощью метода remove
+    \item Удаление текущего элемента задачи\cite{search3}, с помощью метода remove
     \item Создание переменной items. Результат выполнения функции getAllTasks
     \item Сохранение в локальное хранилище с помощью вызова функции updateStoredTasks
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{Скрины/Снимок экрана 2025-12-23 001202.png}
+    \caption{Кнопка удаления}
+    \label{fig:simple-03}
+\end{figure}
+
+Результат кнопки "Удалить"~\ref{fig:simple-04}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{Скрины/Снимок экрана 2025-12-23 001640.png}
+    \caption{Результат удаления}
+    \label{fig:simple-04}
+\end{figure}
 
 \section{Копирование задачи}
 
-К кнопке с классом .to-do\_\_item-button\_type\_duplicate добавлен обработчик событий click.
+К кнопке с классом .to-do\_\_item-button\_type\_duplicate\cite{search6} добавлен обработчик событий 
+click(см. рисунок ~\ref{fig:simple-25}).
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{Скрины/Снимок экрана 2025-12-23 002819.png}
+    \caption{Кнопка "Копировать"}
+    \label{fig:simple-25}
+\end{figure}
+
 
 Внутри обработчика:
 \begin{itemize}
@@ -357,6 +405,17 @@ function duplicateTask(taskTextElement) {
 }
 \end{verbatim}
 
+
+Результат копирования представлен на рисунке ~\ref{fig:simple-21}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{Скрины/Снимок экрана 2025-12-23 003202.png}
+    \caption{Результат копирования}
+    \label{fig:simple-21}
+\end{figure}
+
+
 \section{Редактирование задачи}
 
 Для редактирования задачи реализованы две функции:
@@ -364,6 +423,16 @@ function duplicateTask(taskTextElement) {
     \item Функция enableTaskEditing - включает режим редактирования для элемента задачи
     \item Функция finishTaskEditing - завершает редактирование и сохраняет изменения
 \end{itemize}
+
+Кнопка для редактирования(см. рисунок ~\ref{fig:simple-75})
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{Скрины/Снимок экрана 2025-12-23 002812.png}
+    \caption{Кнопка "Редактировать"}
+    \label{fig:simple-75}
+\end{figure}
+
 
 Пример кода функций:
 \begin{verbatim}
@@ -378,6 +447,23 @@ function finishTaskEditing(taskTextElement) {
 }
 \end{verbatim}
 
+
+
+Пример редактирования задачи представлен на рисунках ~\ref{fig:simple-06} и ~\ref{fig:simple-73}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{Скрины/Снимок экрана 2025-12-23 002155.png}
+    \caption{Редактирование задачи}
+    \label{fig:simple-06}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.3]{Скрины/Снимок экрана 2025-12-23 002220.png}
+    \caption{Отредактированная задача}
+    \label{fig:simple-73}
+\end{figure}
 
 
 \conclusion 
@@ -399,5 +485,22 @@ function finishTaskEditing(taskTextElement) {
 Приложение имеет интуитивно понятный интерфейс и отвечает современным требованиям к веб-приложениям.
 
 
+
+ \bibliographystyle{ugost2008.bst}
+  \bibliography{thesis}
+  \appendix
     
+\section{Flash-носитель с отчетом о выполненной работе}
+На приложенном flash-накопителе можно ознакомиться со следующими
+файлами:
+
+\begin{description}
+\item[Папка \texttt{Fronted Report}] "---   \LaTeX- вариант проектной практики;
+\item[Папка \texttt{to-do-pre}] "--- весь исходный код;
+
+\item[\texttt{main.pdf}] "--- отчет о выполненной проектной практики.
+\end{description}
+
+
+
 \end{document}

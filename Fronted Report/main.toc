@@ -2,8 +2,33 @@
 \contentsline {section}{\cyrillictext \CYRV \CYRV \CYRE \CYRD \CYRE \CYRN \CYRI \CYRE }{4}{section*.1}%
 \contentsline {section}{\numberline {1}Отображение текущих задач}{5}{section.1}%
 \contentsline {section}{\numberline {2}Создание и сохранение задач}{8}{section.2}%
-\contentsline {section}{\numberline {3}Удаление задачи}{9}{section.3}%
-\contentsline {section}{\numberline {4}Копирование задачи}{10}{section.4}%
-\contentsline {section}{\numberline {5}Редактирование задачи}{11}{section.5}%
-\contentsline {section}{\cyrillictext \CYRZ \CYRA \CYRK \CYRL \CYRYU \CYRCH \CYRE \CYRN \CYRI \CYRE }{12}{section*.2}%
+\contentsline {section}{\numberline {3}Удаление задачи}{10}{section.3}%
+\contentsline {section}{\numberline {4}Копирование задачи}{11}{section.4}%
+\contentsline {section}{\numberline {5}Редактирование задачи}{12}{section.5}%
+\contentsline {section}{\cyrillictext \CYRZ \CYRA \CYRK \CYRL \CYRYU \CYRCH \CYRE \CYRN \CYRI \CYRE }{14}{section*.12}%
+\contentsline {section}{\cyrillictext \CYRS \CYRP \CYRI \CYRS \CYRO \CYRK \ \CYRI \CYRS \CYRP \CYRO \CYRL \CYRSFTSN \CYRZ \CYRO \CYRV \CYRA \CYRN \CYRN \CYRERY \CYRH \ \CYRI \CYRS \CYRT \CYRO \CYRCH \CYRN \CYRI \CYRK \CYRO \CYRV }{15}{section*.13}%
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\babel@toc {russian}{}\relax 
+\redeflsection 
+\ttl@change@i {\@ne }{section}{3ex}{\hspace {-3ex}}{\appendixname ~\thecontentslabel \hspace {2ex}}{\hspace {2.3em}}{\titlerule *[0.98ex]{.}\contentspage }\relax 
+\ttl@change@v {section}{}{}{}\relax 
+\contentsline {section}{\numberline {\CYRA }Flash-носитель с отчетом о выполненной работе}{16}{appendix.A}%
 \contentsfinish 
