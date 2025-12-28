@@ -135,7 +135,7 @@
    
   
 
-\section{Раздел 1}
+\textbf{Раздел 1}
 
 1. По данным интерполяции построить интерполяционный многочлен в общем
 виде, в форме Лагранжа и в форме Ньютона.
@@ -158,9 +158,7 @@ F(k)   0   7   2   18
 #include <cmath>
 #include <string>
 #include <locale>
-
 using namespace std;
-
 // Функция для ввода данных с клавиатуры
 void inputData(vector<double>& x_data, vector<double>& f_data) {
     int n;
@@ -509,9 +507,7 @@ a0: 25
 #include <cmath>
 #include <string>
 #include <locale>
-
 using namespace std;
-
 // Структура для хранения коэффициентов полинома
 struct PolynomialCoeffs {
     double a3, a2, a1, a0;
@@ -717,7 +713,7 @@ $a_3 = 2.000000,\quad a_2 = 3.000000,\quad a_1 = 7.000000,\quad a_0 = 25.000000$
 
 \newpage  % Новая страница
 
-\section{Раздел 2}
+\textbf{Раздел 2}
 
 1. Решить систему линейных алгебраических уравнений методом Гаусса.
 
@@ -746,9 +742,7 @@ $a_3 = 2.000000,\quad a_2 = 3.000000,\quad a_1 = 7.000000,\quad a_0 = 25.000000$
 #include <iomanip>
 #include <cmath>
 #include <algorithm>
-
 using namespace std;
-
 // Функция для вывода матрицы
 void printMatrix(const vector<vector<double>>& A, const vector<double>& b) {
     int n = A.size();
@@ -896,9 +890,7 @@ A = \begin{pmatrix}
 #include <iomanip>
 #include <cmath>
 #include <algorithm>
-
 using namespace std;
-
 // Функция для ввода трехдиагональной матрицы с клавиатуры
 void inputTridiagonalMatrix(int n, vector<double>& a, 
 vector<double>& b, vector<double>& c) {
@@ -1075,9 +1067,7 @@ A = \begin{pmatrix}
 #include <iomanip>
 #include <cmath>
 #include <algorithm>
-
 using namespace std;
-
 // Функция для вывода матрицы
 void printMatrix(const vector<vector<double>>& A, const vector<double>& b) {
     int n = A.size();
@@ -1198,7 +1188,7 @@ int main() {
 
 \newpage  % Новая страница
 
-\section{Раздел 3}
+\textbf{Раздел 3}
 
 1. Решить задачу Коши методом Эйлера и усовершенствованным методом Эйлера:
 
@@ -1210,7 +1200,7 @@ $\quad y(x_0) = V x_0^2$
 Исходные данные
 
 Дифференциальное уравнение: $y' = 2Vx + Vx^2 - y$, $y(x_0) = Vx_0^2$ \\
-Параметры: $x_0 = 1$, $y_0 = 9$, $h = 1$, $n = 9$, $V = 9$
+Параметры: $x_0 = 1$, $y_0 = 5$, $h = 1$, $n = 5$, $V = 15$
 
 Текст программы
 
@@ -1219,9 +1209,7 @@ $\quad y(x_0) = V x_0^2$
 #include <iomanip>
 #include <vector>
 #include <cmath>
-
 using namespace std;
-
 // Функция правой части дифференциального уравнения
 double f(double x, double y, double V) {
     return 2 * V * x + V * x * x - y;
@@ -1342,40 +1330,32 @@ int main() {
 Вывод программы
 
 Метод Эйлера
-
 \begin{center}
-\begin{tabular}{|c|*{8}{r|}}
+\begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-$x:$ & 5.000 & 7.000 & 9.000 & 11.000 & 13.000 & 15.000 & 17.000 & 19.000 \\
+$x$: & 1.000 & 2.000 & 3.000 & 4.000 & 5.000 & 6.000 \\
 \hline
-$y_N:$ & 3.000 & 137.000 & 115.000 & 281.000 & 291.000 & 489.000 & 531.000 & 761.000 \\
-\hline
-$y_T:$ & 50.000 & 98.000 & 162.000 & 242.000 & 338.000 & 450.000 & 578.000 & 722.000 \\
-\hline
-$\Delta:$ & 47.000 & 39.000 & 47.000 & 39.000 & 47.000 & 39.000 & 47.000 & 39.000 \\
+$y_N$: & 5.000 & 45.000 & 120.000 & 225.000 & 360.000 & 525.000 \\
+$y_T$: & 15.000 & 60.000 & 135.000 & 240.000 & 375.000 & 540.000 \\
+Погрешность: & 10.000 & 15.000 & 15.000 & 15.000 & 15.000 & 15.000 \\
 \hline
 \end{tabular}
 \end{center}
 
 \vspace{5mm}
 
-\vspace{5mm}
-Усовершенствованный метод Эйлера:
-
+Усовершенствованный метод Эйлера
 \begin{center}
-\begin{tabular}{|c|*{8}{r|}}
+\begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-$x:$ & 5.000 & 7.000 & 9.000 & 11.000 & 13.000 & 15.000 & 17.000 & 19.000 \\
+$x$: & 1.000 & 2.000 & 3.000 & 4.000 & 5.000 & 6.000 \\
 \hline
-$y_N:$ & 3.000 & 55.000 & 123.000 & 207.000 & 307.000 & 423.000 & 555.000 & 703.000 \\
-\hline
-$y_T:$ & 50.000 & 98.000 & 162.000 & 242.000 & 338.000 & 450.000 & 578.000 & 722.000 \\
-\hline
-$\Delta:$ & 47.000 & 43.000 & 39.000 & 35.000 & 31.000 & 27.000 & 23.000 & 19.000 \\
+$y_N$: & 5.000 & 58.750 & 138.125 & 245.312 & 381.406 & 546.953 \\
+$y_T$: & 15.000 & 60.000 & 135.000 & 240.000 & 375.000 & 540.000 \\
+Погрешность: & 10.000 & 1.250 & 3.125 & 5.312 & 6.406 & 6.953 \\
 \hline
 \end{tabular}
 \end{center}
-
 \vspace{5mm}
 \textbf{Примечание:} В таблицах представлены значения, начиная с $x = 5.000$ (первые несколько точек были опущены для компактности). \\
 $y_N$ -- численное решение, $y_T$ -- точное решение, $\Delta$ -- абсолютная погрешность.
@@ -1383,9 +1363,7 @@ $y_N$ -- численное решение, $y_T$ -- точное решение
 \newpage  % Новая страница
 
 
-3. Метод неопределенных коэффициентов 
-решения кравевой задачи для ОДУ второго порядка.
-Решить краевую задачу ОДУ разностным методом 
+3. Решить краевую задачу разностным методом и методом неопределенных коэффициентов.
 
 \[
 y'' + x^{2} \, y' + x \, y = 10Vx - 3VTx^{3} - 2VT,
@@ -1409,9 +1387,7 @@ y(0) = 0, \quad y(T) = 0.
 #include <vector>
 #include <cmath>
 #include <algorithm>
-
 using namespace std;
-
 // Точное решение
 double y_exact(double x, double T) {
     return T * x * x * (x - T);
@@ -1599,10 +1575,8 @@ void solve_boundary_problem(double T, int n) {
 
 int main() {
     setlocale(LC_ALL, "RUS");
-
     double T;
     int n;
-
     // Ввод данных с клавиатуры
     cout << "Решение краевой задачи:" << endl;
     cout << "y'' + x^2 * y' + x * y = 10Vx - 3VTx^3 - 2VT" << endl;
@@ -1664,8 +1638,19 @@ $\text{погрешность}$ & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 
 \textbf{Раздел 4}
 
 1. Решить интегральное уравнение Фредгольма в случае вырожденного ядра.
+\[
+y(x) + \frac{1}{2} \int_0^1 \left( xt + x^2 t^2 + x^3 t^3 \right) y(t) \, dt = V * (\frac{4}{3}x + \frac{1}{4} x^2 + \frac{1}{5} x^3)
+\]
 
 Исходные данные
+
+V = 15
+
+V - номер варианта
+
+h = 3
+
+h - шаг
 
 Текст программы 
 
@@ -1677,9 +1662,7 @@ $\text{погрешность}$ & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 
 #include <vector>
 #include <functional>
 #include <clocale>
-
 using namespace std;
-
 double f(double x, double V) {
     return V * (4.0 / 3.0 * x + 1.0 / 4.0 * x * x + 1.0 / 5.0 * x * x * x);
 }
@@ -1837,37 +1820,209 @@ int main() {
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
- & 0.000000 & 0.100000 & 0.200000 & 0.300000 & 0.400000 & 0.500000 & 0.600000 & 0.700000 & 0.800000 & 0.900000 & 1.000000 \\
+$x$ & 0.000000 & 0.100000 & 0.200000 & 0.300000 & 0.400000 & 0.500000 & 0.600000 & 0.700000 & 0.800000 & 0.900000 & 1.000000 \\
 \hline
-$x$ &
-0.000000 & 0.100000 & 0.200000 & 0.300000 & 0.400000 &
-0.500000 & 0.600000 & 0.700000 & 0.800000 & 0.900000 & 1.000000 \\
+$y_{\text{численное}}$ & 0.000000 & 1.500000 & 3.000000 & 4.500000 & 6.000000 & 7.500000 & 9.000000 & 10.500000 & 12.000000 & 13.500000 & 15.000000 \\
 \hline
-$y_{\text{численное}}$ &
-0.000000 & 1.560316 & 3.103215 & 4.600901 & 6.025578 &
-7.349451 & 8.544724 & 9.583601 & 10.438287 & 11.080986 & 11.483902 \\
+$y_{\text{точное}}$ & 0.000000 & 1.500000 & 3.000000 & 4.500000 & 6.000000 & 7.500000 & 9.000000 & 10.500000 & 12.000000 & 13.500000 & 15.000000 \\
 \hline
-$y_{\text{точное}}$ &
-0.000000 & 1.500000 & 3.000000 & 4.500000 & 6.000000 &
-7.500000 & 9.000000 & 10.500000 & 12.000000 & 13.500000 & 15.000000 \\
-\hline
-Погрешность &
-0.000000 & 0.060316 & 0.103215 & 0.100901 & 0.025578 &
-0.150549 & 0.455276 & 0.916399 & 1.561713 & 2.419014 & 3.516098 \\
+Погрешность & 0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 \\
 \hline
 \end{tabular}%
 }
 \end{table}
 
+\newpage
 
 2. Решить интегральное уравнение Фредгольма с помощью квадратурного метода.
 
+\[
+y(x) + \frac{1}{2} \int_0^1 \left( xt + x^2 t^2 + x^3 t^3 \right) y(t) \, dt = V * (\frac{4}{3}x + \frac{1}{4} x^2 + \frac{1}{5} x^3)
+\]
 
 Исходные данные
 
-Тектс программы 
+V = 15
+
+V - номер варианта
+
+h = 0.1
+
+h - шаг
+
+Текст программы
+
+\begin{verbatim}
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+// Функция правой части уравнения
+double f(double x, double V) {
+    return V * (4.0 / 3.0 * x + 1.0 / 4.0 * x * x + 1.0 / 5.0 * x * x * x);
+}
+// Ядро интегрального уравнения
+double K(double x, double t) {
+    return x * t + x * x * t * t + x * x * x * t * t * t;
+}
+// Функция решения интегрального уравнения квадратурным методом
+void solve_fredholm(double V, double h, vector<double>& x_points,
+    vector<double>& y_numerical, vector<double>& y_exact,
+    vector<double>& error) {
+    // Создания узлов
+    int n = static_cast<int>((1.0 - 0.0) / h) + 1;
+    // Очищаем и резервируем память
+    x_points.clear();
+    y_numerical.clear();
+    y_exact.clear();
+    error.clear();
+    x_points.reserve(n);
+    y_numerical.reserve(n);
+    y_exact.reserve(n);
+    error.reserve(n);
+    // Заполняем узлы x
+    for (int i = 0; i < n; i++) {
+        x_points.push_back(i * h);
+    }
+    // Создание матрицы системы уравнений
+    vector<vector<double>> A(n, vector<double>(n, 0.0));
+    vector<double> b(n, 0.0);
+    // Заполняем матрицу A и вектор b
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i == j) {
+                // Диагональные элементы: 1 + h * K(x_i, x_i) / 2
+                A[i][j] = 1.0 + 0.5 * h * K(x_points[i], x_points[j]);
+            }
+            else {
+                // Недиагональные элементы: h * K(x_i, x_j) / 2
+                A[i][j] = 0.5 * h * K(x_points[i], x_points[j]);
+            }
+        }
+        // Правая часть
+        b[i] = f(x_points[i], V);
+    }
+    // Решение системы методом Гаусса
+    y_numerical.resize(n, 0.0);
+    // Прямой ход метода Гаусса
+    for (int k = 0; k < n; k++) {
+        // Нормализация строки
+        double div = A[k][k];
+        for (int j = k; j < n; j++) {
+            A[k][j] /= div;
+        }
+        b[k] /= div;
+        // Исключение переменной
+        for (int i = k + 1; i < n; i++) {
+            double factor = A[i][k];
+            for (int j = k; j < n; j++) {
+                A[i][j] -= factor * A[k][j];
+            }
+            b[i] -= factor * b[k];
+        }
+    }
+    // Обратный ход метода Гаусса
+    for (int k = n - 1; k >= 0; k--) {
+        y_numerical[k] = b[k];
+        for (int j = k + 1; j < n; j++) {
+            y_numerical[k] -= A[k][j] * y_numerical[j];
+        }
+    }
+    // Вычисляем точное решение и погрешность
+    for (int i = 0; i < n; i++) {
+        y_exact.push_back(V * x_points[i]);
+        error.push_back(fabs(y_numerical[i] - y_exact[i]));
+    }
+}
+int main() {
+    setlocale(LC_ALL, "RUS");
+    double V = 15;
+    double h;
+    // Ввод данных с клавиатуры
+    cout << "Решение интегрального уравнения Фредгольма" << endl;
+    cout << "Вариант 15" << endl;
+    cout << "Введите шаг h (например, 0.1): ";
+    cin >> h;
+    // Проверка корректности ввода
+    if (h <= 0 || h > 1) {
+        cout << "Ошибка: шаг h должен быть в интервале (0, 1]" << endl;
+        return 1;
+    }
+    // Векторы для результатов
+    vector<double> x_points;
+    vector<double> y_numerical;
+    vector<double> y_exact;
+    vector<double> error;
+    // Решение уравнения
+    solve_fredholm(V, h, x_points, y_numerical, y_exact, error);
+    // Вывод результатов
+    cout << "\nРезультаты:" << endl;
+    cout << string(100, '-') << endl;
+    cout << setw(15) << "x"
+        << setw(20) << "y численное"
+        << setw(20) << "y точное"
+        << setw(20) << "Погрешность" << endl;
+    cout << string(100, '-') << endl;
+    int n = x_points.size();
+    for (int i = 0; i < n; i++) {
+        cout << setw(15) << fixed << setprecision(4) << x_points[i]
+            << setw(20) << fixed << setprecision(6) << y_numerical[i]
+            << setw(20) << fixed << setprecision(6) << y_exact[i]
+            << setw(20) << fixed << setprecision(6) << error[i] << endl;
+    }
+    cout << string(100, '-') << endl;
+    // Вычисление средней погрешности
+    double avg_error = 0.0;
+    double max_error = 0.0;
+    for (double e : error) {
+        avg_error += e;
+        if (e > max_error) {
+            max_error = e;
+        }
+    }
+    avg_error /= n;
+    cout << "\nСтатистика погрешностей:" << endl;
+    cout << "Средняя погрешность: " << fixed << setprecision(6) << avg_error << endl;
+    cout << "Максимальная погрешность: " << fixed << setprecision(6) << max_error << endl;
+    return 0;
+}
+
+
+\end{verbatim}
+
+\newpage
 
 Вывод программы
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+x & y численное & y точное & Погрешность \\
+\hline
+0.0000 & 0.000000 & 0.000000 & 0.000000 \\
+0.1000 & 1.667476 & 1.500000 & 0.167476 \\
+0.2000 & 3.359943 & 3.000000 & 0.359943 \\
+0.3000 & 5.081701 & 4.500000 & 0.581701 \\
+0.4000 & 6.837051 & 6.000000 & 0.837051 \\
+0.5000 & 8.630294 & 7.500000 & 1.130294 \\
+0.6000 & 10.465729 & 9.000000 & 1.465729 \\
+0.7000 & 12.347659 & 10.500000 & 1.847659 \\
+0.8000 & 14.280384 & 12.000000 & 2.280384 \\
+0.9000 & 16.268203 & 13.500000 & 2.768203 \\
+1.0000 & 18.315419 & 15.000000 & 3.315419 \\
+\hline
+\end{tabular}
+\label{tab:fredholm_simple}
+\end{table}
+
+
+Статистика погрешностей
+
+Средняя погрешность  1.341260 
+
+Максимальная погрешность  3.315419 
 
 
 
